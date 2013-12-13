@@ -50,6 +50,7 @@
     </issueManagement>
 
     <modules>
+        <module>neo4j-extensions-java</module>
         <module>neo4j-extensions-spring</module>
     </modules>
 
@@ -71,7 +72,7 @@
         <version.org.slf4j>1.7.5</version.org.slf4j>
         <version.org.springframework>3.2.5.RELEASE</version.org.springframework>
         <version.org.springframework.data.commons>1.6.2.RELEASE</version.org.springframework.data.commons>
-        <version.org.springframework.data.neo4j>2.3.2.RELEASE</version.org.springframework.data.neo4j>
+        <version.org.springframework.data.neo4j>2.3.3.RELEASE</version.org.springframework.data.neo4j>
         <version.java>1.6</version.java>
     </properties>
 
@@ -345,63 +346,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- org.springframework -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aop</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aspects</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-beans</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-expression</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-tx</artifactId>
-        </dependency>
-        <!-- org.springframework.data -->
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-commons</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-neo4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-neo4j-aspects</artifactId>
-        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -768,7 +712,6 @@
                 <artifactId>spring-data-neo4j-aspects</artifactId>
                 <version>${version.org.springframework.data.neo4j}</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 
