@@ -35,7 +35,7 @@ public class UserController {
      * @return Status 200 on success.
      */
     @GET
-    @Path(".json")
+    @Path("/json")
     @Produces(MediaType.APPLICATION_JSON)
     public Response create() {
         LOGGER.info("Create");
