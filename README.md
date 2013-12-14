@@ -1,4 +1,4 @@
-Neo4j Extension - Spring
+Neo4j Extensions
 ========================
 
 A simple Neo4j extension with Spring integration.
