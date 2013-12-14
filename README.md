@@ -35,8 +35,13 @@ Neo4j unmanaged extension with Spring integration.
 Setup
 -----
 
-Add the profile in settings.xml to your local maven settings.
-Update the path to point to your Neo4j server plugins directory (default on server is NEO4J_HOME/plugins).
+Add the profile in settings.xml to your local maven settings:
+
+	https://github.com/AtomRain/neo4j-extensions/blob/master/settings.xml
+
+Update the path to point to your Neo4j server plugins directory (default on server is NEO4J_HOME/plugins):
+
+	<neo4j.plugins.directory>/PATH/TO/NEO4J/PLUGINS</neo4j.plugins.directory>
 
 
 Configuration
