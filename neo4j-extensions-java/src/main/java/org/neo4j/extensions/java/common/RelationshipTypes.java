@@ -19,5 +19,7 @@ public enum RelationshipTypes implements RelationshipType {
     MIGRATION_ROOT,
 
     MIGRATION,
+    
+    FRIEND_OF;
 
 }

@@ -2,8 +2,6 @@ package org.neo4j.extensions.java.domain;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.codehaus.jackson.annotate.JsonAutoDetect;
-
 
 /**
  * A User has been authenticated and owns and has access to information.
@@ -16,7 +14,6 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
  * 
  */
 @XmlRootElement
-@JsonAutoDetect
 public class User {
 
     private Long id;
