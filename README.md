@@ -1,12 +1,7 @@
 Neo4j Extensions
 ========================
 
-A simple Neo4j extension with Spring integration.
-
-groupId: com.neo4j
-
-artifactId: neo4j-extensions
-
+Neo4j unmanaged extensions with regular Java API and Spring integration.
 
 Parent POM
 ----------
