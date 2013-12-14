@@ -21,3 +21,20 @@ Modules / Artifacts
 
 Neo4j unmanaged extension with Spring integration.
 
+
+	Setup
+Add the profile in settings.xml to your local maven settings.
+Update the path to point to your Neo4j server plugins directory (default on server is NEO4J_HOME/plugins).
+
+	Configuration
+In neo4j-server.properties set:
+
+org.neo4j.server.thirdparty_jaxrs_classes=org.neo4j.extensions.java.rest=/extensions-java
+org.neo4j.server.thirdparty_jaxrs_classes=org.neo4j.extensions.spring.rest=/extensions-spring
+
+
+	User Create
+
+curl -v -X POST -H "Accept: application/json" http://localhost:7474/extensions-java/user/create?indexingOn=false
+
+Change the parameter indexingOn=false to turn off indexing.
