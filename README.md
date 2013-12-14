@@ -50,7 +50,11 @@ In neo4j-server.properties set:
 REST API
 --------
 
-Create User with indexing off (default is on).
+Check status of custom endpoint:
+
+	curl -v -X GET http://localhost:7474/extensions-java/status
+
+Create User with indexing off (default is on):
 
 	curl -v -X POST -H "Accept: application/json" http://localhost:7474/extensions-java/user/create?indexingOn=false
 
