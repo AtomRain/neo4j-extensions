@@ -57,7 +57,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.asm>3.1</version.asm>
-        <version.ch.qos.logback>0.9.30</version.ch.qos.logback>
+        <version.ch.qos.logback>1.0.9</version.ch.qos.logback>
         <version.com.sun.jersey>1.9</version.com.sun.jersey>
         <version.junit>4.11</version.junit>
         <version.maven.scm>1.8.1</version.maven.scm>
@@ -66,14 +66,12 @@
         <version.org.codehaus.jackson>1.9.7</version.org.codehaus.jackson>
         <version.org.hamcrest>1.3</version.org.hamcrest>
         <version.org.mockito>1.9.5</version.org.mockito>
-        <version.org.neo4j>1.9.5</version.org.neo4j>
-        <version.org.neo4j.neo4j-cypher-dsl>1.9</version.org.neo4j.neo4j-cypher-dsl>
-        <version.org.neo4j.neo4j-rest-graphdb>1.9</version.org.neo4j.neo4j-rest-graphdb>
+        <version.org.neo4j>2.0.0</version.org.neo4j>
         <version.org.slf4j>1.7.5</version.org.slf4j>
         <version.org.springframework>3.2.5.RELEASE</version.org.springframework>
         <version.org.springframework.data.commons>1.6.2.RELEASE</version.org.springframework.data.commons>
         <version.org.springframework.data.neo4j>2.3.3.RELEASE</version.org.springframework.data.neo4j>
-        <version.java>1.6</version.java>
+        <version.java>1.7</version.java>
     </properties>
 
     <profiles>
@@ -119,6 +117,11 @@
 
     <dependencies>
         <!-- ch.qos.logback -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-access</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
@@ -277,7 +280,42 @@
         <!-- org.neo4j -->
         <dependency>
             <groupId>org.neo4j</groupId>
+            <artifactId>neo4j</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-backup</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-cluster</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-com</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-consistency-check</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
             <artifactId>neo4j-cypher</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-cypher-commons</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-cypher-compiler-2.0</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -332,10 +370,15 @@
             <artifactId>jsr311-api</artifactId>
             <scope>provided</scope>
         </dependency>
-        <!-- org.neo4j.server.plugin -->
+        <!-- org.neo4j.app -->
         <dependency>
-            <groupId>org.neo4j.server.plugin</groupId>
-            <artifactId>neo4j-cypher-plugin</artifactId>
+            <groupId>org.neo4j.app</groupId>
+            <artifactId>neo4j-server-enterprise</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j.app</groupId>
+            <artifactId>neo4j-server-advanced</artifactId>
             <scope>provided</scope>
         </dependency>
 
@@ -356,6 +399,12 @@
     <dependencyManagement>
         <dependencies>
             <!-- ch.qos.logback -->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-access</artifactId>
+                <version>${version.ch.qos.logback}</version>
+                <scope>provided</scope>
+            </dependency>
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-core</artifactId>
@@ -439,7 +488,14 @@
                 <scope>provided</scope>
             </dependency>
 
-            <!-- javax.transaction -->
+            <!-- io.netty -->
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty</artifactId>
+                <version>3.6.3.Final</version>
+            </dependency>
+
+            <!-- org.apache.geronimo.specs -->
             <dependency>
                 <groupId>org.apache.geronimo.specs</groupId>
                 <artifactId>geronimo-jta_1.1_spec</artifactId>
@@ -560,14 +616,44 @@
             </dependency>
             <dependency>
                 <groupId>org.neo4j</groupId>
+                <artifactId>neo4j-backup</artifactId>
+                <version>${version.org.neo4j}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.neo4j</groupId>
+                <artifactId>neo4j-cluster</artifactId>
+                <version>${version.org.neo4j}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.neo4j</groupId>
+                <artifactId>neo4j-com</artifactId>
+                <version>${version.org.neo4j}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.neo4j</groupId>
+                <artifactId>neo4j-consistency-check</artifactId>
+                <version>${version.org.neo4j}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.neo4j</groupId>
                 <artifactId>neo4j-cypher</artifactId>
                 <version>${version.org.neo4j}</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.neo4j</groupId>
-                <artifactId>neo4j-cypher-dsl</artifactId>
-                <version>${version.org.neo4j.neo4j-cypher-dsl}</version>
+                <artifactId>neo4j-cypher-commons</artifactId>
+                <version>${version.org.neo4j}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.neo4j</groupId>
+                <artifactId>neo4j-cypher-compiler-2.0</artifactId>
+                <version>${version.org.neo4j}</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -621,12 +707,6 @@
             </dependency>
             <dependency>
                 <groupId>org.neo4j</groupId>
-                <artifactId>neo4j-rest-graphdb</artifactId>
-                <version>${version.org.neo4j.neo4j-rest-graphdb}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.neo4j</groupId>
                 <artifactId>server-api</artifactId>
                 <version>${version.org.neo4j}</version>
                 <scope>provided</scope>
@@ -638,12 +718,25 @@
                 <version>1.1.2.r612</version>
                 <scope>provided</scope>
             </dependency>
-            <!-- org.neo4j.server.plugin -->
+            <!-- org.neo4j.app -->
             <dependency>
-                <groupId>org.neo4j.server.plugin</groupId>
-                <artifactId>neo4j-cypher-plugin</artifactId>
+                <groupId>org.neo4j.app</groupId>
+                <artifactId>neo4j-server-enterprise</artifactId>
                 <version>${version.org.neo4j}</version>
                 <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.neo4j.app</groupId>
+                <artifactId>neo4j-server-advanced</artifactId>
+                <version>${version.org.neo4j}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- org.parboiled -->
+            <dependency>
+                <groupId>org.parboiled</groupId>
+                <artifactId>parboiled-core</artifactId>
+                <version>1.1.6</version>
             </dependency>
 
             <!-- org.slf4j -->
