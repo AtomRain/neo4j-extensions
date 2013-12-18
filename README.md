@@ -8,7 +8,7 @@ Parent POM
 
 	<groupId>org.neo4j</groupId>
 	<artifactId>neo4j-extensions</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>2.0-SNAPSHOT</version>
 	<type>pom</type>
 
 
@@ -20,7 +20,7 @@ Neo4j unmanaged extension with Java API integration.
 	<!-- neo4j-extensions-java -->
 	<groupId>org.neo4j</groupId>
 	<artifactId>neo4j-extensions-java</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>2.0-SNAPSHOT</version>
 	<type>pom</type>
 
 Neo4j unmanaged extension with Spring integration.
@@ -28,7 +28,7 @@ Neo4j unmanaged extension with Spring integration.
 	<!-- neo4j-extensions-spring -->
 	<groupId>org.neo4j</groupId>
 	<artifactId>neo4j-extensions-spring</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>2.0-SNAPSHOT</version>
 	<type>pom</type>
 
 
