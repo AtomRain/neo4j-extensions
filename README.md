@@ -65,7 +65,7 @@ Create User with indexing off (default is on):
 Advanced Build
 --------------
 
-Add the profile in settings.xml to your local maven settings:
+To have maven copy build artifacts to your local Neo4j cluster, modify your local maven settings with the profiles provides here:
 
 	https://github.com/AtomRain/neo4j-extensions/blob/master/settings.xml
 
