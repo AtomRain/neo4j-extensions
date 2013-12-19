@@ -32,15 +32,37 @@ Neo4j unmanaged extension with Spring integration.
 	<type>pom</type>
 
 
-Configuration
--------------
+Simple Build
+------------
+
+To build the jar artifacts simply run:
+
+	mvn clean package
+
+You will need to copy the following jars from your build output directory to your Neo4j plugins directory:
+
+	neo4j-extensions-java/target/neo4j-extensions-java-all.jar
+	neo4j-extensions-spring/target/neo4j-extensions-spring-all.jar
+
+
+REST Configuration
+------------------
 In neo4j-server.properties set:
 
 	org.neo4j.server.thirdparty_jaxrs_classes=org.neo4j.extensions.java.rest=/extensions-java
 	org.neo4j.server.thirdparty_jaxrs_classes=org.neo4j.extensions.spring.rest=/extensions-spring
 
 
-Advanced Setup
+Check status of custom endpoint:
+
+	curl -v -X GET http://localhost:7474/extensions-java/status
+
+Create User with indexing off (default is on):
+
+	curl -v -X POST -H "Accept: application/json" http://localhost:7474/extensions-java/user/create?indexingOn=false
+
+
+Advanced Build
 --------------
 
 Add the profile in settings.xml to your local maven settings:
@@ -56,16 +78,4 @@ Update the path to point to your each Neo4j server plugins directory in your clu
 To build and deploy to your local Neo4j cluster:
 
 	mvn clean package -Pdeploy
-
-
-REST API
---------
-
-Check status of custom endpoint:
-
-	curl -v -X GET http://localhost:7474/extensions-java/status
-
-Create User with indexing off (default is on):
-
-	curl -v -X POST -H "Accept: application/json" http://localhost:7474/extensions-java/user/create?indexingOn=false
 
