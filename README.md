@@ -32,8 +32,16 @@ Neo4j unmanaged extension with Spring integration.
 	<type>pom</type>
 
 
-Setup
------
+Configuration
+-------------
+In neo4j-server.properties set:
+
+	org.neo4j.server.thirdparty_jaxrs_classes=org.neo4j.extensions.java.rest=/extensions-java
+	org.neo4j.server.thirdparty_jaxrs_classes=org.neo4j.extensions.spring.rest=/extensions-spring
+
+
+Advanced Setup
+--------------
 
 Add the profile in settings.xml to your local maven settings:
 
@@ -45,13 +53,9 @@ Update the path to point to your each Neo4j server plugins directory in your clu
 	<neo4j.plugins.directory>/PATH/TO/NEO4J/MACHINEB/PLUGINS</neo4j.plugins.directory>
 	<neo4j.plugins.directory>/PATH/TO/NEO4J/MACHINEC/PLUGINS</neo4j.plugins.directory>
 
+To build and deploy to your local Neo4j cluster:
 
-Configuration
--------------
-In neo4j-server.properties set:
-
-	org.neo4j.server.thirdparty_jaxrs_classes=org.neo4j.extensions.java.rest=/extensions-java
-	org.neo4j.server.thirdparty_jaxrs_classes=org.neo4j.extensions.spring.rest=/extensions-spring
+	mvn clean package -Pdeploy
 
 
 REST API
