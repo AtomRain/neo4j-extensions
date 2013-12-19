@@ -104,9 +104,8 @@ public class IndexingProcessor implements Runnable {
         ExecutionEngine executionEngine = new ExecutionEngine(graphDb);
 
         // process batch data
-        Transaction tx = null;
+        Transaction tx = graphDb.beginTx();
         try {
-            tx = graphDb.beginTx();
             LOGGER.info(String.format("INDEXING: TX: status=START, batchNumber=%d, batchSize=%d, startTime=%d", batchIndex, batchSize,
                     startTime));
 
@@ -203,9 +202,7 @@ public class IndexingProcessor implements Runnable {
                     batchSize, startTime, failureTime, processTime), e);
             throw new WebApplicationException(e);
         } finally {
-            if (tx != null) {
-                tx.finish();
-            }
+            tx.close();
         }
 
         // calculate process time

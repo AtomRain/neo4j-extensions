@@ -1,22 +1,14 @@
 package org.neo4j.extensions.spring.rest;
 
-import java.util.logging.Logger;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.graphdb.Transaction;
-
-import org.neo4j.extensions.spring.common.NodeWrapper;
 import org.neo4j.extensions.spring.domain.User;
-import org.neo4j.extensions.spring.repository.UserRepository;
-
+import org.neo4j.graphdb.GraphDatabaseService;
 import org.springframework.data.neo4j.support.Neo4jTemplate;
 
 /**
@@ -31,8 +23,6 @@ import org.springframework.data.neo4j.support.Neo4jTemplate;
  */
 @Path("/user")
 public class UserController {
-
-    private static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
 
     @Context
     private GraphDatabaseService db;

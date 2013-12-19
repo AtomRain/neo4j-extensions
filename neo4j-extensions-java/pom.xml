@@ -15,56 +15,15 @@
     <name>Neo4j Extensions - Java</name>
     <description>Neo4j unmanaged extension with java api for the graph db.</description>
 
-    <profiles>
-        <profile>
-            <id>release</id>
-            <properties>
-                <skipNeo4jCopy>true</skipNeo4jCopy>
-                <failEnforcer>false</failEnforcer>
-            </properties>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-                <property>
-                    <name>build.target</name>
-                    <value>release</value>
-                </property>
-            </activation>
-        </profile>
-        <profile>
-            <id>test</id>
-            <properties>
-                <skipNeo4jCopy>false</skipNeo4jCopy>
-                <failEnforcer>true</failEnforcer>
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-                <property>
-                    <name>build.target</name>
-                    <value>local</value>
-                </property>
-            </activation>
-        </profile>
-    </profiles>
-
     <build>
         <plugins>
             <!-- org.apache.maven.plugins -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.4</version>
                 <executions>
                     <execution>
                         <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <configuration>
-                            <descriptorRefs>
-                                <descriptorRef>jar-with-dependencies</descriptorRef>
-                            </descriptorRefs>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -73,100 +32,21 @@
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>publish-neo4j-plugins-all</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${skipNeo4jCopy}</skip>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>${project.groupId}</groupId>
-                                    <artifactId>${project.artifactId}</artifactId>
-                                    <version>${project.version}</version>
-                                    <type>${project.packaging}</type>
-                                    <classifier>jar-with-dependencies</classifier>
-                                    <overWrite>true</overWrite>
-                                    <outputDirectory>${neo4j.plugins.directory}</outputDirectory>
-                                    <destFileName>${project.artifactId}-all.${project.packaging}</destFileName>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
+                        <id>deploy-neo4j-plugins-all</id>
                     </execution>
                     <execution>
                         <id>copy-neo4j-plugins-all</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>${project.groupId}</groupId>
-                                    <artifactId>${project.artifactId}</artifactId>
-                                    <version>${project.version}</version>
-                                    <type>${project.packaging}</type>
-                                    <classifier>jar-with-dependencies</classifier>
-                                    <overWrite>true</overWrite>
-                                    <outputDirectory>${project.build.directory}</outputDirectory>
-                                    <destFileName>${project.artifactId}-all.${project.packaging}</destFileName>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>1.1.1</version>
                 <executions>
                     <execution>
                         <id>enforce-property</id>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <requireProperty>
-                                    <property>neo4j.plugins.directory</property>
-                                    <message>You must provide a value for the property
-                                        neo4j.plugins.directory</message>
-                                </requireProperty>
-                            </rules>
-                            <fail>${failEnforcer}</fail>
-                        </configuration>
                     </execution>
                 </executions>
-            </plugin>
-
-            <!-- org.eclipse.m2e -->
-            <plugin>
-                <groupId>org.eclipse.m2e</groupId>
-                <artifactId>lifecycle-mapping</artifactId>
-                <version>1.0.0</version>
-                <configuration>
-                    <lifecycleMappingMetadata>
-                        <pluginExecutions>
-                            <pluginExecution>
-                                <pluginExecutionFilter>
-                                    <groupId>org.apache.maven.plugins</groupId>
-                                    <artifactId>maven-enforcer-plugin</artifactId>
-                                    <versionRange>[0.0,)</versionRange>
-                                    <goals>
-                                        <goal>enforce</goal>
-                                    </goals>
-                                </pluginExecutionFilter>
-                                <action>
-                                    <execute>
-                                        <runOnIncremental>false</runOnIncremental>
-                                    </execute>
-                                </action>
-                            </pluginExecution>
-                        </pluginExecutions>
-                    </lifecycleMappingMetadata>
-                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -1,20 +1,14 @@
 package org.neo4j.extensions.spring.domain;
 
-import java.io.IOException;
-import java.util.Collection;
-
+import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.neo4j.annotation.Fetch;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
-import org.springframework.data.neo4j.annotation.RelatedTo;
 import org.springframework.data.neo4j.support.index.IndexType;
-
-import org.codehaus.jackson.annotate.JsonAutoDetect;
 
 /**
  * A User has been authenticated and owns and has access to information.
@@ -67,7 +61,7 @@ public class User {
 
     @Indexed(indexType = IndexType.FULLTEXT, indexName = "user_fulltext")
     private String email;
-    
+
     private String password;
 
     @Indexed(indexType = IndexType.FULLTEXT, indexName = "user_fulltext")
@@ -162,14 +156,14 @@ public class User {
     }
 
     public String getPassword() {
-		return password;
-	}
+        return password;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public String getName() {
+    public String getName() {
         return name;
     }
 

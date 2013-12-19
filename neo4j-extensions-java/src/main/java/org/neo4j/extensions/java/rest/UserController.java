@@ -16,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.neo4j.extensions.java.common.LabelTypes;
 import org.neo4j.extensions.java.common.RelationshipTypes;
 import org.neo4j.extensions.java.domain.FriendResult;
 import org.neo4j.extensions.java.domain.User;
@@ -55,8 +56,6 @@ public class UserController {
         LOGGER.info(String.format("POST /user/create?indexingOn=%s", indexingOn));
         long startTimeTx = System.currentTimeMillis();
 
-        Index<Node> uidsIndex = db.index().forNodes(UidsIndex.uid.getIndexName(), UidsIndex.uid.getIndexType());
-
         User friend1 = new User();
         User friend2 = new User();
         FriendResult friends = new FriendResult();
@@ -65,17 +64,14 @@ public class UserController {
         friendsList.add(friend2);
         friends.setFriends(friendsList);
 
-        Transaction tx = null;
-        try {
-            tx = db.beginTx();
-
+        try (Transaction tx = db.beginTx()) {
             // create friend 1 node
-            Node friend1Node = db.createNode();
+            Node friend1Node = db.createNode(LabelTypes.User);
             Long friend1Id = friend1Node.getId();
             friend1.setId(friend1Id);
 
             // create friend 2 node
-            Node friend2Node = db.createNode();
+            Node friend2Node = db.createNode(LabelTypes.User);
             Long friend2Id = friend2Node.getId();
             friend2.setId(friend2Id);
 
@@ -105,6 +101,7 @@ public class UserController {
 
             // update indexes
             if (indexingOn) {
+                Index<Node> uidsIndex = db.index().forNodes(UidsIndex.uid.getIndexName(), UidsIndex.uid.getIndexType());
                 uidsIndex.putIfAbsent(friend1Node, UidsIndex.uid.name(), friend1Uid);
                 uidsIndex.putIfAbsent(friend2Node, UidsIndex.uid.name(), friend2Uid);
             }
@@ -121,14 +118,9 @@ public class UserController {
 
             return Response.status(Status.CREATED).entity(friends).build();
         } catch (Exception e) {
-            tx.failure();
             // log details
             LOGGER.log(Level.SEVERE, e.getMessage());
             return Response.serverError().build();
-        } finally {
-            if (tx != null) {
-                tx.finish();
-            }
         }
     }
 
