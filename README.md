@@ -39,9 +39,11 @@ Add the profile in settings.xml to your local maven settings:
 
 	https://github.com/AtomRain/neo4j-extensions/blob/master/settings.xml
 
-Update the path to point to your Neo4j server plugins directory (default on server is NEO4J_HOME/plugins):
+Update the path to point to your each Neo4j server plugins directory in your cluster (default on each server is NEO4J_HOME/plugins):
 
-	<neo4j.plugins.directory>/PATH/TO/NEO4J/PLUGINS</neo4j.plugins.directory>
+	<neo4j.plugins.directory>/PATH/TO/NEO4J/MACHINEA/PLUGINS</neo4j.plugins.directory>
+	<neo4j.plugins.directory>/PATH/TO/NEO4J/MACHINEB/PLUGINS</neo4j.plugins.directory>
+	<neo4j.plugins.directory>/PATH/TO/NEO4J/MACHINEC/PLUGINS</neo4j.plugins.directory>
 
 
 Configuration
