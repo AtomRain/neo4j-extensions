@@ -1,8 +1,5 @@
 package org.neo4j.extensions.spring.indexing;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -31,11 +28,7 @@ public class IndexingServiceTest {
      */
     @Before
     public void prepareTestDatabase() {
-        Map<String, String> config = new HashMap<String, String>();
-        config.put("neostore.nodestore.db.mapped_memory", "128M");
-        config.put("string_block_size", "120");
-        config.put("array_block_size", "120");
-        graphDb = new TestGraphDatabaseFactory().newImpermanentDatabaseBuilder().setConfig(config).newGraphDatabase();
+        graphDb = new TestGraphDatabaseFactory().newImpermanentDatabaseBuilder().newGraphDatabase();
         indexingService = IndexingServiceImpl.getInstance(graphDb);
     }
 

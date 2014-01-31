@@ -93,7 +93,7 @@ public class NodeWrapper {
         } catch (Exception e) {
             txn.failure();
         } finally {
-            txn.finish();
+            txn.close();
         }
         if (subref != null) {
             return new NodeWrapper(subref);
