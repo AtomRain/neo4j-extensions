@@ -1,7 +1,9 @@
 package org.neo4j.extensions.spring.common;
 
+import org.neo4j.graphdb.Label;
+
 /**
- * Defines contract for converting data objects to and from CSV.
+ * Relationship types.
  * 
  * 
  * @author bradnussbaum
@@ -10,8 +12,8 @@ package org.neo4j.extensions.spring.common;
  * @since 0.1.0
  * 
  */
-public interface CSVCapable {
+public enum LabelTypes implements Label {
 
-    String[] getValues();
+    User,
 
 }

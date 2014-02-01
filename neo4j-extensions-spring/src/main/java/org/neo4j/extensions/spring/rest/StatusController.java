@@ -10,7 +10,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.neo4j.extensions.spring.common.NodeWrapper;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Transaction;
 
@@ -38,11 +37,9 @@ public class StatusController {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public Response ingest() {
-        NodeWrapper.setDB(db);
-
         Transaction txn = null;
         try {
-            txn = NodeWrapper.getDB().beginTx();
+            txn = db.beginTx();
             txn.success();
             LOGGER.info("STATUS: success");
         } catch (Exception e) {

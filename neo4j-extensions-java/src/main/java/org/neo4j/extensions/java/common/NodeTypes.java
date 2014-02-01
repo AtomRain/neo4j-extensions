@@ -1,5 +1,7 @@
 package org.neo4j.extensions.java.common;
 
+import org.neo4j.extensions.java.domain.User;
+
 /**
  * Node types.
  * 
@@ -12,24 +14,23 @@ package org.neo4j.extensions.java.common;
  */
 public enum NodeTypes {
 
-    USER;
+    USER(User.class.getName(), User.class.getSimpleName());
 
-    public String className() {
-        switch (this) {
-            case USER:
-                return "com.neo4j.enterprise.extensions.domain.User";
-            default:
-                return null;
-        }
+    private String className;
+
+    private String simpleClassName;
+
+    private NodeTypes(String className, String simpleClassName) {
+        this.className = className;
+        this.simpleClassName = simpleClassName;
     }
 
-    public String simpleClassName() {
-        switch (this) {
-            case USER:
-                return "User";
-            default:
-                return null;
-        }
+    public String getClassName() {
+        return className;
+    }
+
+    public String getSimpleClassName() {
+        return simpleClassName;
     }
 
 }

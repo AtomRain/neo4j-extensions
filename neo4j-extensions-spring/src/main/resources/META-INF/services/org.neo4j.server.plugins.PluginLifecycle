@@ -1,1 +1,1 @@
-com.neo4j.extensions.core.SpringExtensionInitializer
+org.neo4j.extensions.spring.core.SpringExtensionInitializer
