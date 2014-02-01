@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Transaction;
+import org.springframework.stereotype.Controller;
 
 /**
  * The status controller.
@@ -23,6 +24,7 @@ import org.neo4j.graphdb.Transaction;
  * @since 0.1.0
  * 
  */
+@Controller
 @Path("/status")
 public class StatusController {
 

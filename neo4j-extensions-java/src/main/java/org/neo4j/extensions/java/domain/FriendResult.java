@@ -1,5 +1,7 @@
 package org.neo4j.extensions.java.domain;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,6 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * 
  */
 @XmlRootElement
+@JsonAutoDetect
 public class FriendResult {
 
     private List<User> friends;

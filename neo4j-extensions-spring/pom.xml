@@ -16,6 +16,18 @@
     <description>Neo4j unmanaged extension with Spring.</description>
 
     <dependencies>
+        <!-- javax.validation -->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+
+        <!-- joda-time -->
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+        </dependency>
+
         <!-- org.springframework -->
         <dependency>
             <groupId>org.springframework</groupId>

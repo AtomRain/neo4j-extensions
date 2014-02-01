@@ -68,9 +68,9 @@
         <version.org.mockito>1.9.5</version.org.mockito>
         <version.org.neo4j>2.0.0</version.org.neo4j>
         <version.org.slf4j>1.7.5</version.org.slf4j>
-        <version.org.springframework>3.2.5.RELEASE</version.org.springframework>
-        <version.org.springframework.data.commons>1.6.2.RELEASE</version.org.springframework.data.commons>
-        <version.org.springframework.data.neo4j>3.0.0.BUILD-SNAPSHOT</version.org.springframework.data.neo4j>
+        <version.org.springframework>3.2.7.RELEASE</version.org.springframework>
+        <version.org.springframework.data.commons>1.6.3.RELEASE</version.org.springframework.data.commons>
+        <version.org.springframework.data.neo4j>3.0.0.RC1</version.org.springframework.data.neo4j>
         <version.java>1.7</version.java>
     </properties>
 
@@ -483,6 +483,20 @@
                 <artifactId>geronimo-jta_1.1_spec</artifactId>
                 <version>1.1.1</version>
                 <scope>provided</scope>
+            </dependency>
+
+            <!-- javax.validation -->
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>1.1.0.Final</version>
+            </dependency>
+
+            <!-- joda-time -->
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>2.2</version>
             </dependency>
 
             <!-- junit -->

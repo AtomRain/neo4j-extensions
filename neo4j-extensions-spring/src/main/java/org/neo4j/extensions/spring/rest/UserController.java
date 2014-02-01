@@ -1,38 +1,28 @@
 package org.neo4j.extensions.spring.rest;
 
+import org.neo4j.extensions.spring.domain.FriendResult;
+import org.neo4j.extensions.spring.domain.User;
+import org.neo4j.extensions.spring.repository.UserRepository;
+import org.neo4j.graphdb.GraphDatabaseService;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import org.neo4j.extensions.spring.common.LabelTypes;
-import org.neo4j.extensions.spring.common.RelationshipTypes;
-import org.neo4j.extensions.spring.domain.FriendResult;
-import org.neo4j.extensions.spring.domain.User;
-import org.neo4j.extensions.spring.indexes.UidsIndex;
-import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.graphdb.Node;
-import org.neo4j.graphdb.Transaction;
-import org.neo4j.graphdb.index.Index;
-import org.springframework.data.neo4j.support.Neo4jTemplate;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  * The User controller.
- * 
- * 
+ *
  * @author bradnussbaum
  * @version 0.1.0
- * 
  * @since 0.1.0
- * 
  */
+@Controller
 @Path("/user")
 public class UserController {
 
@@ -40,9 +30,6 @@ public class UserController {
 
     @Context
     private GraphDatabaseService db;
-
-    @Context
-    private Neo4jTemplate template;
 
     /**
      * @return Status 201 on success.
@@ -53,58 +40,51 @@ public class UserController {
             MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML
     })
     @Transactional
-    public Response create(@QueryParam("indexingOn") @DefaultValue("true") Boolean indexingOn) {
+    public Response create(@Context UserRepository userRepository, @QueryParam("indexingOn") @DefaultValue("true") Boolean indexingOn) {
         LOGGER.info(String.format("POST /user/create?indexingOn=%s", indexingOn));
         long startTimeTx = System.currentTimeMillis();
 
+        // create user
+        User user = new User();
+        // establish user UID
+        String userUid = UUID.randomUUID().toString();
+        user.setUid(userUid);
+
+        // create friend 1
         User friend1 = new User();
-        User friend2 = new User();
-        FriendResult friends = new FriendResult();
-        List<User> friendsList = new ArrayList<User>();
-        friendsList.add(friend1);
-        friendsList.add(friend2);
-        friends.setFriends(friendsList);
-
-        // create friend 1 node
-        Node friend1Node = db.createNode(LabelTypes.User);
-        Long friend1Id = friend1Node.getId();
-        friend1.setId(friend1Id);
-
-        // create friend 2 node
-        Node friend2Node = db.createNode(LabelTypes.User);
-        Long friend2Id = friend2Node.getId();
-        friend2.setId(friend2Id);
-
-        // friend1 likes friend2
-        friend1Node.createRelationshipTo(friend2Node, RelationshipTypes.FRIEND_OF);
-        // friend2 likes friend1
-        friend2Node.createRelationshipTo(friend1Node, RelationshipTypes.FRIEND_OF);
-
-        // establish created time
-        Long createdTime = System.currentTimeMillis();
-        friend1Node.setProperty("createdTime", createdTime);
-        friend1.setCreatedTime(createdTime);
-        friend2Node.setProperty("createdTime", createdTime);
-        friend2.setCreatedTime(createdTime);
-
         // establish friend 1 UID
         String friend1Uid = UUID.randomUUID().toString();
-        // update UID properties
-        friend1Node.setProperty("uid", friend1Uid);
         friend1.setUid(friend1Uid);
 
+        // create friend 2
+        User friend2 = new User();
         // establish friend 2 UID
         String friend2Uid = UUID.randomUUID().toString();
-        // update UID properties
-        friend2Node.setProperty("uid", friend2Uid);
         friend2.setUid(friend2Uid);
 
-        // update indexes
-        if (indexingOn) {
-            Index<Node> uidsIndex = db.index().forNodes(UidsIndex.uid.getIndexName(), UidsIndex.uid.getIndexType());
-            uidsIndex.putIfAbsent(friend1Node, UidsIndex.uid.name(), friend1Uid);
-            uidsIndex.putIfAbsent(friend2Node, UidsIndex.uid.name(), friend2Uid);
-        }
+        // establish friends for user
+        Set<User> friends = new LinkedHashSet<User>();
+        friends.add(friend1);
+        friends.add(friend2);
+        user.setFriends(friends);
+
+        // establish friends for friend 1
+        Set<User> friend1Friends = new LinkedHashSet<>();
+        friend1Friends.add(user);
+        friend1.setFriends(friend1Friends);
+
+        // establish friends for friend 2
+        Set<User> friend2Friends = new LinkedHashSet<User>();
+        friend2Friends.add(user);
+        friend2.setFriends(friend2Friends);
+
+        // save the user and cascade friends
+        userRepository.save(user);
+
+        // assemble result package
+        FriendResult result = new FriendResult();
+        result.setUser(user);
+        result.setFriends(friends);
 
         // capture times
         long successTimeTx = System.currentTimeMillis();
@@ -112,10 +92,9 @@ public class UserController {
 
         // log details
         LOGGER.log(Level.INFO,
-                String.format("UserController: TX: userId=%s, userUid=%s, processTime=%dms", friend1Id, friend1Uid, processTimeTx));
+                String.format("UserController: TX: userId=%s, userUid=%s, processTime=%dms", user.getId(), user.getUid(), processTimeTx));
 
-        return Response.status(Response.Status.CREATED).entity(friends).build();
-
+        return Response.status(Response.Status.CREATED).entity(result).build();
     }
 
 }

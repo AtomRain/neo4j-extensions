@@ -4,7 +4,6 @@ import org.neo4j.extensions.spring.repository.UserRepository;
 import org.springframework.data.neo4j.server.SpringPluginInitializer;
 import org.springframework.data.neo4j.support.Neo4jTemplate;
 
-
 /**
  * Hook for Spring initialization
  * 
@@ -18,7 +17,7 @@ public class SpringExtensionInitializer extends SpringPluginInitializer {
     @SuppressWarnings("unchecked")
     public SpringExtensionInitializer() {
         super(new String[] {
-            "classpath*:META-INF/spring/springContext.xml"
+                "META-INF/spring/springContext.xml"
         }, expose("template", Neo4jTemplate.class), expose("userRepository", UserRepository.class));
     }
 
