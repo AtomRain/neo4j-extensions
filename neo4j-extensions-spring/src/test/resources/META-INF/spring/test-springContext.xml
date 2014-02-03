@@ -20,7 +20,7 @@
 
     <neo4j:config base-package="org.neo4j.extensions.spring" storeDirectory="target/graph.db"/>
 
-    <neo4j:repositories base-package="org.neo4j.extensions.spring.repository"/>
+    <neo4j:repositories base-package="org.neo4j.extensions.spring.repository" repository-impl-postfix="Impl"/>
 
     <neo4j:auditing/>
 

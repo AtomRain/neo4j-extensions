@@ -18,10 +18,10 @@
                                 expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
-    <tx:annotation-driven mode="aspectj" transaction-manager="neo4jTransactionManager"/>
-
-    <neo4j:repositories base-package="org.neo4j.extensions.spring.repository"/>
+    <neo4j:repositories base-package="org.neo4j.extensions.spring.repository" repository-impl-postfix="Impl"/>
 
     <neo4j:auditing/>
+
+    <tx:annotation-driven mode="aspectj" transaction-manager="neo4jTransactionManager"/>
 
 </beans>
