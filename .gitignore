@@ -9,7 +9,7 @@
 .classpath
 .settings
 
-
-target
 .idea
 *.iml
+
+target

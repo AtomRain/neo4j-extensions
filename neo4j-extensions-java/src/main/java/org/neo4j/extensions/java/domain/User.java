@@ -1,5 +1,7 @@
 package org.neo4j.extensions.java.domain;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 
@@ -14,6 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * 
  */
 @XmlRootElement
+@JsonAutoDetect
 public class User {
 
     private Long id;

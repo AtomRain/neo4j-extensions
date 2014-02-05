@@ -68,9 +68,9 @@
         <version.org.mockito>1.9.5</version.org.mockito>
         <version.org.neo4j>2.0.0</version.org.neo4j>
         <version.org.slf4j>1.7.5</version.org.slf4j>
-        <version.org.springframework>3.2.5.RELEASE</version.org.springframework>
-        <version.org.springframework.data.commons>1.6.2.RELEASE</version.org.springframework.data.commons>
-        <version.org.springframework.data.neo4j>3.0.0.BUILD-SNAPSHOT</version.org.springframework.data.neo4j>
+        <version.org.springframework>3.2.7.RELEASE</version.org.springframework>
+        <version.org.springframework.data.commons>1.6.3.RELEASE</version.org.springframework.data.commons>
+        <version.org.springframework.data.neo4j>3.0.0.RC1</version.org.springframework.data.neo4j>
         <version.java>1.7</version.java>
     </properties>
 
@@ -483,6 +483,20 @@
                 <artifactId>geronimo-jta_1.1_spec</artifactId>
                 <version>1.1.1</version>
                 <scope>provided</scope>
+            </dependency>
+
+            <!-- javax.validation -->
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>1.1.0.Final</version>
+            </dependency>
+
+            <!-- joda-time -->
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>2.2</version>
             </dependency>
 
             <!-- junit -->
@@ -1039,9 +1053,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>2.7</version>
-                    <configuration>
-                        <encoding>${project.build.sourceEncoding}</encoding>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -1114,9 +1125,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-install-plugin</artifactId>
                     <version>2.4</version>
-                    <configuration>
-                        <encoding>${project.build.sourceEncoding}</encoding>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -1171,8 +1179,6 @@
                     <configuration>
                         <goals>clean install</goals>
                         <connectionType>connection</connectionType>
-                        <username>${scm.username}</username>
-                        <password>${scm.password}</password>
                     </configuration>
                     <dependencies>
                         <dependency>
@@ -1194,7 +1200,6 @@
                         </dependency>
                     </dependencies>
                     <configuration>
-                        <encoding>${project.build.sourceEncoding}</encoding>
                         <excludes>
                             <exclude>**/Abstract*.java</exclude>
                             <exclude>**/*TestBase.java</exclude>
@@ -1234,22 +1239,4 @@
             </plugins>
         </pluginManagement>
     </build>
-
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>${version.org.apache.maven.surefire}</version>
-                <reportSets>
-                    <reportSet>
-                        <id>integration-tests</id>
-                        <reports>
-                            <report>failsafe-report-only</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-        </plugins>
-    </reporting>
 </project>

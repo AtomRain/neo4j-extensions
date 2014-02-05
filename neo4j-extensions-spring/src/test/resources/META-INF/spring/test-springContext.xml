@@ -14,9 +14,11 @@
     <context:spring-configured/>
 
     <context:component-scan base-package="org.neo4j.extensions.spring">
-        <context:exclude-filter type="annotation"
+        <context:include-filter type="annotation"
                                 expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
+
+    <neo4j:config base-package="org.neo4j.extensions.spring" storeDirectory="target/graph.db"/>
 
     <neo4j:repositories base-package="org.neo4j.extensions.spring.repository" repository-impl-postfix="Impl"/>
 

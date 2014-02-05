@@ -13,8 +13,6 @@ import javax.ws.rs.core.Response;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Transaction;
 
-import org.neo4j.extensions.java.common.NodeWrapper;
-
 /**
  * The status controller.
  * 
@@ -39,11 +37,9 @@ public class StatusController {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public Response ingest() {
-        NodeWrapper.setDB(db);
-
         Transaction txn = null;
         try {
-            txn = NodeWrapper.getDB().beginTx();
+            txn = db.beginTx();
             txn.success();
             LOGGER.info("STATUS: success");
         } catch (Exception e) {
@@ -52,7 +48,7 @@ public class StatusController {
             throw new WebApplicationException(e);
         } finally {
             if (txn != null) {
-                txn.finish();
+                txn.close();
             }
         }
         return Response.ok().entity("ok").build();
