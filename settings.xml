@@ -10,10 +10,22 @@
             <activeByDefault>true</activeByDefault>
           </activation>
           <properties>
-              <neo4j.machineA.plugins.directory>/PATH/TO/NEO4J/MACHINEA/PLUGINS</neo4j.machineA.plugins.directory>
-              <neo4j.machineB.plugins.directory>/PATH/TO/NEO4J/MACHINEA/PLUGINS</neo4j.machineB.plugins.directory>
-              <neo4j.machineC.plugins.directory>/PATH/TO/NEO4J/MACHINEC/PLUGINS</neo4j.machineC.plugins.directory>
+            <neo4j.machineA.plugins.directory>/PATH/TO/NEO4J/MACHINEA/PLUGINS</neo4j.machineA.plugins.directory>
+            <neo4j.machineB.plugins.directory>/PATH/TO/NEO4J/MACHINEA/PLUGINS</neo4j.machineB.plugins.directory>
+            <neo4j.machineC.plugins.directory>/PATH/TO/NEO4J/MACHINEC/PLUGINS</neo4j.machineC.plugins.directory>
           </properties>
+          <repositories>
+            <repository>
+              <id>spring-maven-release</id>
+              <name>Spring Maven Release Repository</name>
+              <url>http://maven.springframework.org/release</url>
+            </repository>
+            <repository>
+              <id>spring-maven-milestone</id>
+              <name>Spring Maven Milestone Repository</name>
+              <url>http://maven.springframework.org/milestone</url>
+            </repository>
+          </repositories>
         </profile>
     </profiles>
 </settings>
