@@ -8,3 +8,8 @@
 .project
 .classpath
 .settings
+
+
+target
+.idea
+*.iml
