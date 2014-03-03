@@ -1,6 +1,8 @@
 package org.neo4j.extensions.spring.rest;
 
-import java.util.logging.Logger;
+import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.Transaction;
+import org.springframework.stereotype.Controller;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -9,20 +11,14 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.graphdb.Transaction;
-import org.springframework.stereotype.Controller;
+import java.util.logging.Logger;
 
 /**
  * The status controller.
- * 
- * 
+ *
  * @author bradnussbaum
  * @version 0.1.0
- * 
  * @since 0.1.0
- * 
  */
 @Controller
 @Path("/status")

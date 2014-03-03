@@ -11,7 +11,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -46,21 +47,10 @@ public class UserController {
 
         // create user
         User user = new User();
-        // establish user UID
-        String userUid = UUID.randomUUID().toString();
-        user.setUid(userUid);
-
         // create friend 1
         User friend1 = new User();
-        // establish friend 1 UID
-        String friend1Uid = UUID.randomUUID().toString();
-        friend1.setUid(friend1Uid);
-
         // create friend 2
         User friend2 = new User();
-        // establish friend 2 UID
-        String friend2Uid = UUID.randomUUID().toString();
-        friend2.setUid(friend2Uid);
 
         // establish friends for user
         Set<User> friends = new LinkedHashSet<User>();
@@ -92,7 +82,7 @@ public class UserController {
 
         // log details
         LOGGER.log(Level.INFO,
-                String.format("UserController: TX: userId=%s, userUid=%s, processTime=%dms", user.getId(), user.getUid(), processTimeTx));
+                String.format("UserController: TX: userId=%s, userUid=%s, processTime=%dms", user.getId(), processTimeTx));
 
         return Response.status(Response.Status.CREATED).entity(result).build();
     }

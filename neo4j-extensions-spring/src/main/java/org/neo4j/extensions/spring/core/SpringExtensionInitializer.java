@@ -15,7 +15,7 @@ public class SpringExtensionInitializer extends SpringPluginInitializer {
     public SpringExtensionInitializer() {
         super(new String[]{
                 "META-INF/spring/springContext.xml"
-        }, expose("userRepositoryImpl", UserRepository.class));
+        }, expose("userRepository", UserRepository.class));
     }
 
 }
