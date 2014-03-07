@@ -34,7 +34,7 @@ public class StatusController {
      */
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public Response ingest() {
+    public Response healthCheck() {
         Transaction txn = null;
         try {
             txn = db.beginTx();

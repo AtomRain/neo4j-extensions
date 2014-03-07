@@ -5,7 +5,6 @@ import org.neo4j.extensions.spring.domain.User;
 import org.neo4j.extensions.spring.repository.UserRepository;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -40,7 +39,6 @@ public class UserController {
     @Produces({
             MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML
     })
-    @Transactional
     public Response create(@Context UserRepository userRepository, @QueryParam("indexingOn") @DefaultValue("true") Boolean indexingOn) {
         LOGGER.info(String.format("POST /user/create?indexingOn=%s", indexingOn));
         long startTimeTx = System.currentTimeMillis();
@@ -82,7 +80,7 @@ public class UserController {
 
         // log details
         LOGGER.log(Level.INFO,
-                String.format("UserController: TX: userId=%s, userUid=%s, processTime=%dms", user.getId(), processTimeTx));
+                String.format("UserController: TX: userId=%s, processTime=%dms", user.getId(), processTimeTx));
 
         return Response.status(Response.Status.CREATED).entity(result).build();
     }

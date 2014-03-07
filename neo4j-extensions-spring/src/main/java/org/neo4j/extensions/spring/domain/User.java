@@ -49,7 +49,7 @@ public class User implements Serializable {
     private String createdBy;
 
     @LastModifiedDate
-    @Indexed(indexType = IndexType.LABEL, indexName = "user_exact")
+    @Indexed(indexType = IndexType.LABEL)
     private Long lastModifiedTime;
 
     @LastModifiedBy
@@ -213,7 +213,6 @@ public class User implements Serializable {
                 .append(this.name, rhs.name)
                 .append(this.active, rhs.active)
                 .append(this.validated, rhs.validated)
-                .append(this.friends, rhs.friends)
                 .isEquals();
     }
 
@@ -233,7 +232,6 @@ public class User implements Serializable {
                 .append(name)
                 .append(active)
                 .append(validated)
-                .append(friends)
                 .toHashCode();
     }
 

@@ -22,10 +22,9 @@ import javax.ws.rs.core.Response;
  * @since 0.1.0
  */
 @Configurable
-@TransactionConfiguration(defaultRollback = false)
+@TransactionConfiguration
 @ContextConfiguration(locations = "classpath*:META-INF/spring/test-springContext.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
-@Ignore("Fixing upgrade")
 public class UserControllerTest {
 
     @Autowired
