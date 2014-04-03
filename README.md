@@ -70,11 +70,20 @@ In neo4j-server.properties set:
 	org.neo4j.server.thirdparty_jaxrs_classes=org.neo4j.extensions.spring.rest=/extensions-spring
 
 
-Check status of custom endpoint:
+Check status of java endpoint:
 
 	curl -v -X GET http://localhost:7474/extensions-java/status
 
 Create User with indexing off (default is on):
 
 	curl -v -X POST -H "Accept: application/json" http://localhost:7474/extensions-java/user/create?indexingOn=false
+
+
+Check status of spring endpoint:
+
+	curl -v -X GET http://localhost:7474/extensions-spring/status
+
+Create User with indexing off (default is on):
+
+	curl -v -X POST -H "Accept: application/json" http://localhost:7474/extensions-spring/user/create?indexingOn=false
 

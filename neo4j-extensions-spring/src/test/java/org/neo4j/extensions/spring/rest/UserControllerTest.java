@@ -1,11 +1,9 @@
 package org.neo4j.extensions.spring.rest;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.neo4j.extensions.spring.domain.FriendResult;
-import org.neo4j.extensions.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.test.context.ContextConfiguration;
@@ -30,12 +28,9 @@ public class UserControllerTest {
     @Autowired
     private UserController userController;
 
-    @Autowired
-    private UserRepository userRepository;
-
     @Test
     public void testCreate() {
-        Response response = userController.create(userRepository, false);
+        Response response = userController.create(false);
         FriendResult result = (FriendResult) response.getEntity();
         Assert.assertNotNull(result);
         Assert.assertTrue(result.getFriends().size() > 0);

@@ -4,6 +4,9 @@ import org.neo4j.extensions.spring.domain.FriendResult;
 import org.neo4j.extensions.spring.domain.User;
 import org.neo4j.extensions.spring.repository.UserRepository;
 import org.neo4j.graphdb.GraphDatabaseService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import javax.ws.rs.*;
@@ -12,8 +15,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * The User controller.
@@ -26,10 +27,13 @@ import java.util.logging.Logger;
 @Path("/user")
 public class UserController {
 
-    private static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Context
     private GraphDatabaseService db;
+
+    @Autowired
+    private UserRepository userRepository;
 
     /**
      * @return Status 201 on success.
@@ -39,7 +43,7 @@ public class UserController {
     @Produces({
             MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML
     })
-    public Response create(@Context UserRepository userRepository, @QueryParam("indexingOn") @DefaultValue("true") Boolean indexingOn) {
+    public Response create(@QueryParam("indexingOn") @DefaultValue("true") Boolean indexingOn) {
         LOGGER.info(String.format("POST /user/create?indexingOn=%s", indexingOn));
         long startTimeTx = System.currentTimeMillis();
 
@@ -79,8 +83,7 @@ public class UserController {
         long processTimeTx = successTimeTx - startTimeTx;
 
         // log details
-        LOGGER.log(Level.INFO,
-                String.format("UserController: TX: userId=%s, processTime=%dms", user.getId(), processTimeTx));
+        LOGGER.error(String.format("UserController: TX: userId=%s, processTime=%dms", user.getId(), processTimeTx));
 
         return Response.status(Response.Status.CREATED).entity(result).build();
     }
