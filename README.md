@@ -67,7 +67,7 @@ REST Configuration
 In neo4j-server.properties set:
 
 	org.neo4j.server.thirdparty_jaxrs_classes=org.neo4j.extensions.java.rest=/extensions-java
-	org.neo4j.server.thirdparty_jaxrs_classes=org.neo4j.extensions.spring.rest=/extensions-spring
+	org.neo4j.server.thirdparty_jaxrs_classes=org.neo4j.extensions.spring=/extensions-spring
 
 
 Check status of java endpoint:
