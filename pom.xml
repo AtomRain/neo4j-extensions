@@ -1067,8 +1067,7 @@
                                 <rules>
                                     <requireProperty>
                                         <property>neo4j.home</property>
-                                        <message>You must provide a value for the property neo4j.home.directory
-                                        </message>
+                                        <message>You must provide a value for the property neo4j.home</message>
                                     </requireProperty>
                                 </rules>
                                 <fail>${failEnforcer}</fail>

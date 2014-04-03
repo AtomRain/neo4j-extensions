@@ -1,17 +1,5 @@
 package org.neo4j.extensions.spring.rest;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
-
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
 import org.neo4j.extensions.spring.domain.FriendResult;
 import org.neo4j.extensions.spring.domain.User;
 import org.neo4j.extensions.spring.repository.UserRepository;
@@ -19,6 +7,14 @@ import org.neo4j.graphdb.GraphDatabaseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * The User controller.
@@ -47,6 +43,7 @@ public class UserController {
     @Produces({
             MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML
     })
+    @Transactional(readOnly = false)
     public Response create(@QueryParam("indexingOn") @DefaultValue("true") Boolean indexingOn) {
         LOGGER.info(String.format("POST /user/create?indexingOn=%s", indexingOn));
         long startTimeTx = System.currentTimeMillis();
@@ -70,17 +67,21 @@ public class UserController {
         friend1.setFriends(friend1Friends);
 
         // establish friends for friend 2
-        Set<User> friend2Friends = new LinkedHashSet<User>();
+        Set<User> friend2Friends = new LinkedHashSet<>();
         friend2Friends.add(user);
         friend2.setFriends(friend2Friends);
 
         // save the user and cascade friends
-        userRepository.save(user);
+        user = userRepository.save(user);
+
+        // lookup to validate being saved
+        User userActual = userRepository.findOne(user.getId());
+        Set<User> friendsActual = userActual.getFriends();
 
         // assemble result package
         FriendResult result = new FriendResult();
-        result.setUser(user);
-        result.setFriends(friends);
+        result.setUser(userActual);
+        result.setFriends(friendsActual);
 
         // capture times
         long successTimeTx = System.currentTimeMillis();
