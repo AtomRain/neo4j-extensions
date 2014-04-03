@@ -51,11 +51,9 @@ To have maven copy build artifacts to your local Neo4j cluster, modify your loca
 
 	https://github.com/AtomRain/neo4j-extensions/blob/master/settings.xml
 
-Update the path to point to your each Neo4j server plugins directory in your cluster (default on each server is NEO4J_HOME/plugins):
+Update the path to point to your each Neo4j server plugins directory in your cluster (default on each server is NEO4J_HOME):
 
-	<neo4j.plugins.directory>/PATH/TO/NEO4J/MACHINEA/PLUGINS</neo4j.plugins.directory>
-	<neo4j.plugins.directory>/PATH/TO/NEO4J/MACHINEB/PLUGINS</neo4j.plugins.directory>
-	<neo4j.plugins.directory>/PATH/TO/NEO4J/MACHINEC/PLUGINS</neo4j.plugins.directory>
+	<neo4j.home>/PATH/TO/NEO4J_HOME</neo4j.home>
 
 To build and deploy to your local Neo4j cluster:
 
