@@ -1,20 +1,24 @@
 package org.neo4j.extensions.spring.rest;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
 import org.neo4j.extensions.spring.domain.FriendResult;
 import org.neo4j.extensions.spring.domain.User;
 import org.neo4j.extensions.spring.repository.UserRepository;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
-import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 /**
  * The User controller.
@@ -32,7 +36,7 @@ public class UserController {
     @Context
     private GraphDatabaseService db;
 
-    @Autowired
+    @Context
     private UserRepository userRepository;
 
     /**

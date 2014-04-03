@@ -52,7 +52,7 @@ public class DeployTest {
 //        tx.close();
 
         JsonNode response = jerseyClient()
-                .resource(server.baseUri().toString() + "extensions-java/user/create?indexingOn=false")
+                .resource(server.baseUri().toString() + "extensions-spring/user/create?indexingOn=false")
                 .accept(MediaType.APPLICATION_JSON)
                 .post(ClientResponse.class)
                 .getEntity(JsonNode.class);
