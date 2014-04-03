@@ -38,11 +38,11 @@ public class SpringExtensionInitializer extends SpringPluginInitializer {
             LOGGER.info("Loading neo4jTemplate...");
             Neo4jTemplate neo4jTemplate = ctx.getBean(Neo4jTemplate.class);
             Assert.notNull(neo4jTemplate, "Spring Data Neo4j failed to initialize!");
-            LOGGER.info("Successfully loaded neo4jTemplate");
+            LOGGER.info("Successfully loaded neo4jTemplate.");
             LOGGER.info("Loading userRepository...");
             UserRepository userRepository = ctx.getBean(UserRepository.class);
             Assert.notNull(userRepository, "Spring Data Neo4j failed to initialize!");
-            LOGGER.info("Successfully loaded userRepository");
+            LOGGER.info("Successfully loaded userRepository.");
         } catch (Exception e) {
             LOGGER.severe(e.getMessage());
         }

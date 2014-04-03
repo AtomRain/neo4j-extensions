@@ -26,7 +26,7 @@ public class DeployTest {
 
     @Before
     public void before() throws IOException {
-        ServerSocket serverSocket = new ServerSocket(0);
+        ServerSocket serverSocket = new ServerSocket(9101);
 
         server = CommunityServerBuilder
                 .server()
