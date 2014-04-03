@@ -1021,30 +1021,27 @@
 										<artifactId>${project.artifactId}</artifactId>
 										<version>${project.version}</version>
 										<type>${project.packaging}</type>
-										<classifier>jar-with-dependencies</classifier>
 										<overWrite>true</overWrite>
 										<outputDirectory>${neo4j.machineA.plugins.directory}</outputDirectory>
-										<destFileName>${project.artifactId}-all.${project.packaging}</destFileName>
+										<destFileName>${project.artifactId}.${project.packaging}</destFileName>
 									</artifactItem>
 									<artifactItem>
 										<groupId>${project.groupId}</groupId>
 										<artifactId>${project.artifactId}</artifactId>
 										<version>${project.version}</version>
 										<type>${project.packaging}</type>
-										<classifier>jar-with-dependencies</classifier>
 										<overWrite>true</overWrite>
 										<outputDirectory>${neo4j.machineB.plugins.directory}</outputDirectory>
-										<destFileName>${project.artifactId}-all.${project.packaging}</destFileName>
+										<destFileName>${project.artifactId}.${project.packaging}</destFileName>
 									</artifactItem>
 									<artifactItem>
 										<groupId>${project.groupId}</groupId>
 										<artifactId>${project.artifactId}</artifactId>
 										<version>${project.version}</version>
 										<type>${project.packaging}</type>
-										<classifier>jar-with-dependencies</classifier>
 										<overWrite>true</overWrite>
 										<outputDirectory>${neo4j.machineC.plugins.directory}</outputDirectory>
-										<destFileName>${project.artifactId}-all.${project.packaging}</destFileName>
+										<destFileName>${project.artifactId}.${project.packaging}</destFileName>
 									</artifactItem>
 								</artifactItems>
 							</configuration>
