@@ -26,11 +26,13 @@ public class DeployTest {
 
     @Before
     public void before() throws IOException {
-        ServerSocket serverSocket = new ServerSocket(9101);
+        ServerSocket serverSocket = new ServerSocket(0);
+        ServerSocket serverSocketRmi = new ServerSocket(0);
 
         server = CommunityServerBuilder
                 .server()
                 .onPort(serverSocket.getLocalPort())
+                .withProperty("remote_shell_port", String.valueOf(serverSocketRmi.getLocalPort()))
                 .withThirdPartyJaxRsPackage("org.neo4j.extensions.spring", "/extensions-spring")
                 .build();
 
