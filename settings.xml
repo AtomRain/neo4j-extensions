@@ -6,12 +6,10 @@
         <profile>
             <id>neo4j</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
-                <neo4j.machineA.plugins.directory>/PATH/TO/NEO4J/MACHINEA/PLUGINS</neo4j.machineA.plugins.directory>
-                <neo4j.machineB.plugins.directory>/PATH/TO/NEO4J/MACHINEA/PLUGINS</neo4j.machineB.plugins.directory>
-                <neo4j.machineC.plugins.directory>/PATH/TO/NEO4J/MACHINEC/PLUGINS</neo4j.machineC.plugins.directory>
+                <neo4j.home>/PATH/TO/NEO4J_HOME</neo4j.home>
             </properties>
             <repositories>
                 <repository>
