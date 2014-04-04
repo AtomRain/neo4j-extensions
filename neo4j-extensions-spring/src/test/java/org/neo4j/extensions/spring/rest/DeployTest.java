@@ -1,6 +1,5 @@
 package org.neo4j.extensions.spring.rest;
 
-
 import java.io.IOException;
 import java.net.ServerSocket;
 
@@ -24,6 +23,7 @@ import com.sun.jersey.api.client.config.DefaultClientConfig;
 
 @SuppressWarnings("deprecation")
 public class DeployTest {
+
     private GraphDatabaseAPI db;
     private CommunityNeoServer server;
 
@@ -71,4 +71,5 @@ public class DeployTest {
         defaultClientConfig.getClasses().add(JacksonJsonProvider.class);
         return Client.create(defaultClientConfig);
     }
+
 }

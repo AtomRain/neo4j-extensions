@@ -87,29 +87,11 @@
             <artifactId>spring-data-neo4j-aspects</artifactId>
         </dependency>
 
-		<dependency>			
-			<groupId>org.neo4j.app</groupId>
-			<artifactId>neo4j-server</artifactId>
-			<type>test-jar</type>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-server</artifactId>
-			<scope>provided</scope>
-		</dependency>
+        <!-- org.neo4j.app -->
         <dependency>
             <groupId>org.neo4j.app</groupId>
             <artifactId>neo4j-server</artifactId>
             <type>test-jar</type>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-server</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-client</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
