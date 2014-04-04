@@ -1,5 +1,5 @@
 Neo4j Extensions
-========================
+================
 
 Neo4j unmanaged extensions with regular Java API and Spring integration.
 
@@ -62,7 +62,7 @@ In neo4j-server.properties set:
 
 
 Test REST Endpoints
-----------------------
+-------------------
 
 Check status of java endpoint:
 
