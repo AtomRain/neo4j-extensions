@@ -1,54 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" 
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
     <profiles>
         <profile>
-          <id>neo4j</id>
-          <activation>
-            <activeByDefault>true</activeByDefault>
-          </activation>
-          <properties>
-            <neo4j.machineA.plugins.directory>/PATH/TO/NEO4J/MACHINEA/PLUGINS</neo4j.machineA.plugins.directory>
-            <neo4j.machineB.plugins.directory>/PATH/TO/NEO4J/MACHINEA/PLUGINS</neo4j.machineB.plugins.directory>
-            <neo4j.machineC.plugins.directory>/PATH/TO/NEO4J/MACHINEC/PLUGINS</neo4j.machineC.plugins.directory>
-          </properties>
-          <repositories>
-            <repository>
-              <id>spring-maven-release</id>
-              <name>Spring Maven Release Repository</name>
-              <url>http://maven.springframework.org/release</url>
-            </repository>
-            <repository>
-              <id>spring-maven-milestone</id>
-              <name>Spring Maven Milestone Repository</name>
-              <url>http://maven.springframework.org/milestone</url>
-            </repository>
-            <repository>
-                <id>neo4j-snapshots</id>
-                <name>Neo4j Snapshot Repository</name>
-                <url>http://m2.neo4j.org/content/repositories/snapshots</url>
-                <releases>
-                    <enabled>false</enabled>
-                </releases>
-                <snapshots>
-                    <enabled>true</enabled>
-                    <updatePolicy>never</updatePolicy>
-                </snapshots>
-            </repository>
-            <repository>
-                <id>neo4j-releases</id>
-                <name>Neo4j Release Repository</name>
-                <url>http://m2.neo4j.org/content/repositories/releases</url>
-                <snapshots>
-                    <enabled>false</enabled>
-                </snapshots>
-                <releases>
-                    <enabled>true</enabled>
-                    <updatePolicy>never</updatePolicy>
-                </releases>
-            </repository>
-          </repositories>
+            <id>neo4j</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <neo4j.home>/PATH/TO/NEO4J_HOME</neo4j.home>
+            </properties>
+            <repositories>
+                <repository>
+                    <id>spring-libs-release</id>
+                    <name>Spring Release Repository</name>
+                    <url>http://repo.spring.io/libs-release</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+                <repository>
+                    <id>spring-libs-milestone</id>
+                    <name>Spring Milestone Repository</name>
+                    <url>http://repo.spring.io/libs-milestone</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+                <repository>
+                    <id>spring-libs-snapshot</id>
+                    <name>Spring Snapshot Repository</name>
+                    <url>http://repo.spring.io/libs-snapshot</url>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <updatePolicy>always</updatePolicy>
+                    </snapshots>
+                </repository>
+                <repository>
+                    <id>spring-maven-release</id>
+                    <name>Spring Maven Release Repository</name>
+                    <url>http://maven.springframework.org/release</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+                <repository>
+                    <id>spring-maven-milestone</id>
+                    <name>Spring Maven Milestone Repository</name>
+                    <url>http://maven.springframework.org/milestone</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+                <repository>
+                    <id>neo4j-releases</id>
+                    <name>Neo4j Release Repository</name>
+                    <url>http://m2.neo4j.org/content/repositories/releases</url>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>never</updatePolicy>
+                    </releases>
+                </repository>
+                <repository>
+                    <id>neo4j-snapshots</id>
+                    <name>Neo4j Snapshot Repository</name>
+                    <url>http://m2.neo4j.org/content/repositories/snapshots</url>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <updatePolicy>always</updatePolicy>
+                    </snapshots>
+                </repository>
+            </repositories>
         </profile>
     </profiles>
 </settings>

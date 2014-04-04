@@ -4,18 +4,14 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Set;
 
 /**
  * Friend result.
- * 
- * 
+ *
  * @author bradnussbaum
  * @version 1.0.0
- * 
  * @since 1.0.0
- * 
  */
 @XmlRootElement
 @JsonAutoDetect

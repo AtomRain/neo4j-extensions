@@ -15,7 +15,6 @@ import org.springframework.data.neo4j.support.index.IndexType;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -30,7 +29,7 @@ import java.util.Set;
 @JsonAutoDetect
 public class User implements Serializable {
 
-    private static final long serialVersionUID = -1040756095656494942L;
+    private static final long serialVersionUID = 678183622990845243L;
 
     /**
      * The Node ID is volatile.
@@ -43,12 +42,6 @@ public class User implements Serializable {
      */
     private Integer version = 1;
 
-    /**
-     * Auto-generated unique identifier.
-     */
-    @Indexed(indexType = IndexType.UNIQUE, indexName = "uids", numeric = false)
-    private String uid;
-
     @CreatedDate
     private Long createdTime;
 
@@ -56,7 +49,7 @@ public class User implements Serializable {
     private String createdBy;
 
     @LastModifiedDate
-    @Indexed(indexType = IndexType.SIMPLE, indexName = "user_exact")
+    @Indexed(indexType = IndexType.LABEL)
     private Long lastModifiedTime;
 
     @LastModifiedBy
@@ -79,9 +72,6 @@ public class User implements Serializable {
 
     private Boolean validated;
 
-    @Indexed(indexType = IndexType.UNIQUE, indexName = "identifiers", numeric = false)
-    private String identifier;
-
     @RelatedTo(type = RelationshipConstants.FRIEND_OF, direction = Direction.OUTGOING)
     private Set<User> friends;
 
@@ -99,14 +89,6 @@ public class User implements Serializable {
 
     public void setVersion(Integer version) {
         this.version = version;
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
     }
 
     public Long getCreatedTime() {
@@ -197,14 +179,6 @@ public class User implements Serializable {
         this.validated = validated;
     }
 
-    public String getIdentifier() {
-        return identifier;
-    }
-
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
-    }
-
     public Set<User> getFriends() {
         return friends;
     }
@@ -214,52 +188,51 @@ public class User implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
-
-        User user = (User) o;
-
-        if (active != null ? !active.equals(user.active) : user.active != null) return false;
-        if (createdBy != null ? !createdBy.equals(user.createdBy) : user.createdBy != null) return false;
-        if (createdTime != null ? !createdTime.equals(user.createdTime) : user.createdTime != null) return false;
-        if (email != null ? !email.equals(user.email) : user.email != null) return false;
-        if (friends != null ? !friends.equals(user.friends) : user.friends != null) return false;
-        if (id != null ? !id.equals(user.id) : user.id != null) return false;
-        if (identifier != null ? !identifier.equals(user.identifier) : user.identifier != null) return false;
-        if (lastModifiedBy != null ? !lastModifiedBy.equals(user.lastModifiedBy) : user.lastModifiedBy != null)
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
-        if (lastModifiedTime != null ? !lastModifiedTime.equals(user.lastModifiedTime) : user.lastModifiedTime != null)
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (obj.getClass() != getClass()) {
             return false;
-        if (name != null ? !name.equals(user.name) : user.name != null) return false;
-        if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        if (type != null ? !type.equals(user.type) : user.type != null) return false;
-        if (uid != null ? !uid.equals(user.uid) : user.uid != null) return false;
-        if (username != null ? !username.equals(user.username) : user.username != null) return false;
-        if (validated != null ? !validated.equals(user.validated) : user.validated != null) return false;
-        if (version != null ? !version.equals(user.version) : user.version != null) return false;
-
-        return true;
+        }
+        User rhs = (User) obj;
+        return new org.apache.commons.lang3.builder.EqualsBuilder()
+                .append(this.id, rhs.id)
+                .append(this.version, rhs.version)
+                .append(this.createdTime, rhs.createdTime)
+                .append(this.createdBy, rhs.createdBy)
+                .append(this.lastModifiedTime, rhs.lastModifiedTime)
+                .append(this.lastModifiedBy, rhs.lastModifiedBy)
+                .append(this.type, rhs.type)
+                .append(this.username, rhs.username)
+                .append(this.email, rhs.email)
+                .append(this.password, rhs.password)
+                .append(this.name, rhs.name)
+                .append(this.active, rhs.active)
+                .append(this.validated, rhs.validated)
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (version != null ? version.hashCode() : 0);
-        result = 31 * result + (uid != null ? uid.hashCode() : 0);
-        result = 31 * result + (createdTime != null ? createdTime.hashCode() : 0);
-        result = 31 * result + (createdBy != null ? createdBy.hashCode() : 0);
-        result = 31 * result + (lastModifiedTime != null ? lastModifiedTime.hashCode() : 0);
-        result = 31 * result + (lastModifiedBy != null ? lastModifiedBy.hashCode() : 0);
-        result = 31 * result + (type != null ? type.hashCode() : 0);
-        result = 31 * result + (username != null ? username.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (active != null ? active.hashCode() : 0);
-        result = 31 * result + (validated != null ? validated.hashCode() : 0);
-        result = 31 * result + (identifier != null ? identifier.hashCode() : 0);
-        return result;
+        return new org.apache.commons.lang3.builder.HashCodeBuilder()
+                .append(id)
+                .append(version)
+                .append(createdTime)
+                .append(createdBy)
+                .append(lastModifiedTime)
+                .append(lastModifiedBy)
+                .append(type)
+                .append(username)
+                .append(email)
+                .append(password)
+                .append(name)
+                .append(active)
+                .append(validated)
+                .toHashCode();
     }
 
 }

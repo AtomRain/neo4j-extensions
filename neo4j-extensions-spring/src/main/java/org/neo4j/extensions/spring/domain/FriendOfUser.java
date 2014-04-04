@@ -2,7 +2,6 @@ package org.neo4j.extensions.spring.domain;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.neo4j.extensions.spring.common.RelationshipConstants;
-import org.neo4j.extensions.spring.common.RelationshipTypes;
 import org.neo4j.graphdb.RelationshipType;
 import org.springframework.data.neo4j.annotation.EndNode;
 import org.springframework.data.neo4j.annotation.GraphId;
@@ -15,12 +14,9 @@ import java.io.Serializable;
 /**
  * Friend of User relationship.
  *
- *
  * @author bradnussbaum
  * @version 1.0.0
- *
  * @since 1.0.0
- *
  */
 @XmlRootElement
 @JsonAutoDetect

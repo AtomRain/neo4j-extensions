@@ -1,21 +1,5 @@
 package org.neo4j.extensions.java.rest;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-
 import org.neo4j.extensions.java.common.LabelTypes;
 import org.neo4j.extensions.java.common.RelationshipTypes;
 import org.neo4j.extensions.java.domain.FriendResult;
@@ -26,15 +10,23 @@ import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.graphdb.index.Index;
 
+import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * The User controller.
- * 
- * 
+ *
  * @author bradnussbaum
  * @version 0.1.0
- * 
  * @since 0.1.0
- * 
  */
 @Path("/user")
 public class UserController {
@@ -50,7 +42,7 @@ public class UserController {
     @POST
     @Path("/create")
     @Produces({
-        MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML
+            MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML
     })
     public Response create(@QueryParam("indexingOn") @DefaultValue("true") Boolean indexingOn) {
         LOGGER.info(String.format("POST /user/create?indexingOn=%s", indexingOn));

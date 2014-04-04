@@ -4,13 +4,10 @@ import java.util.Map;
 
 /**
  * Class types indexed properties.
- * 
- * 
+ *
  * @author bradnussbaum
  * @version 0.1.0
- * 
  * @since 0.1.0
- * 
  */
 public enum TypesIndex {
 

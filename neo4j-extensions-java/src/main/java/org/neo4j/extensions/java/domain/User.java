@@ -7,13 +7,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * A User has been authenticated and owns and has access to information.
- * 
- * 
+ *
  * @author bradnussbaum
  * @version 1.0.0
- * 
  * @since 1.0.0
- * 
  */
 @XmlRootElement
 @JsonAutoDetect
