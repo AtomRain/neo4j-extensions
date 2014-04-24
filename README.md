@@ -8,7 +8,7 @@ Parent POM
 
 	<groupId>org.neo4j</groupId>
 	<artifactId>neo4j-extensions</artifactId>
-	<version>2.0-SNAPSHOT</version>
+	<version>2.0.3-SNAPSHOT</version>
 	<type>pom</type>
 
 
@@ -20,7 +20,7 @@ Neo4j unmanaged extension with Java API integration.
 	<!-- neo4j-extensions-java -->
 	<groupId>org.neo4j</groupId>
 	<artifactId>neo4j-extensions-java</artifactId>
-	<version>2.0-SNAPSHOT</version>
+	<version>2.0.3-SNAPSHOT</version>
 	<type>pom</type>
 
 Neo4j unmanaged extension with Spring integration.
@@ -28,12 +28,19 @@ Neo4j unmanaged extension with Spring integration.
 	<!-- neo4j-extensions-spring -->
 	<groupId>org.neo4j</groupId>
 	<artifactId>neo4j-extensions-spring</artifactId>
-	<version>2.0-SNAPSHOT</version>
+	<version>2.0.3-SNAPSHOT</version>
 	<type>pom</type>
 
 
 Build & Deploy
 --------------
+
+The default directory is:
+
+    <neo4j.home>${project.build.directory}/neo4j</neo4j.home>
+
+This is a very useful default for a build server to access jars that need distributed remotely.
+
 
 To have maven copy build artifacts to your local Neo4j instance, modify your local maven settings with the profiles provides here:
 
@@ -47,7 +54,7 @@ Update the path to point to your Neo4j home directory:
 
 To build and deploy jar artifacts simply run:
 
-	mvn clean package -Pdeploy,neo4j
+	mvn clean package
 
 
 The process of building will automatically copy dependencies to ${neo4j.home}/system/lib.

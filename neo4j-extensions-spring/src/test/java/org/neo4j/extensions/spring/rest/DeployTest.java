@@ -1,45 +1,54 @@
 package org.neo4j.extensions.spring.rest;
 
-import java.io.IOException;
-import java.net.ServerSocket;
-
-import javax.ws.rs.core.MediaType;
-
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.config.DefaultClientConfig;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.kernel.GraphDatabaseAPI;
 import org.neo4j.server.CommunityNeoServer;
 import org.neo4j.server.helpers.CommunityServerBuilder;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.config.DefaultClientConfig;
+import javax.ws.rs.core.MediaType;
+import java.io.IOException;
 
-@SuppressWarnings("deprecation")
+@Configurable
+@ContextConfiguration("classpath*:META-INF/spring/test-springContext.xml")
+@RunWith(SpringJUnit4ClassRunner.class)
 public class DeployTest {
+
+    @Value("${neo4j.server.port}")
+    private Integer neo4jServerPort;
+
+    @Value("${neo4j.remoteShell.port}")
+    private Integer neo4jRemoteShellPort;
 
     private GraphDatabaseAPI db;
     private CommunityNeoServer server;
 
     @Before
     public void before() throws IOException {
-        ServerSocket serverSocket = new ServerSocket(0);
 
         server = CommunityServerBuilder
                 .server()
-                .onPort(serverSocket.getLocalPort())
+                .onPort(neo4jServerPort)
+                .withProperty("remote_shell_port", neo4jRemoteShellPort.toString())
                 .withDefaultDatabaseTuning()
                 .withThirdPartyJaxRsPackage("org.neo4j.extensions.spring", "/extensions-spring")
                 .build();
         server.start();
         db = server.getDatabase().getGraph();
-        serverSocket.close();
     }
 
     @After
