@@ -98,6 +98,7 @@
     </profiles>
 
     <dependencies>
+
         <!-- org.aspectj -->
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -398,6 +399,7 @@
 
     <dependencyManagement>
         <dependencies>
+
             <!-- org.aspectj -->
             <dependency>
                 <groupId>org.aspectj</groupId>
