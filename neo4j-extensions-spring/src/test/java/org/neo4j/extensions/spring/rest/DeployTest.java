@@ -10,9 +10,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
-import org.neo4j.kernel.GraphDatabaseAPI;
 import org.neo4j.server.CommunityNeoServer;
 import org.neo4j.server.helpers.CommunityServerBuilder;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -22,11 +22,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 @Configurable
 @ContextConfiguration("classpath*:META-INF/spring/test-springContext.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class DeployTest {
+
+    private static final Logger LOGGER = Logger.getLogger(DeployTest.class.getName());
 
     @Value("${neo4j.server.port}")
     private Integer neo4jServerPort;
@@ -34,11 +37,13 @@ public class DeployTest {
     @Value("${neo4j.remoteShell.port}")
     private Integer neo4jRemoteShellPort;
 
-    private GraphDatabaseAPI db;
+    private GraphDatabaseService db;
     private CommunityNeoServer server;
 
     @Before
     public void before() throws IOException {
+        LOGGER.info(String.format("neo4jServerPort: %d)", neo4jServerPort));
+        LOGGER.info(String.format("neo4jRemoteShellPort: %d)", neo4jRemoteShellPort));
 
         server = CommunityServerBuilder
                 .server()
