@@ -8,19 +8,27 @@ Parent POM
 
 	<groupId>org.neo4j</groupId>
 	<artifactId>neo4j-extensions</artifactId>
-	<version>2.0.3-SNAPSHOT</version>
+	<version>2.0.4-SNAPSHOT</version>
 	<type>pom</type>
 
 
 Modules / Artifacts
 -------------------
 
+Neo4j unmanaged extension Common libraries.
+
+	<!-- neo4j-extensions-common -->
+	<groupId>org.neo4j</groupId>
+	<artifactId>neo4j-extensions-common</artifactId>
+	<version>2.0.4-SNAPSHOT</version>
+	<type>pom</type>
+
 Neo4j unmanaged extension with Java API integration.
 
 	<!-- neo4j-extensions-java -->
 	<groupId>org.neo4j</groupId>
 	<artifactId>neo4j-extensions-java</artifactId>
-	<version>2.0.3-SNAPSHOT</version>
+	<version>2.0.4-SNAPSHOT</version>
 	<type>pom</type>
 
 Neo4j unmanaged extension with Spring integration.
@@ -28,7 +36,7 @@ Neo4j unmanaged extension with Spring integration.
 	<!-- neo4j-extensions-spring -->
 	<groupId>org.neo4j</groupId>
 	<artifactId>neo4j-extensions-spring</artifactId>
-	<version>2.0.3-SNAPSHOT</version>
+	<version>2.0.4-SNAPSHOT</version>
 	<type>pom</type>
 
 
