@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -26,6 +27,12 @@
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
+        </dependency>
+
+        <!-- org.hibernate.javax.persistence -->
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.0-api</artifactId>
         </dependency>
 
         <!-- org.springframework -->
@@ -86,6 +93,11 @@
             <artifactId>spring-data-neo4j-aspects</artifactId>
         </dependency>
 
+        <!-- org.neo4j -->
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-extensions-common</artifactId>
+        </dependency>
         <!-- org.neo4j.app -->
         <dependency>
             <groupId>org.neo4j.app</groupId>
@@ -121,6 +133,63 @@
             </plugin>
 
             <!-- org.codehaus.mojo -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>aspectj-maven-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjrt</artifactId>
+                        <version>${version.org.aspectj}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjtools</artifactId>
+                        <version>${version.org.aspectj}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>test-compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <outxml>true</outxml>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <aspectDirectory>src/main/java</aspectDirectory>
+                    <testAspectDirectory>src/test/java</testAspectDirectory>
+                    <aspectLibraries>
+                        <aspectLibrary>
+                            <groupId>org.springframework</groupId>
+                            <artifactId>spring-aspects</artifactId>
+                        </aspectLibrary>
+                        <aspectLibrary>
+                            <groupId>org.springframework.data</groupId>
+                            <artifactId>spring-data-neo4j-aspects</artifactId>
+                        </aspectLibrary>
+                    </aspectLibraries>
+                    <complianceLevel>${version.java}}</complianceLevel>
+                    <source>${version.java}</source>
+                    <target>${version.java}</target>
+                    <includes>
+                        <include>**/*.java</include>
+                        <include>**/*.aj</include>
+                    </includes>
+                    <!--
+                      Aspects in src/main/java and src/main/aspects are added as default in the
+                      compile goal.
+                      Aspects in src/test/java and src/test/aspects are added as default in the
+                      test-compile goal.
+                      Aspects in src/main/java are added in the test-compile goal
+                      if weaveWithAspectsInMainSourceFolder is set to true
+                    -->
+                    <weaveWithAspectsInMainSourceFolder>false</weaveWithAspectsInMainSourceFolder>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>

@@ -1,14 +1,12 @@
 package org.neo4j.extensions.java.rest;
 
+import org.neo4j.extensions.common.client.StatusClient;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Transaction;
 
-import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.logging.Logger;
 
@@ -20,19 +18,14 @@ import java.util.logging.Logger;
  * @since 0.1.0
  */
 @Path("/status")
-public class StatusController {
+public class StatusController implements StatusClient {
 
     private static final Logger LOGGER = Logger.getLogger(StatusController.class.getName());
 
     @Context
     private GraphDatabaseService db;
 
-    /**
-     * @return Status 200 on success.
-     */
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response ingest() {
+    public Response status() {
         Transaction txn = null;
         try {
             txn = db.beginTx();

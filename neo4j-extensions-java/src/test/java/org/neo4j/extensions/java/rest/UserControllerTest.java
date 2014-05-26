@@ -1,4 +1,4 @@
-package org.neo4j.extensions.spring.rest;
+package org.neo4j.extensions.java.rest;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -8,53 +8,73 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.neo4j.extensions.spring.domain.FriendResult;
+import org.neo4j.extensions.common.domain.FriendResult;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.server.CommunityNeoServer;
 import org.neo4j.server.helpers.CommunityServerBuilder;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 /**
  * @author bradnussbaum
  * @since 2014-05-25
  */
-@Configurable
-@ContextConfiguration("classpath*:META-INF/spring/test-springContext.xml")
-@RunWith(SpringJUnit4ClassRunner.class)
 public class UserControllerTest {
 
     private static final Logger LOGGER = Logger.getLogger(UserControllerTest.class.getName());
 
-    @Value("${neo4j.server.port}")
-    private Integer neo4jServerPort;
+    Properties properties = new Properties();
+    InputStream input = null;
 
-    @Value("${neo4j.remoteShell.port}")
-    private Integer neo4jRemoteShellPort;
+    private String neo4jServerPort = System.getProperty("neo4j.server.port");
+
+    private String neo4jRemoteShellPort = System.getProperty("neo4j.remoteShell.port");
 
     private GraphDatabaseService db;
     private CommunityNeoServer server;
 
     @Before
     public void before() throws IOException {
-        LOGGER.info(String.format("neo4jServerPort: %d)", neo4jServerPort));
-        LOGGER.info(String.format("neo4jRemoteShellPort: %d)", neo4jRemoteShellPort));
+        try {
+            input = UserControllerTest.class.getClassLoader().getResourceAsStream("maven.properties");
+            // load the properties file
+            properties.load(input);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
+        // allow system properties to override
+        if (neo4jServerPort == null) {
+            neo4jServerPort = properties.getProperty("neo4j.server.port");
+        }
+        if (neo4jRemoteShellPort == null) {
+            neo4jRemoteShellPort = properties.getProperty("neo4j.remoteShell.port");
+        }
+
+        LOGGER.info(String.format("neo4jServerPort: %s)", neo4jServerPort));
+        LOGGER.info(String.format("neo4jRemoteShellPort: %s)", neo4jRemoteShellPort));
+
+        // build the server
         server = CommunityServerBuilder
                 .server()
-                .onPort(neo4jServerPort)
-                .withProperty("remote_shell_port", neo4jRemoteShellPort.toString())
+                .onPort(Integer.valueOf(neo4jServerPort))
+                .withProperty("remote_shell_port", neo4jRemoteShellPort)
                 .withDefaultDatabaseTuning()
-                .withThirdPartyJaxRsPackage("org.neo4j.extensions.spring", "/extensions-spring")
+                .withThirdPartyJaxRsPackage("org.neo4j.extensions.java", "/extensions-java")
                 .build();
         server.start();
         db = server.getDatabase().getGraph();
@@ -69,7 +89,7 @@ public class UserControllerTest {
     public void testCreateUser() {
 
         ClientResponse response = jerseyClient()
-                .resource(server.baseUri().toString() + "extensions-spring/user/create?indexingOn=true")
+                .resource(server.baseUri().toString() + "extensions-java/user/create?indexingOn=true")
                 .accept(MediaType.APPLICATION_JSON)
                 .post(ClientResponse.class);
         FriendResult result = response.getEntity(FriendResult.class);

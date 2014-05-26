@@ -1,15 +1,13 @@
 package org.neo4j.extensions.spring.rest;
 
+import org.neo4j.extensions.common.client.StatusClient;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Transaction;
 import org.springframework.stereotype.Controller;
 
-import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.logging.Logger;
 
@@ -22,19 +20,14 @@ import java.util.logging.Logger;
  */
 @Controller
 @Path("/status")
-public class StatusController {
+public class StatusController implements StatusClient {
 
     private static final Logger LOGGER = Logger.getLogger(StatusController.class.getName());
 
     @Context
     private GraphDatabaseService db;
 
-    /**
-     * @return Status 200 on success.
-     */
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response healthCheck() {
+    public Response status() {
         Transaction txn = null;
         try {
             txn = db.beginTx();
