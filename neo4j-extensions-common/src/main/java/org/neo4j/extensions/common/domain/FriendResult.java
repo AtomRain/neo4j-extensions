@@ -1,6 +1,5 @@
-package org.neo4j.extensions.spring.domain;
+package org.neo4j.extensions.common.domain;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -57,13 +56,5 @@ public class FriendResult implements Serializable {
         int result = user != null ? user.hashCode() : 0;
         result = 31 * result + (friends != null ? friends.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this)
-                .append("user", user)
-                .append("friends", friends)
-                .toString();
     }
 }

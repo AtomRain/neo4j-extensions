@@ -1,4 +1,4 @@
-package org.neo4j.extensions.java.indexes;
+package org.neo4j.extensions.common.schema.indexes;
 
 import org.neo4j.index.impl.lucene.LuceneIndexImplementation;
 
@@ -8,14 +8,11 @@ import java.util.Map;
  * Index types.
  *
  * @author bradnussbaum
- * @version 0.1.0
- * @since 0.1.0
+ * @since 2014.05.25
  */
 public enum IndexType {
 
     __types__(LuceneIndexImplementation.EXACT_CONFIG),
-
-    uids(LuceneIndexImplementation.EXACT_CONFIG),
 
     user_exact(LuceneIndexImplementation.EXACT_CONFIG),
 

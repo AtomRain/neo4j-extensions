@@ -1,4 +1,4 @@
-package org.neo4j.extensions.spring.indexes;
+package org.neo4j.extensions.common.schema.indexes;
 
 import java.util.Map;
 
@@ -6,8 +6,7 @@ import java.util.Map;
  * UserIndex indexed properties.
  *
  * @author bradnussbaum
- * @version 0.1.0
- * @since 0.1.0
+ * @since 2014.05.25
  */
 public enum UserIndex {
 

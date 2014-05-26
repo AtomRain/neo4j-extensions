@@ -1,11 +1,10 @@
-package org.neo4j.extensions.java.common;
+package org.neo4j.extensions.common.types;
 
 /**
  * Constants.
  *
  * @author bradnussbaum
- * @version 0.1.0
- * @since 0.1.0
+ * @since 2014.05.25
  */
 public class Constants {
 

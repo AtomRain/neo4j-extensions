@@ -1,0 +1,2 @@
+org.neo4j.extensions.java.plugins.GetAll
+org.neo4j.extensions.java.plugins.ShortestPath

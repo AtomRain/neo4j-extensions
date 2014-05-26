@@ -1,26 +1,32 @@
-package org.neo4j.extensions.java.domain;
+package org.neo4j.extensions.common.domain;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
 import javax.xml.bind.annotation.XmlRootElement;
-
+import java.io.Serializable;
+import java.util.Collection;
 
 /**
  * A User has been authenticated and owns and has access to information.
  *
  * @author bradnussbaum
- * @version 1.0.0
- * @since 1.0.0
+ * @since 2014.05.25
  */
 @XmlRootElement
 @JsonAutoDetect
-public class User {
+public class User implements Serializable, Comparable<User> {
 
+    private static final long serialVersionUID = 678183622990845243L;
+
+    /**
+     * The Node ID is volatile.
+     */
     private Long id;
 
+    /**
+     * The version always starts at 1.
+     */
     private Integer version = 1;
-
-    private String uid;
 
     private Long createdTime;
 
@@ -44,8 +50,7 @@ public class User {
 
     private Boolean validated;
 
-    private String identifier;
-
+    private Collection<User> friends;
 
     public Long getId() {
         return id;
@@ -61,14 +66,6 @@ public class User {
 
     public void setVersion(Integer version) {
         this.version = version;
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
     }
 
     public Long getCreatedTime() {
@@ -159,12 +156,70 @@ public class User {
         this.validated = validated;
     }
 
-    public String getIdentifier() {
-        return identifier;
+    public Collection<User> getFriends() {
+        return friends;
     }
 
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
+    public void setFriends(Collection<User> friends) {
+        this.friends = friends;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+        User rhs = (User) obj;
+        return new org.apache.commons.lang3.builder.EqualsBuilder()
+                .append(this.id, rhs.id)
+                .append(this.version, rhs.version)
+                .append(this.createdTime, rhs.createdTime)
+                .append(this.createdBy, rhs.createdBy)
+                .append(this.lastModifiedTime, rhs.lastModifiedTime)
+                .append(this.lastModifiedBy, rhs.lastModifiedBy)
+                .append(this.type, rhs.type)
+                .append(this.username, rhs.username)
+                .append(this.email, rhs.email)
+                .append(this.password, rhs.password)
+                .append(this.name, rhs.name)
+                .append(this.active, rhs.active)
+                .append(this.validated, rhs.validated)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new org.apache.commons.lang3.builder.HashCodeBuilder()
+                .append(id)
+                .append(version)
+                .append(createdTime)
+                .append(createdBy)
+                .append(lastModifiedTime)
+                .append(lastModifiedBy)
+                .append(type)
+                .append(username)
+                .append(email)
+                .append(password)
+                .append(name)
+                .append(active)
+                .append(validated)
+                .toHashCode();
+    }
+
+    @Override
+    public int compareTo(User o) {
+        if (this.getId() > o.getId()) {
+            return 1;
+        } else if (this.getId() < o.getId()) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
 }

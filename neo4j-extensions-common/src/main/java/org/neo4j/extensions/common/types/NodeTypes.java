@@ -1,13 +1,12 @@
-package org.neo4j.extensions.spring.common;
+package org.neo4j.extensions.common.types;
 
-import org.neo4j.extensions.spring.domain.User;
+import org.neo4j.extensions.common.domain.User;
 
 /**
  * Node types.
  *
  * @author bradnussbaum
- * @version 0.1.0
- * @since 0.1.0
+ * @since 2014.05.25
  */
 public enum NodeTypes {
 

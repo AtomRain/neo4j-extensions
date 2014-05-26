@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.neo4j</groupId>
         <artifactId>neo4j-extensions</artifactId>
-        <version>2.0.2-SNAPSHOT</version>
+        <version>2.0.4-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -15,6 +15,15 @@
 
     <name>Neo4j Extensions - Java</name>
     <description>Neo4j unmanaged extension with java api for the graph db.</description>
+
+    <dependencies>
+        <!-- org.neo4j -->
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-extensions-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
@@ -37,6 +46,28 @@
                 <executions>
                     <execution>
                         <id>enforce-property</id>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- org.codehaus.mojo -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>reserve-network-port</id>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- org.kuali.maven.plugins -->
+            <plugin>
+                <groupId>org.kuali.maven.plugins</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>write-project-properties</id>
                     </execution>
                 </executions>
             </plugin>
