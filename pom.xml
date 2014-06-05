@@ -59,7 +59,6 @@
         <failEnforcer>true</failEnforcer>
         <neo4j.home>${project.build.directory}/neo4j</neo4j.home>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.asm>3.1</version.asm>
         <version.ch.qos.logback>1.0.9</version.ch.qos.logback>
         <version.com.sun.jersey>1.9</version.com.sun.jersey>
         <version.junit>4.11</version.junit>
@@ -68,6 +67,7 @@
         <version.org.apache.maven.surefire>2.14.1</version.org.apache.maven.surefire>
         <version.org.aspectj>1.7.4</version.org.aspectj>
         <version.org.codehaus.jackson>1.9.7</version.org.codehaus.jackson>
+        <version.org.eclipse.jetty>9.0.5.v20130815</version.org.eclipse.jetty>
         <version.org.hamcrest>1.3</version.org.hamcrest>
         <version.org.mockito>1.9.5</version.org.mockito>
         <version.org.neo4j>2.1.0-RC2</version.org.neo4j>
@@ -79,6 +79,13 @@
     </properties>
 
     <dependencies>
+
+        <!-- asm -->
+        <dependency>
+            <groupId>asm</groupId>
+            <artifactId>asm</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
         <!-- org.aspectj -->
         <dependency>
@@ -197,11 +204,30 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- org.codehaus.janino -->
+        <dependency>
+            <groupId>org.codehaus.janino</groupId>
+            <artifactId>commons-compiler</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.janino</groupId>
+            <artifactId>janino</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- junit -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!-- net.sf.opencsv -->
+        <dependency>
+            <groupId>net.sf.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <!-- org.apache.commons -->
@@ -246,6 +272,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- org.jvnet -->
+        <dependency>
+            <groupId>org.jvnet</groupId>
+            <artifactId>mimepull</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- org.mockito -->
         <dependency>
             <groupId>org.mockito</groupId>
@@ -258,10 +291,45 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- org.mortbay.jetty -->
+        <!-- org.eclipse.jetty -->
         <dependency>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>jetty</artifactId>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-http</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-io</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-security</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-servlet</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-util</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-webapp</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-xml</artifactId>
             <scope>provided</scope>
         </dependency>
 
@@ -491,6 +559,14 @@
                 SPRING DEPENDENCIES END
             -->
 
+            <!-- asm -->
+            <dependency>
+                <groupId>asm</groupId>
+                <artifactId>asm</artifactId>
+                <version>3.1</version>
+                <scope>provided</scope>
+            </dependency>
+
             <!-- org.aspectj -->
             <dependency>
                 <groupId>org.aspectj</groupId>
@@ -601,22 +677,6 @@
                 <scope>provided</scope>
             </dependency>
 
-            <!-- io.netty -->
-            <dependency>
-                <groupId>io.netty</groupId>
-                <artifactId>netty</artifactId>
-                <version>3.6.3.Final</version>
-                <scope>provided</scope>
-            </dependency>
-
-            <!-- org.apache.geronimo.specs -->
-            <dependency>
-                <groupId>org.apache.geronimo.specs</groupId>
-                <artifactId>geronimo-jta_1.1_spec</artifactId>
-                <version>1.1.1</version>
-                <scope>provided</scope>
-            </dependency>
-
             <!-- javax.validation -->
             <dependency>
                 <groupId>javax.validation</groupId>
@@ -639,12 +699,27 @@
                 <scope>test</scope>
             </dependency>
 
+            <!-- net.sf.opencsv -->
+            <dependency>
+                <groupId>net.sf.opencsv</groupId>
+                <artifactId>opencsv</artifactId>
+                <version>2.0</version>
+                <scope>provided</scope>
+            </dependency>
+
             <!-- org.apache.commons -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>3.2.1</version>
                 <scope>compile</scope>
+            </dependency>
+            <!-- org.apache.geronimo.specs -->
+            <dependency>
+                <groupId>org.apache.geronimo.specs</groupId>
+                <artifactId>geronimo-jta_1.1_spec</artifactId>
+                <version>1.1.1</version>
+                <scope>provided</scope>
             </dependency>
             <!-- org.apache.lucene -->
             <dependency>
@@ -674,6 +749,69 @@
                 <scope>provided</scope>
             </dependency>
 
+            <!-- org.codehaus.janino -->
+            <dependency>
+                <groupId>org.codehaus.janino</groupId>
+                <artifactId>commons-compiler</artifactId>
+                <version>2.6.1</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.janino</groupId>
+                <artifactId>janino</artifactId>
+                <version>2.6.1</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- org.eclipse.jetty -->
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-http</artifactId>
+                <version>${version.org.eclipse.jetty}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-io</artifactId>
+                <version>${version.org.eclipse.jetty}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-security</artifactId>
+                <version>${version.org.eclipse.jetty}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-server</artifactId>
+                <version>${version.org.eclipse.jetty}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-servlet</artifactId>
+                <version>${version.org.eclipse.jetty}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-util</artifactId>
+                <version>${version.org.eclipse.jetty}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-webapp</artifactId>
+                <version>${version.org.eclipse.jetty}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-xml</artifactId>
+                <version>${version.org.eclipse.jetty}</version>
+                <scope>provided</scope>
+            </dependency>
             <!-- org.eclipse.jetty.orbit -->
             <dependency>
                 <groupId>org.eclipse.jetty.orbit</groupId>
@@ -716,6 +854,14 @@
                 <scope>compile</scope>
             </dependency>
 
+            <!-- org.jvnet -->
+            <dependency>
+                <groupId>org.jvnet</groupId>
+                <artifactId>mimepull</artifactId>
+                <version>1.6</version>
+                <scope>provided</scope>
+            </dependency>
+
             <!-- org.mockito -->
             <dependency>
                 <groupId>org.mockito</groupId>
@@ -728,14 +874,6 @@
                 <artifactId>mockito-core</artifactId>
                 <version>${version.org.mockito}</version>
                 <scope>test</scope>
-            </dependency>
-
-            <!-- org.mortbay.jetty -->
-            <dependency>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>jetty</artifactId>
-                <version>6.1.25</version>
-                <scope>provided</scope>
             </dependency>
 
             <!-- org.neo4j -->
@@ -880,13 +1018,13 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>jcl-over-slf4j</artifactId>
-                <version>${version.org.slf4j}</version>
+                <version>1.6.1</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>${version.org.slf4j}</version>
+                <version>1.6.2</version>
                 <scope>provided</scope>
             </dependency>
 
@@ -1094,7 +1232,7 @@
                                 <excludeGroupIds>
                                     org.neo4j*,org.slf4j,ch.qos.logback,commons-*,org.hamcrest,org.mockito
                                 </excludeGroupIds>
-                                <excludeArtifactIds>junit,hamcrest-*,neo4j-*,mockito-*</excludeArtifactIds>
+                                <excludeArtifactIds>junit,hamcrest-*,neo4j-*,mockito-*,spring-test</excludeArtifactIds>
                                 <outputDirectory>${neo4j.home}/system/lib</outputDirectory>
                             </configuration>
                         </execution>
