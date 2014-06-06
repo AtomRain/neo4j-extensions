@@ -41,6 +41,9 @@ public class UserControllerTest {
     @Value("${neo4j.remoteShell.port}")
     private Integer neo4jRemoteShellPort;
 
+    @Value("${neo4j.graph.db}")
+    private String neo4jGraphDb;
+
     private GraphDatabaseService db;
     private CommunityNeoServer server;
 
@@ -48,9 +51,11 @@ public class UserControllerTest {
     public void before() throws IOException {
         LOGGER.info(String.format("neo4jServerPort: %d)", neo4jServerPort));
         LOGGER.info(String.format("neo4jRemoteShellPort: %d)", neo4jRemoteShellPort));
+        LOGGER.info(String.format("neo4jGraphDb: %s)", neo4jGraphDb));
 
         server = CommunityServerBuilder
                 .server()
+                .usingDatabaseDir(neo4jGraphDb)
                 .onPort(neo4jServerPort)
                 .withProperty("remote_shell_port", neo4jRemoteShellPort.toString())
                 .withDefaultDatabaseTuning()

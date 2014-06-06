@@ -36,6 +36,8 @@ public class UserControllerTest {
 
     private String neo4jRemoteShellPort = System.getProperty("neo4j.remoteShell.port");
 
+    private String neo4jGraphDb = System.getProperty("neo4j.graph.db");
+
     private GraphDatabaseService db;
     private CommunityNeoServer server;
 
@@ -64,13 +66,18 @@ public class UserControllerTest {
         if (neo4jRemoteShellPort == null) {
             neo4jRemoteShellPort = properties.getProperty("neo4j.remoteShell.port");
         }
+        if (neo4jGraphDb == null) {
+            neo4jGraphDb = properties.getProperty("neo4j.graph.db");
+        }
 
         LOGGER.info(String.format("neo4jServerPort: %s)", neo4jServerPort));
         LOGGER.info(String.format("neo4jRemoteShellPort: %s)", neo4jRemoteShellPort));
+        LOGGER.info(String.format("neo4jGraphDb: %s)", neo4jGraphDb));
 
         // build the server
         server = CommunityServerBuilder
                 .server()
+                .usingDatabaseDir(neo4jGraphDb)
                 .onPort(Integer.valueOf(neo4jServerPort))
                 .withProperty("remote_shell_port", neo4jRemoteShellPort)
                 .withDefaultDatabaseTuning()
