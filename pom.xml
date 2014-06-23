@@ -71,7 +71,7 @@
         <version.org.eclipse.jetty>9.0.5.v20130815</version.org.eclipse.jetty>
         <version.org.hamcrest>1.3</version.org.hamcrest>
         <version.org.mockito>1.9.5</version.org.mockito>
-        <version.org.neo4j>2.1.1</version.org.neo4j>
+        <version.org.neo4j>2.1.2</version.org.neo4j>
         <version.org.slf4j>1.6.2</version.org.slf4j>
         <version.org.springframework>4.0.5.RELEASE</version.org.springframework>
         <version.org.springframework.data.commons>1.8.0.RELEASE</version.org.springframework.data.commons>
