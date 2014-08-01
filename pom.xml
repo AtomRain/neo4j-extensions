@@ -57,7 +57,7 @@
     <properties>
         <failEnforcer>true</failEnforcer>
         <neo4j.home>${project.build.directory}/neo4j</neo4j.home>
-        <neo4j.graph.db>${project.build.directory}/graph.db</neo4j.graph.db>
+        <neo4j.graph.db>${project.build.directory}/neo4j/data/graph.db</neo4j.graph.db>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.ch.qos.logback>1.0.9</version.ch.qos.logback>
         <version.com.sun.jersey>1.9</version.com.sun.jersey>
