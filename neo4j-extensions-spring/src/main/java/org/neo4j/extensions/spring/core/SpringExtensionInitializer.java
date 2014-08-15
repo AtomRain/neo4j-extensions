@@ -9,6 +9,7 @@ import org.springframework.data.neo4j.support.Neo4jTemplate;
 import org.springframework.util.Assert;
 
 import java.util.Collection;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -44,7 +45,7 @@ public class SpringExtensionInitializer extends SpringPluginInitializer {
             Assert.notNull(userRepository, "Spring Data Neo4j failed to initialize!");
             LOGGER.info("Successfully loaded userRepository.");
         } catch (Exception e) {
-            LOGGER.severe(e.getMessage());
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
         return injectableCollection;
     }
