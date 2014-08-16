@@ -1,36 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:neo4j="http://www.springframework.org/schema/data/neo4j"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/data/neo4j http://www.springframework.org/schema/data/neo4j/spring-neo4j.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-  <!-- WARNING: Property placeholder resolution requires properties to be loaded
-      without using nested xml imports. Currently it is not possible to simply import context
-      xml files that load nested properties. This is only a limitation of the current property
-      placeholder resolution. -->
-  <bean id="neoTestProperties"
-        class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
-    <property name="nullValue" value="null"/>
-    <property name="ignoreResourceNotFound" value="true"/>
-    <property name="ignoreUnresolvablePlaceholders" value="false"/>
-    <property name="locations">
-      <list>
-        <value>classpath:META-INF/spring/test-springContext.properties</value>
-        <value>classpath*:${project.artifactId}-maven.properties</value>
-      </list>
-    </property>
-  </bean>
+    <context:property-placeholder location="classpath*:neo4j-extensions-spring-maven.properties"
+                                  ignore-resource-not-found="false" ignore-unresolvable="true"/>
 
-  <context:annotation-config/>
+    <context:property-placeholder location="classpath:META-INF/spring/test-springContext.properties"
+                                  ignore-resource-not-found="false" ignore-unresolvable="true"/>
 
-  <context:spring-configured/>
+    <context:annotation-config/>
 
-  <context:component-scan base-package="org.neo4j.extensions.test.spring"/>
+    <context:spring-configured/>
 
-  <bean id="communityNeoServerFactory" class="org.neo4j.extensions.test.spring.core.CommunityNeoServerTestFactory"/>
+    <context:component-scan base-package="org.neo4j.extensions.spring">
+        <context:include-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 
-  <bean id="communityNeoServer" factory-bean="communityNeoServerFactory" factory-method="instance"
-        init-method="start" destroy-method="stop"/>
+    <neo4j:config base-package="org.neo4j.extensions.spring" storeDirectory="${project.build.directory}/neo4j-server/graph.db"/>
+
+    <neo4j:repositories base-package="org.neo4j.extensions.spring.repository" repository-impl-postfix="Impl"/>
+
+    <neo4j:auditing/>
+
+    <tx:annotation-driven mode="aspectj"/>
 
 </beans>
