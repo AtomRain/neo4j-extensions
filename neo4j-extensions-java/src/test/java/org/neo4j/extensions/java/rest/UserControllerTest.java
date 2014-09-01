@@ -44,7 +44,7 @@ public class UserControllerTest {
     @Before
     public void before() throws IOException {
         try {
-            input = UserControllerTest.class.getClassLoader().getResourceAsStream("maven.properties");
+            input = UserControllerTest.class.getClassLoader().getResourceAsStream("neo4j-extensions-java-maven.properties");
             // load the properties file
             properties.load(input);
         } catch (IOException e) {
@@ -79,9 +79,9 @@ public class UserControllerTest {
                 .server()
                 .usingDatabaseDir(neo4jGraphDb)
                 .onPort(Integer.valueOf(neo4jServerPort))
-                .withProperty("remote_shell_port", neo4jRemoteShellPort)
                 .withDefaultDatabaseTuning()
                 .withThirdPartyJaxRsPackage("org.neo4j.extensions.java", "/extensions-java")
+                .withProperty("remote_shell_port", neo4jRemoteShellPort)
                 .build();
         server.start();
         db = server.getDatabase().getGraph();
