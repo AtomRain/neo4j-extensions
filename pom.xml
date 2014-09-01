@@ -1479,7 +1479,7 @@
                             </goals>
                             <configuration>
                                 <outputFile>
-                                    ${project.build.directory}/generated-resources/${artifactId}-maven.properties
+                                    ${project.build.directory}/generated-resources/${project.artifactId}-maven.properties
                                 </outputFile>
                             </configuration>
                         </execution>
