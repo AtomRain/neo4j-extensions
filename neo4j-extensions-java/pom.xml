@@ -12,7 +12,7 @@
     <artifactId>neo4j-extensions-java</artifactId>
     <packaging>jar</packaging>
 
-    <name>Neo4j Extensions - Java</name>
+    <name>Neo4j Extensions :: Java</name>
     <description>Neo4j unmanaged extension with java api for the graph db.</description>
 
     <dependencies>

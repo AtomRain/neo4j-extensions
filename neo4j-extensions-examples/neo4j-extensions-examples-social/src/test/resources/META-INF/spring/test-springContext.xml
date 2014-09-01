@@ -9,20 +9,27 @@
         http://www.springframework.org/schema/data/neo4j http://www.springframework.org/schema/data/neo4j/spring-neo4j.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
+    <context:property-placeholder location="classpath*:neo4j-extensions-examples-social-maven.properties"
+                                  ignore-resource-not-found="false" ignore-unresolvable="true"/>
+
+    <context:property-placeholder location="classpath:META-INF/spring/test-springContext.properties"
+                                  ignore-resource-not-found="false" ignore-unresolvable="true"/>
+
     <context:annotation-config/>
 
     <context:spring-configured/>
 
-    <neo4j:config graphDatabaseService="graphDatabaseService" base-package="org.neo4j.extensions.spring"/>
+    <neo4j:config base-package="org.neo4j.extensions.examples.social"
+                  storeDirectory="${project.build.directory}/neo4j-server/graph.db"/>
 
-    <neo4j:repositories base-package="org.neo4j.extensions.spring.repository" repository-impl-postfix="Impl"/>
+    <neo4j:repositories base-package="org.neo4j.extensions.examples.social.repository" repository-impl-postfix="Impl"/>
 
     <neo4j:auditing/>
 
     <tx:annotation-driven mode="aspectj"/>
 
-    <context:component-scan base-package="org.neo4j.extensions.spring">
-        <context:exclude-filter type="annotation"
+    <context:component-scan base-package="org.neo4j.extensions.examples.social">
+        <context:include-filter type="annotation"
                                 expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 

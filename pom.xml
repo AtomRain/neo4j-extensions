@@ -52,6 +52,7 @@
         <module>neo4j-extensions-common</module>
         <module>neo4j-extensions-java</module>
         <module>neo4j-extensions-spring</module>
+        <module>neo4j-extensions-examples</module>
     </modules>
 
     <properties>

@@ -13,15 +13,15 @@
 
     <context:spring-configured/>
 
-    <neo4j:config graphDatabaseService="graphDatabaseService" base-package="org.neo4j.extensions.spring"/>
+    <neo4j:config graphDatabaseService="graphDatabaseService" base-package="org.neo4j.extensions.examples.social"/>
 
-    <neo4j:repositories base-package="org.neo4j.extensions.spring.repository" repository-impl-postfix="Impl"/>
+    <neo4j:repositories base-package="org.neo4j.extensions.examples.social.repository" repository-impl-postfix="Impl"/>
 
     <neo4j:auditing/>
 
     <tx:annotation-driven mode="aspectj"/>
 
-    <context:component-scan base-package="org.neo4j.extensions.spring">
+    <context:component-scan base-package="org.neo4j.extensions.examples.social">
         <context:exclude-filter type="annotation"
                                 expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
