@@ -9,7 +9,7 @@
         http://www.springframework.org/schema/data/neo4j http://www.springframework.org/schema/data/neo4j/spring-neo4j.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <context:property-placeholder location="classpath*:neo4j-extensions-spring-maven.properties"
+    <context:property-placeholder location="classpath*:${project.artifactId}-maven.properties"
                                   ignore-resource-not-found="false" ignore-unresolvable="true"/>
 
     <context:property-placeholder location="classpath:META-INF/spring/test-springContext.properties"

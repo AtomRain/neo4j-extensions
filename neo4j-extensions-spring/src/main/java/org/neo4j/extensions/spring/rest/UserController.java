@@ -1,14 +1,19 @@
 package org.neo4j.extensions.spring.rest;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.neo4j.extensions.common.client.UserClient;
 import org.neo4j.extensions.spring.domain.FriendResult;
 import org.neo4j.extensions.spring.domain.User;
+import org.neo4j.extensions.spring.domain.UserProxy;
+import org.neo4j.extensions.spring.domain.UsersResult;
 import org.neo4j.extensions.spring.repository.UserRepository;
+import org.neo4j.extensions.spring.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.ws.rs.Path;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
@@ -30,6 +35,9 @@ public class UserController implements UserClient {
 
     @Context
     private UserRepository userRepository;
+
+    @Context
+    private UserService userService;
 
     /**
      * @return Status 201 on success.
@@ -63,9 +71,12 @@ public class UserController implements UserClient {
         Collection<User> friendsActual = userActual.getFriends();
 
         // assemble result package
+        ObjectMapper mapper = new ObjectMapper();
+        UserProxy userActualProxy = mapper.convertValue(userActual, UserProxy.class);
+
         FriendResult result = new FriendResult();
-        result.setUser(userActual);
-        result.setFriends(friendsActual);
+        result.setUser(userActualProxy);
+        result.setFriends(userActualProxy.getFriends());
 
         // capture times
         long successTimeTx = System.currentTimeMillis();
@@ -75,6 +86,28 @@ public class UserController implements UserClient {
         LOGGER.info(String.format("UserController: TX: userId=%s, processTime=%dms", user.getId(), processTimeTx));
 
         return Response.status(Response.Status.CREATED).entity(result).build();
+    }
+
+    /**
+     * @return Status 200 on success.
+     */
+    @Transactional(readOnly = true)
+    public Response findUsers() {
+        try {
+            Collection<User> users = userService.findUsersAsync();
+            UsersResult usersResult = new UsersResult();
+            Set<UserProxy> userProxies = new LinkedHashSet<>();
+            for (User u : users) {
+                // assemble result package
+                ObjectMapper mapper = new ObjectMapper();
+                UserProxy userProxy = mapper.convertValue(users, UserProxy.class);
+                userProxies.add(userProxy);
+            }
+            usersResult.setUsers(userProxies);
+            return Response.ok(usersResult).build();
+        } catch (Exception e) {
+            throw new WebApplicationException(e);
+        }
     }
 
 }

@@ -2,6 +2,7 @@ package org.neo4j.extensions.spring.core;
 
 import org.apache.commons.configuration.Configuration;
 import org.neo4j.extensions.spring.repository.UserRepository;
+import org.neo4j.extensions.spring.service.UserService;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.server.plugins.Injectable;
 import org.springframework.data.neo4j.server.SpringPluginInitializer;
@@ -24,9 +25,10 @@ public class SpringExtensionInitializer extends SpringPluginInitializer {
     private static final Logger LOGGER = Logger.getLogger(SpringExtensionInitializer.class.getName());
 
     public SpringExtensionInitializer() {
-        super(new String[]{
-                "META-INF/spring/springContext.xml"
-        }, expose("neo4jTemplate", Neo4jTemplate.class), expose("userRepository", UserRepository.class));
+        super(new String[]{"META-INF/spring/springContext.xml"},
+                expose("neo4jTemplate", Neo4jTemplate.class),
+                expose("userRepository", UserRepository.class),
+                expose("userServiceImpl", UserService.class));
         LOGGER.info("Spring context configured.");
     }
 

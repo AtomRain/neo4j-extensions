@@ -130,4 +130,8 @@ public class UserController implements UserClient {
         }
     }
 
+    @Override
+    public Response findUsers() {
+        return Response.ok().build();
+    }
 }

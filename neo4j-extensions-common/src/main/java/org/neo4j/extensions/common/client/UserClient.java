@@ -25,5 +25,14 @@ public interface UserClient {
     public Response create(@QueryParam("indexingOn") @DefaultValue("true") Boolean indexingOn,
                            @QueryParam("count") @DefaultValue("3") Integer count);
 
+    /**
+     * @return Status 200 on success.
+     */
+    @GET
+    @Path("/all")
+    @Produces({
+            MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML
+    })
+    public Response findUsers();
 
 }

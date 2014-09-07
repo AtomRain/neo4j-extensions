@@ -59,7 +59,7 @@ public class UserControllerTest {
                 .onPort(neo4jServerPort)
                 .withProperty("remote_shell_port", neo4jRemoteShellPort.toString())
                 .withDefaultDatabaseTuning()
-                .withThirdPartyJaxRsPackage("org.neo4j.extensions.examples.social", "/extensions-spring")
+                .withThirdPartyJaxRsPackage("org.neo4j.extensions.examples.social", "/extensions-examples-social")
                 .build();
         server.start();
         db = server.getDatabase().getGraph();
@@ -74,7 +74,7 @@ public class UserControllerTest {
     public void testCreateUser() {
 
         ClientResponse response = jerseyClient()
-                .resource(server.baseUri().toString() + "extensions-spring/user/create?indexingOn=true")
+                .resource(server.baseUri().toString() + "extensions-examples-social/user/create?indexingOn=true")
                 .accept(MediaType.APPLICATION_JSON)
                 .post(ClientResponse.class);
         FriendResult result = response.getEntity(FriendResult.class);

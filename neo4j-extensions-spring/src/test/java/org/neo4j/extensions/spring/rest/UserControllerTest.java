@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.neo4j.extensions.spring.domain.FriendResult;
+import org.neo4j.extensions.spring.domain.UsersResult;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
@@ -87,6 +88,16 @@ public class UserControllerTest {
         Assert.assertEquals(node.getProperty("createdTime").toString(), result.getUser().getCreatedTime().toString());
         tx.success();
         tx.close();
+    }
+
+    @Test
+    public void testFindUsers() throws Exception {
+
+        ClientResponse response = jerseyClient()
+                .resource(server.baseUri().toString() + "extensions-spring/user/all")
+                .accept(MediaType.APPLICATION_JSON)
+                .get(ClientResponse.class);
+        UsersResult result = response.getEntity(UsersResult.class);
     }
 
     private Client jerseyClient() {

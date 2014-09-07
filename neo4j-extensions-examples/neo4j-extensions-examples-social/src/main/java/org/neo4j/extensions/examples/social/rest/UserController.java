@@ -77,4 +77,8 @@ public class UserController implements UserClient {
         return Response.status(Response.Status.CREATED).entity(result).build();
     }
 
+    @Override
+    public Response findUsers() {
+        return Response.ok().build();
+    }
 }

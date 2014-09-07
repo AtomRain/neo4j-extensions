@@ -19,23 +19,23 @@ public class FriendResult implements Serializable {
 
     private static final long serialVersionUID = 1539779889606280663L;
 
-    private User user;
+    private UserProxy user;
 
-    private Collection<User> friends;
+    private Collection<UserProxy> friends;
 
-    public User getUser() {
+    public UserProxy getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserProxy user) {
         this.user = user;
     }
 
-    public Collection<User> getFriends() {
+    public Collection<UserProxy> getFriends() {
         return friends;
     }
 
-    public void setFriends(Collection<User> friends) {
+    public void setFriends(Collection<UserProxy> friends) {
         this.friends = friends;
     }
 
