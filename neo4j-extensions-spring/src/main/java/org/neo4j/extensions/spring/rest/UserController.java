@@ -92,15 +92,15 @@ public class UserController implements UserClient {
      * @return Status 200 on success.
      */
     @Transactional(readOnly = true)
-    public Response findUsers() {
+    public Response findUsers(Integer page, Integer pageSize, Integer pages) {
         try {
-            Collection<User> users = userService.findUsersAsync();
+            Collection<User> users = userService.findUsersAsync(page, pageSize, pages);
             UsersResult usersResult = new UsersResult();
             Set<UserProxy> userProxies = new LinkedHashSet<>();
-            for (User u : users) {
+            for (User user : users) {
                 // assemble result package
                 ObjectMapper mapper = new ObjectMapper();
-                UserProxy userProxy = mapper.convertValue(users, UserProxy.class);
+                UserProxy userProxy = mapper.convertValue(user, UserProxy.class);
                 userProxies.add(userProxy);
             }
             usersResult.setUsers(userProxies);

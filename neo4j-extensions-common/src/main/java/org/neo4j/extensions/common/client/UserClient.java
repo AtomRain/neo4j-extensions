@@ -29,10 +29,12 @@ public interface UserClient {
      * @return Status 200 on success.
      */
     @GET
-    @Path("/all")
+    @Path("/pages")
     @Produces({
             MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML
     })
-    public Response findUsers();
+    public Response findUsers(@QueryParam("page") @DefaultValue("0") Integer page,
+                              @QueryParam("page.size") @DefaultValue("10") Integer pageSize,
+                              @QueryParam("pages") @DefaultValue("1") Integer pages);
 
 }

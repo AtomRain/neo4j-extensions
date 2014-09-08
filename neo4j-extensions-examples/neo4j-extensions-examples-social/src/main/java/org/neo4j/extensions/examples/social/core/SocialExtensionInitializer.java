@@ -19,11 +19,11 @@ import java.util.logging.Logger;
  * @version 0.1.0
  * @since 0.1.0
  */
-public class SpringExtensionInitializer extends SpringPluginInitializer {
+public class SocialExtensionInitializer extends SpringPluginInitializer {
 
-    private static final Logger LOGGER = Logger.getLogger(SpringExtensionInitializer.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(SocialExtensionInitializer.class.getName());
 
-    public SpringExtensionInitializer() {
+    public SocialExtensionInitializer() {
         super(new String[]{
                 "META-INF/spring/springContext.xml"
         }, expose("neo4jTemplate", Neo4jTemplate.class), expose("userRepository", UserRepository.class));

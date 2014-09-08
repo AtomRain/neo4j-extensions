@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,6 +26,7 @@ import java.util.logging.Logger;
  * @since 2014.09.07
  */
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class.getName());
@@ -33,10 +35,12 @@ public class UserServiceImpl implements UserService {
     private UserRepository repository;
 
     @Override
-    public Collection<User> findUsersAsync() throws TimeoutException, ExecutionException, InterruptedException {
+    public Collection<User> findUsersAsync(Integer page, Integer size, Integer pages)
+            throws TimeoutException, ExecutionException, InterruptedException {
+        // Create async calls for each page
         Collection<Future<Page<User>>> results = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            PageRequest request = new PageRequest(i, 10);
+        for (int i = page; i < pages; i++) {
+            PageRequest request = new PageRequest(i, size);
             results.add(findUsersFuture(request));
         }
         Collection<User> users = new LinkedHashSet<>();

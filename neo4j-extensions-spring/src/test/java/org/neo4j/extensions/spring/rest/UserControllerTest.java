@@ -94,7 +94,7 @@ public class UserControllerTest {
     public void testFindUsers() throws Exception {
 
         ClientResponse response = jerseyClient()
-                .resource(server.baseUri().toString() + "extensions-spring/user/all")
+                .resource(server.baseUri().toString() + "extensions-spring/user/pages")
                 .accept(MediaType.APPLICATION_JSON)
                 .get(ClientResponse.class);
         UsersResult result = response.getEntity(UsersResult.class);

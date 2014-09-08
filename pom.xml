@@ -49,13 +49,6 @@
         <url>https://github.com/AtomRain/neo4j-extensions/issues</url>
     </issueManagement>
 
-    <modules>
-        <module>neo4j-extensions-common</module>
-        <module>neo4j-extensions-java</module>
-        <module>neo4j-extensions-spring</module>
-        <module>neo4j-extensions-examples</module>
-    </modules>
-
     <properties>
         <failEnforcer>true</failEnforcer>
         <neo4j.home>${project.build.directory}/neo4j</neo4j.home>
@@ -79,6 +72,31 @@
         <version.org.springframework.data.neo4j>3.2.0.RELEASE</version.org.springframework.data.neo4j>
         <version.java>1.7</version.java>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>build-all</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>neo4j-extensions-common</module>
+                <module>neo4j-extensions-java</module>
+                <module>neo4j-extensions-spring</module>
+                <module>neo4j-extensions-examples</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>build-spring</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <modules>
+                <module>neo4j-extensions-common</module>
+                <module>neo4j-extensions-spring</module>
+            </modules>
+        </profile>
+    </profiles>
 
     <dependencies>
 
