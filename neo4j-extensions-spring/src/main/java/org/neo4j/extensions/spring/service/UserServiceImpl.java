@@ -13,10 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,21 +38,30 @@ public class UserServiceImpl implements UserService {
     public Collection<User> findUsersAsync(Integer page, Integer size, Integer pages)
             throws TimeoutException, ExecutionException, InterruptedException {
         // Create async calls for each page
-        Collection<Future<Page<User>>> results = new ArrayList<>();
+        Collection<Future<Page<User>>> running = new ArrayList<>();
+        Collection<Future<Page<User>>> done = new ArrayList<>();
         for (int i = page; i < pages; i++) {
             PageRequest request = new PageRequest(i, size);
-            results.add(findUsersFuture(request));
+            running.add(findUsersFuture(request));
         }
         Collection<User> users = new LinkedHashSet<>();
-        for (Future<Page<User>> result : results) {
-            Page<User> userPage = result.get(60, TimeUnit.SECONDS);
-            LOGGER.log(Level.INFO, "Method: UserServiceImp.findUsers" +
-                    " number: " + userPage.getNumber() +
-                    " totalElements: " + userPage.getTotalElements() +
-                    " totalPages: " + userPage.getTotalPages());
-            for (User u : userPage) {
-                users.add(u);
+        while (running.size() > 0) {
+            Iterator<Future<Page<User>>> iterator = running.iterator();
+            while (iterator.hasNext()) {
+                Future<Page<User>> future = iterator.next();
+                if (future.isDone()) {
+                    Page<User> userPage = future.get();
+                    LOGGER.log(Level.INFO, "Method: UserServiceImp.findUsers" +
+                            " number: " + userPage.getNumber() +
+                            " totalElements: " + userPage.getTotalElements() +
+                            " totalPages: " + userPage.getTotalPages());
+                    for (User u : userPage) {
+                        users.add(u);
+                    }
+                    done.add(future);
+                }
             }
+            running.removeAll(done);
         }
         return users;
     }

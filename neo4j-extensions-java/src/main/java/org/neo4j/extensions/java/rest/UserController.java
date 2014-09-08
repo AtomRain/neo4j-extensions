@@ -131,7 +131,7 @@ public class UserController implements UserClient {
     }
 
     @Override
-    public Response findUsers() {
+    public Response findUsers(Integer page, Integer pageSize, Integer pages) {
         return Response.ok().build();
     }
 }
