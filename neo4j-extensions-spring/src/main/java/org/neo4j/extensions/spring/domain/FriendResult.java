@@ -2,10 +2,13 @@ package org.neo4j.extensions.spring.domain;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonMethod;
+import org.codehaus.jackson.map.annotate.JsonView;
+import org.neo4j.extensions.common.client.EntityView;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
-import java.util.Collection;
 
 /**
  * Friend result.
@@ -14,28 +17,31 @@ import java.util.Collection;
  * @since 2014.05.25
  */
 @XmlRootElement
-@JsonAutoDetect
+@JsonAutoDetect(JsonMethod.FIELD)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class FriendResult implements Serializable {
 
     private static final long serialVersionUID = 1539779889606280663L;
 
-    private UserProxy user;
+    @JsonView(EntityView.class)
+    private User user;
 
-    private Collection<UserProxy> friends;
+    @JsonView(EntityView.class)
+    private User[] friends;
 
-    public UserProxy getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(UserProxy user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public Collection<UserProxy> getFriends() {
+    public User[] getFriends() {
         return friends;
     }
 
-    public void setFriends(Collection<UserProxy> friends) {
+    public void setFriends(User[] friends) {
         this.friends = friends;
     }
 
@@ -66,4 +72,5 @@ public class FriendResult implements Serializable {
                 .append("friends", friends)
                 .toString();
     }
+
 }

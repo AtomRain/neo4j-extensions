@@ -1,6 +1,7 @@
 package org.neo4j.extensions.examples.social.domain;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.neo4j.extensions.common.types.RelationshipConstants;
 import org.neo4j.graphdb.Direction;
 import org.springframework.data.annotation.CreatedBy;
@@ -25,6 +26,7 @@ import java.util.Collection;
  */
 @XmlRootElement
 @JsonAutoDetect
+@JsonIgnoreProperties(ignoreUnknown = true)
 @NodeEntity
 public class User implements Serializable, Comparable<User> {
 

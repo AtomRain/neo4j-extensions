@@ -1,5 +1,10 @@
 package org.neo4j.extensions.spring.domain;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonMethod;
+import org.codehaus.jackson.map.annotate.JsonView;
+import org.neo4j.extensions.common.client.EntityView;
 import org.neo4j.extensions.common.types.RelationshipConstants;
 import org.neo4j.graphdb.Direction;
 import org.springframework.data.annotation.CreatedBy;
@@ -12,8 +17,8 @@ import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedTo;
 import org.springframework.data.neo4j.support.index.IndexType;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
-import java.util.Collection;
 
 /**
  * A User has been authenticated and owns and has access to information.
@@ -22,37 +27,48 @@ import java.util.Collection;
  * @since 2014.05.25
  */
 @NodeEntity
+@XmlRootElement
+@JsonAutoDetect(JsonMethod.FIELD)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User implements Serializable, Comparable<User> {
 
     private static final long serialVersionUID = 678183622990845243L;
 
     @GraphId
+    @JsonView(EntityView.class)
     private Long id;
 
     @CreatedDate
+    @JsonView(EntityView.class)
     private Long createdTime;
 
     @CreatedBy
+    @JsonView(EntityView.class)
     private String createdBy;
 
     @LastModifiedDate
+    @JsonView(EntityView.class)
     @Indexed(indexType = IndexType.LABEL)
     private Long lastModifiedTime;
 
     @LastModifiedBy
+    @JsonView(EntityView.class)
     private String lastModifiedBy;
 
+    @JsonView(EntityView.class)
     @Indexed(indexType = IndexType.FULLTEXT, indexName = "user_fulltext")
     private String username;
 
+    @JsonView(EntityView.class)
     @Indexed(indexType = IndexType.FULLTEXT, indexName = "user_fulltext")
     private String email;
 
+    @JsonView(EntityView.class)
     @Indexed(indexType = IndexType.FULLTEXT, indexName = "user_fulltext")
     private String name;
 
     @RelatedTo(type = RelationshipConstants.FRIEND_OF, direction = Direction.OUTGOING)
-    private Collection<User> friends;
+    private User[] friends;
 
     /**
      * The version always starts at 1.
@@ -131,11 +147,11 @@ public class User implements Serializable, Comparable<User> {
         this.name = name;
     }
 
-    public Collection<User> getFriends() {
+    public User[] getFriends() {
         return friends;
     }
 
-    public void setFriends(Collection<User> friends) {
+    public void setFriends(User[] friends) {
         this.friends = friends;
     }
 
@@ -237,4 +253,5 @@ public class User implements Serializable, Comparable<User> {
             return 0;
         }
     }
+
 }

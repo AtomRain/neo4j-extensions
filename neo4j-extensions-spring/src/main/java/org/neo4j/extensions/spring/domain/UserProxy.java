@@ -1,6 +1,7 @@
 package org.neo4j.extensions.spring.domain;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
@@ -14,6 +15,7 @@ import java.util.Collection;
  */
 @XmlRootElement
 @JsonAutoDetect
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserProxy implements Serializable, Comparable<UserProxy> {
 
     private static final long serialVersionUID = 678183622990845243L;

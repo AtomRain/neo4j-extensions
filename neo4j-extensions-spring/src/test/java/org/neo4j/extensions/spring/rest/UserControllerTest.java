@@ -15,7 +15,9 @@ import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.server.CommunityNeoServer;
+import org.neo4j.server.configuration.Configurator;
 import org.neo4j.server.helpers.CommunityServerBuilder;
+import org.neo4j.server.helpers.LoggingFactory;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
@@ -55,7 +57,7 @@ public class UserControllerTest {
         LOGGER.info(String.format("neo4jGraphDb: %s)", neo4jGraphDb));
 
         server = CommunityServerBuilder
-                .server()
+                .server(LoggingFactory.DEFAULT_LOGGING.create(Configurator.EMPTY))
                 .usingDatabaseDir(neo4jGraphDb)
                 .onPort(neo4jServerPort)
                 .withProperty("remote_shell_port", neo4jRemoteShellPort.toString())
@@ -94,7 +96,7 @@ public class UserControllerTest {
     public void testFindUsers() throws Exception {
 
         ClientResponse response = jerseyClient()
-                .resource(server.baseUri().toString() + "extensions-spring/user/pages")
+                .resource(server.baseUri().toString() + "extensions-spring/user/pages?page=0&page.size=10&pages=10")
                 .accept(MediaType.APPLICATION_JSON)
                 .get(ClientResponse.class);
         UsersResult result = response.getEntity(UsersResult.class);

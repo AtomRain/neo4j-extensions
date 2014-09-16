@@ -2,6 +2,7 @@ package org.neo4j.extensions.examples.social.domain;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
@@ -15,6 +16,7 @@ import java.util.Collection;
  */
 @XmlRootElement
 @JsonAutoDetect
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class FriendResult implements Serializable {
 
     private static final long serialVersionUID = 1539779889606280663L;

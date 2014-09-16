@@ -1,6 +1,7 @@
 package org.neo4j.extensions.spring.domain;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.neo4j.extensions.common.types.RelationshipConstants;
 import org.neo4j.graphdb.RelationshipType;
 import org.springframework.data.neo4j.annotation.EndNode;
@@ -19,6 +20,7 @@ import java.io.Serializable;
  */
 @XmlRootElement
 @JsonAutoDetect
+@JsonIgnoreProperties(ignoreUnknown = true)
 @RelationshipEntity(type = RelationshipConstants.FRIEND_OF)
 public class FriendOfUser implements RelationshipType, Serializable {
 

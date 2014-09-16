@@ -1,5 +1,7 @@
 package org.neo4j.extensions.common.client;
 
+import org.codehaus.jackson.map.annotate.JsonView;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -22,6 +24,7 @@ public interface UserClient {
     @Produces({
             MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML
     })
+    @JsonView(EntityView.class)
     public Response create(@QueryParam("indexingOn") @DefaultValue("true") Boolean indexingOn,
                            @QueryParam("count") @DefaultValue("3") Integer count);
 
@@ -33,6 +36,7 @@ public interface UserClient {
     @Produces({
             MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML
     })
+    @JsonView(EntityView.class)
     public Response findUsers(@QueryParam("page") @DefaultValue("0") Integer page,
                               @QueryParam("page.size") @DefaultValue("10") Integer pageSize,
                               @QueryParam("pages") @DefaultValue("1") Integer pages);

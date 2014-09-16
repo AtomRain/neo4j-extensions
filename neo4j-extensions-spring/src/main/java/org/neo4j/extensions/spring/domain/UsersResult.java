@@ -4,10 +4,13 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonMethod;
+import org.codehaus.jackson.map.annotate.JsonView;
+import org.neo4j.extensions.common.client.EntityView;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
-import java.util.Collection;
 
 /**
  * Friend result.
@@ -16,18 +19,20 @@ import java.util.Collection;
  * @since 2014.05.25
  */
 @XmlRootElement
-@JsonAutoDetect
+@JsonAutoDetect(JsonMethod.FIELD)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UsersResult implements Serializable {
 
     private static final long serialVersionUID = 1539779889606280663L;
 
-    private Collection<UserProxy> users;
+    @JsonView(EntityView.class)
+    private User[] users;
 
-    public Collection<UserProxy> getUsers() {
+    public User[] getUsers() {
         return users;
     }
 
-    public void setUsers(Collection<UserProxy> users) {
+    public void setUsers(User[] users) {
         this.users = users;
     }
 
@@ -61,4 +66,5 @@ public class UsersResult implements Serializable {
                 .append(users)
                 .toHashCode();
     }
+
 }

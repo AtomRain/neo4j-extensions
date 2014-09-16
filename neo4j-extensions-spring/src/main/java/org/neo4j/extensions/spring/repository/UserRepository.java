@@ -30,4 +30,7 @@ public interface UserRepository extends GraphRepository<User> {
     @Query("START n=node:user_fulltext(username={0}) RETURN n;")
     User findByUsername(String username);
 
+    @Query("MATCH (u:User)-[:FRIEND_OF]-(f:User) WHERE u.username={username} RETURN f ")
+    User[] findFriends(String username);
+
 }

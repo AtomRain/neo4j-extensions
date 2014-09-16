@@ -1,0 +1,16 @@
+<!DOCTYPE aspectj PUBLIC
+        "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
+<aspectj>
+    <weaver options="-verbose -showWeaveInfo -debug">
+        <!-- only weave classes in our application-specific packages -->
+        <include within="org.neo4j.extensions.spring"/>
+    </weaver>
+
+    <aspects>
+        <aspect name="org.springframework.beans.factory.aspectj.AnnotationBeanConfigurerAspect"/>
+        <aspect name="org.springframework.scheduling.aspectj.AnnotationAsyncExecutionAspect"/>
+        <aspect name="org.springframework.transaction.aspectj.AnnotationTransactionAspect"/>
+        <aspect name="org.springframework.cache.aspectj.AnnotationCacheAspect"/>
+    </aspects>
+
+</aspectj>

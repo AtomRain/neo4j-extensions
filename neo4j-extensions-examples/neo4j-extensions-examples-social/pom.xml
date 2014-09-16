@@ -28,10 +28,10 @@
             <artifactId>joda-time</artifactId>
         </dependency>
 
-        <!-- org.hibernate.javax.persistence -->
+        <!-- org.eclipse.persistence -->
         <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.0-api</artifactId>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>javax.persistence</artifactId>
         </dependency>
 
         <!-- org.springframework -->
@@ -68,6 +68,10 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-expression</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -155,9 +159,22 @@
                 </executions>
                 <configuration>
                     <outxml>true</outxml>
+                    <outxmlfile>${project.build.outputDirectory}/generated-resources/META-INF/aop-ajc.xml</outxmlfile>
+                    <verbose>true</verbose>
+                    <showWeaveInfo>true</showWeaveInfo>
                     <encoding>${project.build.sourceEncoding}</encoding>
-                    <aspectDirectory>src/main/java</aspectDirectory>
-                    <testAspectDirectory>src/test/java</testAspectDirectory>
+                    <aspectDirectory>${project.basedir}/src/main/java</aspectDirectory>
+                    <testAspectDirectory>${project.basedir}/src/test/java</testAspectDirectory>
+                    <weaveDependencies>
+                        <dependency>
+                            <groupId>org.springframework</groupId>
+                            <artifactId>spring-aspects</artifactId>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.springframework.data</groupId>
+                            <artifactId>spring-data-neo4j-aspects</artifactId>
+                        </dependency>
+                    </weaveDependencies>
                     <aspectLibraries>
                         <aspectLibrary>
                             <groupId>org.springframework</groupId>
@@ -168,7 +185,7 @@
                             <artifactId>spring-data-neo4j-aspects</artifactId>
                         </aspectLibrary>
                     </aspectLibraries>
-                    <complianceLevel>${version.java}}</complianceLevel>
+                    <complianceLevel>${version.java}</complianceLevel>
                     <source>${version.java}</source>
                     <target>${version.java}</target>
                     <includes>
@@ -183,7 +200,7 @@
                       Aspects in src/main/java are added in the test-compile goal
                       if weaveWithAspectsInMainSourceFolder is set to true
                     -->
-                    <weaveWithAspectsInMainSourceFolder>false</weaveWithAspectsInMainSourceFolder>
+                    <weaveWithAspectsInMainSourceFolder>true</weaveWithAspectsInMainSourceFolder>
                 </configuration>
             </plugin>
             <plugin>

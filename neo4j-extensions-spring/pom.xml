@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -20,44 +21,53 @@
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
+            <scope>compile</scope>
         </dependency>
 
         <!-- joda-time -->
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
+            <scope>compile</scope>
         </dependency>
 
-        <!-- org.hibernate.javax.persistence -->
+        <!-- org.eclipse.persistence -->
         <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.0-api</artifactId>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>javax.persistence</artifactId>
+            <scope>compile</scope>
         </dependency>
 
         <!-- org.springframework -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aspects</artifactId>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
+            <scope>compile</scope>
             <exclusions>
                 <exclusion>
                     <groupId>commons-logging</groupId>
@@ -68,6 +78,12 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-expression</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -77,23 +93,28 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
+            <scope>compile</scope>
         </dependency>
         <!-- org.springframework.data -->
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-commons</artifactId>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-neo4j</artifactId>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-neo4j-aspects</artifactId>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-neo4j-tx</artifactId>
+            <scope>compile</scope>
         </dependency>
 
         <!-- org.neo4j -->
@@ -154,10 +175,11 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <outxml>true</outxml>
+                    <verbose>true</verbose>
+                    <showWeaveInfo>true</showWeaveInfo>
                     <encoding>${project.build.sourceEncoding}</encoding>
-                    <aspectDirectory>src/main/java</aspectDirectory>
-                    <testAspectDirectory>src/test/java</testAspectDirectory>
+                    <aspectDirectory>${project.basedir}/src/main/java</aspectDirectory>
+                    <testAspectDirectory>${project.basedir}/src/test/java</testAspectDirectory>
                     <aspectLibraries>
                         <aspectLibrary>
                             <groupId>org.springframework</groupId>
@@ -168,7 +190,7 @@
                             <artifactId>spring-data-neo4j-aspects</artifactId>
                         </aspectLibrary>
                     </aspectLibraries>
-                    <complianceLevel>${version.java}}</complianceLevel>
+                    <complianceLevel>${version.java}</complianceLevel>
                     <source>${version.java}</source>
                     <target>${version.java}</target>
                     <includes>
@@ -183,7 +205,8 @@
                       Aspects in src/main/java are added in the test-compile goal
                       if weaveWithAspectsInMainSourceFolder is set to true
                     -->
-                    <weaveWithAspectsInMainSourceFolder>false</weaveWithAspectsInMainSourceFolder>
+                    <weaveMainSourceFolder>true</weaveMainSourceFolder>
+                    <weaveWithAspectsInMainSourceFolder>true</weaveWithAspectsInMainSourceFolder>
                 </configuration>
             </plugin>
             <plugin>

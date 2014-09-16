@@ -21,9 +21,9 @@
 
     <neo4j:auditing/>
 
-    <tx:annotation-driven mode="aspectj"/>
+    <tx:annotation-driven mode="aspectj" proxy-target-class="false"/>
 
-    <context:component-scan base-package="org.neo4j.extensions.spring" annotation-config="true">
+    <context:component-scan base-package="org.neo4j.extensions.spring">
         <context:exclude-filter type="annotation"
                                 expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
