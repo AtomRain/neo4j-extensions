@@ -1,9 +1,12 @@
 package org.neo4j.extensions.spring.rest;
 
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.SerializationConfig;
+import org.neo4j.extensions.common.client.EntityView;
 import org.neo4j.extensions.common.client.UserClient;
 import org.neo4j.extensions.spring.domain.FriendResult;
 import org.neo4j.extensions.spring.domain.User;
+import org.neo4j.extensions.spring.domain.UsersResult;
 import org.neo4j.extensions.spring.service.UserService;
 
 import javax.ws.rs.Path;
@@ -13,6 +16,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Set;
 import java.util.logging.Logger;
 
 /**
@@ -38,6 +42,8 @@ public class UserController implements UserClient {
         long startTimeTx = System.currentTimeMillis();
 
         User user = userService.createUser(indexingOn, count);
+        user.getId();
+        user.getFriends().size();
 
         FriendResult result = new FriendResult();
         result.setUser(user);
@@ -57,9 +63,12 @@ public class UserController implements UserClient {
      * @return Status 200 on success.
      */
     public Response findUsers(Integer page, Integer pageSize, Integer pages) {
+        LOGGER.info(String.format("POST /user/pages?page=%d&page.size=%d&pages=%d", page, pageSize, pages));
         try {
-            User[] users = userService.findUsers(page, pageSize, pages);
-            return Response.ok(writeEntity(users)).build();
+            Set<User> users = userService.findUsers(page, pageSize, pages);
+            UsersResult result = new UsersResult();
+            result.setUsers(users);
+            return Response.ok(writeEntity(result)).build();
         } catch (Exception e) {
             throw new WebApplicationException(e);
         }
@@ -70,6 +79,8 @@ public class UserController implements UserClient {
             @Override
             public void write(OutputStream output) throws IOException, WebApplicationException {
                 ObjectMapper mapper = new ObjectMapper();
+                SerializationConfig config = mapper.getSerializationConfig().withView(EntityView.class);
+                mapper.setSerializationConfig(config);
                 mapper.writeValue(output, entity);
             }
         };

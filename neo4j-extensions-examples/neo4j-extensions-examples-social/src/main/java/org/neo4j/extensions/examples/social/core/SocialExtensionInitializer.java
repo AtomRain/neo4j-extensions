@@ -24,9 +24,9 @@ public class SocialExtensionInitializer extends SpringPluginInitializer {
     private static final Logger LOGGER = Logger.getLogger(SocialExtensionInitializer.class.getName());
 
     public SocialExtensionInitializer() {
-        super(new String[]{
-                "META-INF/spring/springContext.xml"
-        }, expose("neo4jTemplate", Neo4jTemplate.class), expose("userRepository", UserRepository.class));
+        super(new String[]{"META-INF/spring/springContext.xml"},
+                expose("neo4jTemplate", Neo4jTemplate.class),
+                expose("userRepository", UserRepository.class));
         LOGGER.info("Spring context configured.");
     }
 

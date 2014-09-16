@@ -9,6 +9,7 @@ import org.neo4j.extensions.common.client.EntityView;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * Friend result.
@@ -27,7 +28,7 @@ public class FriendResult implements Serializable {
     private User user;
 
     @JsonView(EntityView.class)
-    private User[] friends;
+    private Set<User> friends;
 
     public User getUser() {
         return user;
@@ -37,11 +38,11 @@ public class FriendResult implements Serializable {
         this.user = user;
     }
 
-    public User[] getFriends() {
+    public Set<User> getFriends() {
         return friends;
     }
 
-    public void setFriends(User[] friends) {
+    public void setFriends(Set<User> friends) {
         this.friends = friends;
     }
 

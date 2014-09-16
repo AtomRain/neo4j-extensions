@@ -24,8 +24,14 @@
     <tx:annotation-driven mode="aspectj" proxy-target-class="false"/>
 
     <context:component-scan base-package="org.neo4j.extensions.spring">
+        <context:include-filter type="annotation"
+                                expression="org.springframework.stereotype.Component"/>
+        <context:include-filter type="annotation"
+                                expression="org.springframework.stereotype.Service"/>
         <context:exclude-filter type="annotation"
                                 expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.stereotype.Repository"/>
     </context:component-scan>
 
     <task:annotation-driven executor="messageExecutor" scheduler="messageScheduler" mode="aspectj"/>

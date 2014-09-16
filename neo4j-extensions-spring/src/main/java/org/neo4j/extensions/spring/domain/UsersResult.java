@@ -11,6 +11,7 @@ import org.neo4j.extensions.common.client.EntityView;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * Friend result.
@@ -26,13 +27,13 @@ public class UsersResult implements Serializable {
     private static final long serialVersionUID = 1539779889606280663L;
 
     @JsonView(EntityView.class)
-    private User[] users;
+    private Set<User> users;
 
-    public User[] getUsers() {
+    public Set<User> getUsers() {
         return users;
     }
 
-    public void setUsers(User[] users) {
+    public void setUsers(Set<User> users) {
         this.users = users;
     }
 

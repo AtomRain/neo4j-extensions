@@ -21,9 +21,7 @@ public interface UserClient {
      */
     @POST
     @Path("/create")
-    @Produces({
-            MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML
-    })
+    @Produces(MediaType.APPLICATION_JSON)
     @JsonView(EntityView.class)
     public Response create(@QueryParam("indexingOn") @DefaultValue("true") Boolean indexingOn,
                            @QueryParam("count") @DefaultValue("3") Integer count);
@@ -33,9 +31,7 @@ public interface UserClient {
      */
     @GET
     @Path("/pages")
-    @Produces({
-            MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML
-    })
+    @Produces(MediaType.APPLICATION_JSON)
     @JsonView(EntityView.class)
     public Response findUsers(@QueryParam("page") @DefaultValue("0") Integer page,
                               @QueryParam("page.size") @DefaultValue("10") Integer pageSize,

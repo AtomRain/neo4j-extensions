@@ -176,10 +176,8 @@
                 </executions>
                 <configuration>
                     <verbose>true</verbose>
-                    <showWeaveInfo>true</showWeaveInfo>
+                    <showWeaveInfo>false</showWeaveInfo>
                     <encoding>${project.build.sourceEncoding}</encoding>
-                    <aspectDirectory>${project.basedir}/src/main/java</aspectDirectory>
-                    <testAspectDirectory>${project.basedir}/src/test/java</testAspectDirectory>
                     <aspectLibraries>
                         <aspectLibrary>
                             <groupId>org.springframework</groupId>
@@ -205,8 +203,8 @@
                       Aspects in src/main/java are added in the test-compile goal
                       if weaveWithAspectsInMainSourceFolder is set to true
                     -->
-                    <weaveMainSourceFolder>true</weaveMainSourceFolder>
-                    <weaveWithAspectsInMainSourceFolder>true</weaveWithAspectsInMainSourceFolder>
+                    <weaveWithAspectsInMainSourceFolder>false</weaveWithAspectsInMainSourceFolder>
+                    <weaveMainSourceFolder>false</weaveMainSourceFolder>
                 </configuration>
             </plugin>
             <plugin>

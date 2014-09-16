@@ -46,6 +46,9 @@ public class SpringExtensionInitializer extends SpringPluginInitializer {
             UserRepository userRepository = ctx.getBean(UserRepository.class);
             Assert.notNull(userRepository, "Spring Data Neo4j failed to initialize!");
             LOGGER.info("Successfully loaded userRepository.");
+            UserService userService = ctx.getBean(UserService.class);
+            Assert.notNull(userService, "Spring Data Neo4j failed to initialize!");
+            LOGGER.info("Successfully loaded userService.");
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }

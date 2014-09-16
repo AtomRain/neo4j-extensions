@@ -4,6 +4,7 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -25,6 +26,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.logging.Logger;
 
 /**
@@ -52,9 +54,9 @@ public class UserControllerTest {
 
     @Before
     public void before() throws IOException {
-        LOGGER.info(String.format("neo4jServerPort: %d)", neo4jServerPort));
-        LOGGER.info(String.format("neo4jRemoteShellPort: %d)", neo4jRemoteShellPort));
-        LOGGER.info(String.format("neo4jGraphDb: %s)", neo4jGraphDb));
+        LOGGER.info(String.format("neo4jServerPort: %d", neo4jServerPort));
+        LOGGER.info(String.format("neo4jRemoteShellPort: %d", neo4jRemoteShellPort));
+        LOGGER.info(String.format("neo4jGraphDb: %s", neo4jGraphDb));
 
         server = CommunityServerBuilder
                 .server(LoggingFactory.DEFAULT_LOGGING.create(Configurator.EMPTY))
@@ -74,22 +76,25 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testCreateUser() {
+    public void testCreateUser() throws Exception {
 
         ClientResponse response = jerseyClient()
                 .resource(server.baseUri().toString() + "extensions-spring/user/create?indexingOn=true")
                 .accept(MediaType.APPLICATION_JSON)
                 .post(ClientResponse.class);
-        FriendResult result = response.getEntity(FriendResult.class);
+        InputStream streamingOutput = response.getEntityInputStream();
+        ObjectMapper objectMapper = new ObjectMapper();
+        FriendResult result = objectMapper.readValue(streamingOutput, FriendResult.class);
 
         Assert.assertNotNull(result.getUser());
         Assert.assertNotNull(result.getFriends());
-        Transaction tx = db.beginTx();
-        Node node = db.getNodeById(result.getUser().getId());
-        Assert.assertNotNull(node.getProperty("createdTime").toString());
-        Assert.assertEquals(node.getProperty("createdTime").toString(), result.getUser().getCreatedTime().toString());
-        tx.success();
-        tx.close();
+
+        try (Transaction tx = db.beginTx()) {
+            Node node = db.getNodeById(result.getUser().getId());
+            Assert.assertNotNull(node.getProperty("createdTime").toString());
+            Assert.assertEquals(node.getProperty("createdTime").toString(), result.getUser().getCreatedTime().toString());
+            tx.success();
+        }
     }
 
     @Test
@@ -99,7 +104,10 @@ public class UserControllerTest {
                 .resource(server.baseUri().toString() + "extensions-spring/user/pages?page=0&page.size=10&pages=10")
                 .accept(MediaType.APPLICATION_JSON)
                 .get(ClientResponse.class);
-        UsersResult result = response.getEntity(UsersResult.class);
+        InputStream streamingOutput = response.getEntityInputStream();
+        ObjectMapper objectMapper = new ObjectMapper();
+        UsersResult result = objectMapper.readValue(streamingOutput, UsersResult.class);
+        Assert.assertNotNull(result);
     }
 
     private Client jerseyClient() {

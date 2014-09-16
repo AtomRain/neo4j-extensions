@@ -11,14 +11,12 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.neo4j.annotation.GraphId;
-import org.springframework.data.neo4j.annotation.Indexed;
-import org.springframework.data.neo4j.annotation.NodeEntity;
-import org.springframework.data.neo4j.annotation.RelatedTo;
+import org.springframework.data.neo4j.annotation.*;
 import org.springframework.data.neo4j.support.index.IndexType;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * A User has been authenticated and owns and has access to information.
@@ -67,8 +65,9 @@ public class User implements Serializable, Comparable<User> {
     @Indexed(indexType = IndexType.FULLTEXT, indexName = "user_fulltext")
     private String name;
 
+    @Fetch
     @RelatedTo(type = RelationshipConstants.FRIEND_OF, direction = Direction.OUTGOING)
-    private User[] friends;
+    private Set<User> friends;
 
     /**
      * The version always starts at 1.
@@ -147,11 +146,11 @@ public class User implements Serializable, Comparable<User> {
         this.name = name;
     }
 
-    public User[] getFriends() {
+    public Set<User> getFriends() {
         return friends;
     }
 
-    public void setFriends(User[] friends) {
+    public void setFriends(Set<User> friends) {
         this.friends = friends;
     }
 
