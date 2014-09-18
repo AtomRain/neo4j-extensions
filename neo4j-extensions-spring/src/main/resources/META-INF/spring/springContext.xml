@@ -3,13 +3,42 @@
        xmlns:neo4j="http://www.springframework.org/schema/data/neo4j"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/data/neo4j http://www.springframework.org/schema/data/neo4j/spring-neo4j.xsd
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
-        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- WARNING: Property placeholder resolution requires properties to be loaded
+        without using nested xml imports. Currently it is not possible to simply import context
+        xml files that load nested properties. This is only a limitation of the current property
+        placeholder resolution. -->
+    <bean id="neoProperties"
+          class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <property name="nullValue" value="null"/>
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="ignoreUnresolvablePlaceholders" value="false"/>
+        <property name="locations">
+            <list>
+                <!-- neo4j-wrapper.conf -->
+                <value>classpath*:conf/neo4j-wrapper.conf</value>
+                <value>file:${neo4j.instance}/conf/neo4j-wrapper.conf</value>
+                <!-- neo4j.properties -->
+                <value>classpath*:conf/neo4j.properties</value>
+                <value>file:${neo4j.instance}/conf/neo4j.properties</value>
+                <!-- neo4j-server.properties -->
+                <value>classpath*:conf/neo4j-server.properties</value>
+                <value>file:${neo4j.instance}/conf/neo4j-server.properties</value>
+                <!-- neo4j-spring.properties -->
+                <value>classpath*:conf/neo4j-spring.properties</value>
+                <value>file:${neo4j.instance}/conf/neo4j-spring.properties</value>
+            </list>
+        </property>
+    </bean>
 
     <context:annotation-config/>
 
@@ -21,24 +50,22 @@
 
     <neo4j:auditing/>
 
-    <tx:annotation-driven mode="aspectj" proxy-target-class="false"/>
+    <aop:aspectj-autoproxy/>
+    <aop:config/>
+
+    <tx:annotation-driven mode="aspectj"/>
 
     <context:component-scan base-package="org.neo4j.extensions.spring">
-        <context:include-filter type="annotation"
-                                expression="org.springframework.stereotype.Component"/>
-        <context:include-filter type="annotation"
-                                expression="org.springframework.stereotype.Service"/>
         <context:exclude-filter type="annotation"
                                 expression="org.springframework.stereotype.Controller"/>
-        <context:exclude-filter type="annotation"
-                                expression="org.springframework.stereotype.Repository"/>
     </context:component-scan>
 
     <task:annotation-driven executor="messageExecutor" scheduler="messageScheduler" mode="aspectj"/>
-    <task:executor id="messageExecutor" pool-size="2-10"
-                   queue-capacity="100"
-                   rejection-policy="CALLER_RUNS"/>
-    <task:scheduler id="messageScheduler" pool-size="6"/>
 
+    <task:executor id="messageExecutor" pool-size="${message.executor.poolSize}"
+                   queue-capacity="${message.executor.queueCapacity}"
+                   rejection-policy="CALLER_RUNS"/>
+
+    <task:scheduler id="messageScheduler" pool-size="${message.scheduler.poolSize}"/>
 
 </beans>

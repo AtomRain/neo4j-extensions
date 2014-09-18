@@ -42,8 +42,6 @@ public class UserController implements UserClient {
         long startTimeTx = System.currentTimeMillis();
 
         User user = userService.createUser(indexingOn, count);
-        user.getId();
-        user.getFriends().size();
 
         FriendResult result = new FriendResult();
         result.setUser(user);

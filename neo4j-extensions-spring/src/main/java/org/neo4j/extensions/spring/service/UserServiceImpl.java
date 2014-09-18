@@ -33,8 +33,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository repository;
 
-    @Override
     @Transactional
+    @Override
     public User createUser(Boolean indexingOn, Integer count) {
         // create user
         User user = new User();
@@ -92,14 +92,14 @@ public class UserServiceImpl implements UserService {
         return users;
     }
 
-    @Override
     @Async("messageExecutor")
+    @Override
     public Future<Page<User>> findUsersFuture(Pageable pageable) {
         return new AsyncResult<>(findUsersAsync(pageable));
     }
 
-    @Override
     @Transactional
+    @Override
     public Page<User> findUsersAsync(Pageable pageable) {
         LOGGER.log(Level.INFO, "QUERY START - " + pageable.getPageNumber());
         Page<User> users = repository.findAll(pageable);

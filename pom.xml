@@ -1214,10 +1214,6 @@
                     <version>3.1</version>
                     <configuration>
                         <verbose>true</verbose>
-                        <generatedSourcesDirectory>${project.build.outputDirectory}
-                        </generatedSourcesDirectory>
-                        <generatedTestSourcesDirectory>${project.build.outputDirectory}
-                        </generatedTestSourcesDirectory>
                         <compilerVersion>${version.java}</compilerVersion>
                         <source>${version.java}</source>
                         <target>${version.java}</target>
@@ -1431,6 +1427,68 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>aspectj-maven-plugin</artifactId>
                     <version>1.6</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.aspectj</groupId>
+                            <artifactId>aspectjrt</artifactId>
+                            <version>${version.org.aspectj}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.aspectj</groupId>
+                            <artifactId>aspectjtools</artifactId>
+                            <version>${version.org.aspectj}</version>
+                        </dependency>
+                    </dependencies>
+                    <executions>
+                        <execution>
+                            <id>compile</id>
+                            <phase>compile</phase>
+                            <goals>
+                                <goal>compile</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>test-compile</id>
+                            <phase>test-compile</phase>
+                            <goals>
+                                <goal>test-compile</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <verbose>false</verbose>
+                        <showWeaveInfo>false</showWeaveInfo>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                        <aspectDirectory>src/main/java</aspectDirectory>
+                        <testAspectDirectory>src/test/java</testAspectDirectory>
+                        <aspectLibraries>
+                            <aspectLibrary>
+                                <groupId>org.springframework</groupId>
+                                <artifactId>spring-aspects</artifactId>
+                            </aspectLibrary>
+                            <aspectLibrary>
+                                <groupId>org.springframework.data</groupId>
+                                <artifactId>spring-data-neo4j-aspects</artifactId>
+                            </aspectLibrary>
+                        </aspectLibraries>
+                        <complianceLevel>${version.java}</complianceLevel>
+                        <source>${version.java}</source>
+                        <target>${version.java}</target>
+                        <includes>
+                            <include>**/*.java</include>
+                            <include>**/*.aj</include>
+                        </includes>
+                        <!--
+                          Aspects in src/main/java and src/main/aspects are added as default in the
+                          compile goal.
+                          Aspects in src/test/java and src/test/aspects are added as default in the
+                          test-compile goal.
+                          Aspects in src/main/java are added in the test-compile goal
+                          if weaveWithAspectsInMainSourceFolder is set to true
+                        -->
+                        <weaveWithAspectsInMainSourceFolder>false</weaveWithAspectsInMainSourceFolder>
+                        <weaveMainSourceFolder>false</weaveMainSourceFolder>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
