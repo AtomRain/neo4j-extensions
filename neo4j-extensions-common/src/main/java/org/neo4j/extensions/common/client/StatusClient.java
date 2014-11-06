@@ -14,7 +14,8 @@ import javax.ws.rs.core.Response;
  * @since 2014.05.25
  */
 @Path("/status")
-public interface StatusClient {
+public interface StatusClient
+{
 
     /**
      * @return Status 200 on success.

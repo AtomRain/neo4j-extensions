@@ -8,24 +8,28 @@ import org.neo4j.extensions.common.domain.User;
  * @author bradnussbaum
  * @since 2014.05.25
  */
-public enum NodeTypes {
+public enum NodeTypes
+{
 
-    USER(User.class.getName(), User.class.getSimpleName());
+    USER( User.class.getName(), User.class.getSimpleName() );
 
     private String className;
 
     private String simpleClassName;
 
-    private NodeTypes(String className, String simpleClassName) {
+    private NodeTypes( String className, String simpleClassName )
+    {
         this.className = className;
         this.simpleClassName = simpleClassName;
     }
 
-    public String getClassName() {
+    public String getClassName()
+    {
         return className;
     }
 
-    public String getSimpleClassName() {
+    public String getSimpleClassName()
+    {
         return simpleClassName;
     }
 

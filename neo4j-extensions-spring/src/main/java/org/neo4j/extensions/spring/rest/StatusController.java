@@ -1,15 +1,16 @@
 package org.neo4j.extensions.spring.rest;
 
-import org.neo4j.extensions.common.client.StatusClient;
-import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.graphdb.Transaction;
-import org.springframework.stereotype.Controller;
-
+import java.util.logging.Logger;
 import javax.ws.rs.Path;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
-import java.util.logging.Logger;
+
+import org.springframework.stereotype.Controller;
+
+import org.neo4j.extensions.common.client.StatusClient;
+import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.Transaction;
 
 /**
  * The status controller.
@@ -20,29 +21,37 @@ import java.util.logging.Logger;
  */
 @Controller
 @Path("/status")
-public class StatusController implements StatusClient {
+public class StatusController implements StatusClient
+{
 
-    private static final Logger LOGGER = Logger.getLogger(StatusController.class.getName());
+    private static final Logger LOGGER = Logger.getLogger( StatusController.class.getName() );
 
     @Context
     private GraphDatabaseService db;
 
-    public Response status() {
+    public Response status()
+    {
         Transaction txn = null;
-        try {
+        try
+        {
             txn = db.beginTx();
             txn.success();
-            LOGGER.info("STATUS: success");
-        } catch (Exception e) {
+            LOGGER.info( "STATUS: success" );
+        }
+        catch ( Exception e )
+        {
             txn.failure();
-            LOGGER.info("STATUS: failure");
-            throw new WebApplicationException(e);
-        } finally {
-            if (txn != null) {
+            LOGGER.info( "STATUS: failure" );
+            throw new WebApplicationException( e );
+        }
+        finally
+        {
+            if ( txn != null )
+            {
                 txn.close();
             }
         }
-        return Response.ok().entity("ok").build();
+        return Response.ok().entity( "ok" ).build();
     }
 
 }

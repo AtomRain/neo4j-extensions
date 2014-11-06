@@ -8,7 +8,8 @@ import org.neo4j.graphdb.Label;
  * @author bradnussbaum
  * @since 2014.05.25
  */
-public enum LabelTypes implements Label {
+public enum LabelTypes implements Label
+{
 
     User,
 

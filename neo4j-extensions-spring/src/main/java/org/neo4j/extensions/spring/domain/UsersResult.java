@@ -1,5 +1,9 @@
 package org.neo4j.extensions.spring.domain;
 
+import java.io.Serializable;
+import java.util.Set;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -7,11 +11,8 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonMethod;
 import org.codehaus.jackson.map.annotate.JsonView;
-import org.neo4j.extensions.common.client.EntityView;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import java.io.Serializable;
-import java.util.Set;
+import org.neo4j.extensions.common.client.EntityView;
 
 /**
  * Friend result.
@@ -22,49 +23,58 @@ import java.util.Set;
 @XmlRootElement
 @JsonAutoDetect(JsonMethod.FIELD)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UsersResult implements Serializable {
+public class UsersResult implements Serializable
+{
 
     private static final long serialVersionUID = 1539779889606280663L;
 
     @JsonView(EntityView.class)
     private Set<User> users;
 
-    public Set<User> getUsers() {
+    public Set<User> getUsers()
+    {
         return users;
     }
 
-    public void setUsers(Set<User> users) {
+    public void setUsers( Set<User> users )
+    {
         this.users = users;
     }
 
     @Override
-    public String toString() {
-        return new ToStringBuilder(this)
-                .append("users", users)
+    public String toString()
+    {
+        return new ToStringBuilder( this )
+                .append( "users", users )
                 .toString();
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
+    public boolean equals( Object obj )
+    {
+        if ( obj == null )
+        {
             return false;
         }
-        if (obj == this) {
+        if ( obj == this )
+        {
             return true;
         }
-        if (obj.getClass() != getClass()) {
+        if ( obj.getClass() != getClass() )
+        {
             return false;
         }
         UsersResult rhs = (UsersResult) obj;
         return new EqualsBuilder()
-                .append(this.users, rhs.users)
+                .append( this.users, rhs.users )
                 .isEquals();
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         return new HashCodeBuilder()
-                .append(users)
+                .append( users )
                 .toHashCode();
     }
 

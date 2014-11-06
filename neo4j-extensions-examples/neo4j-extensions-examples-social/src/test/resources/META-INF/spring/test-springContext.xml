@@ -5,25 +5,25 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- WARNING: Property placeholder resolution requires properties to be loaded
-        without using nested xml imports. Currently it is not possible to simply import context
-        xml files that load nested properties. This is only a limitation of the current property
-        placeholder resolution. -->
-    <bean id="neoTestProperties"
-          class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
-        <property name="nullValue" value="null"/>
-        <property name="ignoreResourceNotFound" value="true"/>
-        <property name="ignoreUnresolvablePlaceholders" value="false"/>
-        <property name="locations">
-            <list>
-                <value>classpath:META-INF/spring/test-springContext.properties</value>
-                <value>classpath*:${project.artifactId}-maven.properties</value>
-            </list>
-        </property>
-    </bean>
+  <!-- WARNING: Property placeholder resolution requires properties to be loaded
+      without using nested xml imports. Currently it is not possible to simply import context
+      xml files that load nested properties. This is only a limitation of the current property
+      placeholder resolution. -->
+  <bean id="neoTestProperties"
+        class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+    <property name="nullValue" value="null"/>
+    <property name="ignoreResourceNotFound" value="true"/>
+    <property name="ignoreUnresolvablePlaceholders" value="false"/>
+    <property name="locations">
+      <list>
+        <value>classpath:META-INF/spring/test-springContext.properties</value>
+        <value>classpath*:${project.artifactId}-maven.properties</value>
+      </list>
+    </property>
+  </bean>
 
-    <context:annotation-config/>
+  <context:annotation-config/>
 
-    <context:spring-configured/>
+  <context:spring-configured/>
 
 </beans>

@@ -8,21 +8,25 @@ import java.util.Map;
  * @author bradnussbaum
  * @since 2014.05.25
  */
-public enum TypesIndex {
+public enum TypesIndex
+{
 
-    className(IndexType.__types__);
+    className( IndexType.__types__ );
 
     private IndexType type;
 
-    private TypesIndex(IndexType type) {
+    private TypesIndex( IndexType type )
+    {
         this.type = type;
     }
 
-    public Map<String, String> getIndexType() {
+    public Map<String, String> getIndexType()
+    {
         return type.getIndexType();
     }
 
-    public String getIndexName() {
+    public String getIndexName()
+    {
         return type.name();
     }
 

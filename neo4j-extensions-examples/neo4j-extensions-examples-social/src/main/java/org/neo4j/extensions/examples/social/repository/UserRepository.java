@@ -1,10 +1,11 @@
 package org.neo4j.extensions.examples.social.repository;
 
-import org.neo4j.extensions.examples.social.domain.User;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import org.neo4j.extensions.examples.social.domain.User;
 
 /**
  * Defines a complete data access contract for a
@@ -16,18 +17,19 @@ import org.springframework.stereotype.Repository;
  * @since 1.0.0
  */
 @Repository
-public interface UserRepository extends GraphRepository<User> {
+public interface UserRepository extends GraphRepository<User>
+{
 
     @Query("START n=node:user_fulltext(name={0}) RETURN n;")
-    User findByName(String name);
+    User findByName( String name );
 
     @Query("START n=node:user_fulltext(email={email}) RETURN count(n) > 0;")
-    boolean hasByEmail(@Param("email") final String email);
+    boolean hasByEmail( @Param("email") final String email );
 
     @Query("START n=node:user_fulltext(email={0}) RETURN n;")
-    User findByEmail(String email);
+    User findByEmail( String email );
 
     @Query("START n=node:user_fulltext(username={0}) RETURN n;")
-    User findByUsername(String username);
+    User findByUsername( String username );
 
 }

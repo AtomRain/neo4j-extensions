@@ -6,7 +6,8 @@ package org.neo4j.extensions.common.types;
  * @author bradnussbaum
  * @since 2014.05.25
  */
-public class Constants {
+public class Constants
+{
 
     public static final String PROPERTY_NODE_TYPE = "__type__";
 

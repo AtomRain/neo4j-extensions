@@ -8,27 +8,31 @@ import java.util.Map;
  * @author bradnussbaum
  * @since 2014.05.25
  */
-public enum UserIndex {
+public enum UserIndex
+{
 
-    lastModifiedTime(IndexType.user_exact),
+    lastModifiedTime( IndexType.user_exact ),
 
-    email(IndexType.user_fulltext),
+    email( IndexType.user_fulltext ),
 
-    name(IndexType.user_fulltext),
+    name( IndexType.user_fulltext ),
 
-    username(IndexType.user_fulltext);
+    username( IndexType.user_fulltext );
 
     private IndexType type;
 
-    private UserIndex(IndexType type) {
+    private UserIndex( IndexType type )
+    {
         this.type = type;
     }
 
-    public Map<String, String> getIndexType() {
+    public Map<String, String> getIndexType()
+    {
         return type.getIndexType();
     }
 
-    public String getIndexName() {
+    public String getIndexName()
+    {
         return type.name();
     }
 
