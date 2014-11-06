@@ -87,6 +87,16 @@
       </modules>
     </profile>
     <profile>
+      <id>build-java</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <modules>
+        <module>neo4j-extensions-common</module>
+        <module>neo4j-extensions-java</module>
+      </modules>
+    </profile>
+    <profile>
       <id>build-spring</id>
       <activation>
         <activeByDefault>false</activeByDefault>
