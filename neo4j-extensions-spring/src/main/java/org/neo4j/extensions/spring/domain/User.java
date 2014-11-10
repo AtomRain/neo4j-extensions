@@ -6,7 +6,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.codehaus.jackson.annotate.JsonMethod;
 import org.codehaus.jackson.map.annotate.JsonView;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -19,7 +18,8 @@ import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedTo;
 import org.springframework.data.neo4j.support.index.IndexType;
 
-import org.neo4j.extensions.common.client.EntityView;
+import org.neo4j.extensions.common.client.UserFullView;
+import org.neo4j.extensions.common.client.UserTinyView;
 import org.neo4j.extensions.common.types.RelationshipConstants;
 import org.neo4j.graphdb.Direction;
 
@@ -30,47 +30,48 @@ import org.neo4j.graphdb.Direction;
  * @since 2014.05.25
  */
 @NodeEntity
+@JsonAutoDetect
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"template", "entityState", "persistentState"})
 @XmlRootElement
-@JsonAutoDetect(JsonMethod.FIELD)
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class User implements Serializable, Comparable<User>
 {
 
     private static final long serialVersionUID = 678183622990845243L;
 
     @GraphId
-    @JsonView(EntityView.class)
+    @JsonView(UserTinyView.class)
     private Long id;
 
     @CreatedDate
-    @JsonView(EntityView.class)
+    @JsonView(UserFullView.class)
     private Long createdTime;
 
     @CreatedBy
-    @JsonView(EntityView.class)
+    @JsonView(UserFullView.class)
     private String createdBy;
 
     @LastModifiedDate
-    @JsonView(EntityView.class)
+    @JsonView(UserFullView.class)
     @Indexed(indexType = IndexType.LABEL)
     private Long lastModifiedTime;
 
     @LastModifiedBy
-    @JsonView(EntityView.class)
+    @JsonView(UserFullView.class)
     private String lastModifiedBy;
 
-    @JsonView(EntityView.class)
+    @JsonView(UserTinyView.class)
     @Indexed(indexType = IndexType.FULLTEXT, indexName = "user_fulltext")
     private String username;
 
-    @JsonView(EntityView.class)
+    @JsonView(UserTinyView.class)
     @Indexed(indexType = IndexType.FULLTEXT, indexName = "user_fulltext")
     private String email;
 
-    @JsonView(EntityView.class)
+    @JsonView(UserTinyView.class)
     @Indexed(indexType = IndexType.FULLTEXT, indexName = "user_fulltext")
     private String name;
 
+    @JsonView(UserFullView.class)
     @Fetch
     @RelatedTo(type = RelationshipConstants.FRIEND_OF, direction = Direction.OUTGOING)
     private Set<User> friends;

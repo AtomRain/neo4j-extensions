@@ -60,7 +60,6 @@ public class UserServiceImpl implements UserService
 
         // lookup to validate being saved
         User userActual = repository.findOne( user.getId() );
-        userActual.getFriends().size();
         return userActual;
     }
 

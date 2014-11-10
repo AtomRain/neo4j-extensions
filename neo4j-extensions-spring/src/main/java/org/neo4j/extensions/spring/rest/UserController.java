@@ -12,9 +12,11 @@ import javax.ws.rs.core.StreamingOutput;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
+import org.springframework.transaction.annotation.Transactional;
 
-import org.neo4j.extensions.common.client.EntityView;
 import org.neo4j.extensions.common.client.UserClient;
+import org.neo4j.extensions.common.client.UserFullView;
+import org.neo4j.extensions.common.client.UserTinyView;
 import org.neo4j.extensions.spring.domain.FriendResult;
 import org.neo4j.extensions.spring.domain.User;
 import org.neo4j.extensions.spring.domain.UsersResult;
@@ -39,6 +41,7 @@ public class UserController implements UserClient
     /**
      * @return Status 201 on success.
      */
+    @Transactional
     public Response create( Boolean indexingOn, Integer count )
     {
         LOGGER.info( String.format( "POST /user/create?indexingOn=%s&count=%d", indexingOn, count ) );
@@ -57,12 +60,14 @@ public class UserController implements UserClient
         // log details
         LOGGER.info( String.format( "UserController: TX: userId=%s, processTime=%dms", user.getId(), processTimeTx ) );
 
-        return Response.status( Response.Status.CREATED ).entity( writeEntity( result ) ).build();
+        return Response.status( Response.Status.CREATED ).entity( writeEntity( result, new Class[]{UserFullView
+                .class} ) ).build();
     }
 
     /**
      * @return Status 200 on success.
      */
+    @Transactional
     public Response findUsers( Integer page, Integer pageSize, Integer pages )
     {
         LOGGER.info( String.format( "POST /user/pages?page=%d&page.size=%d&pages=%d", page, pageSize, pages ) );
@@ -71,7 +76,7 @@ public class UserController implements UserClient
             Set<User> users = userService.findUsers( page, pageSize, pages );
             UsersResult result = new UsersResult();
             result.setUsers( users );
-            return Response.ok( writeEntity( result ) ).build();
+            return Response.ok( writeEntity( result, new Class[]{UserTinyView.class} ) ).build();
         }
         catch ( Exception e )
         {
@@ -79,7 +84,7 @@ public class UserController implements UserClient
         }
     }
 
-    private StreamingOutput writeEntity( final Object entity )
+    private StreamingOutput writeEntity( final Object entity, final Class[] views )
     {
         StreamingOutput streamingOutput = new StreamingOutput()
         {
@@ -87,7 +92,11 @@ public class UserController implements UserClient
             public void write( OutputStream output ) throws IOException, WebApplicationException
             {
                 ObjectMapper mapper = new ObjectMapper();
-                SerializationConfig config = mapper.getSerializationConfig().withView( EntityView.class );
+                SerializationConfig config = mapper.getSerializationConfig();
+                for ( Class view : views )
+                {
+                    config = config.withView( view );
+                }
                 mapper.setSerializationConfig( config );
                 mapper.writeValue( output, entity );
             }

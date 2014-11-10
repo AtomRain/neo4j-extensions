@@ -7,10 +7,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.codehaus.jackson.annotate.JsonMethod;
 import org.codehaus.jackson.map.annotate.JsonView;
 
-import org.neo4j.extensions.common.client.EntityView;
+import org.neo4j.extensions.common.client.UserTinyView;
 
 /**
  * Friend result.
@@ -18,18 +17,18 @@ import org.neo4j.extensions.common.client.EntityView;
  * @author bradnussbaum
  * @since 2014.05.25
  */
-@XmlRootElement
-@JsonAutoDetect(JsonMethod.FIELD)
+@JsonAutoDetect
 @JsonIgnoreProperties(ignoreUnknown = true)
+@XmlRootElement
 public class FriendResult implements Serializable
 {
 
     private static final long serialVersionUID = 1539779889606280663L;
 
-    @JsonView(EntityView.class)
+    @JsonView(UserTinyView.class)
     private User user;
 
-    @JsonView(EntityView.class)
+    @JsonView(UserTinyView.class)
     private Set<User> friends;
 
     public User getUser()
