@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.map.annotate.JsonView;
 import org.springframework.data.annotation.CreatedBy;
@@ -79,14 +80,19 @@ public class User implements Serializable, Comparable<User>
     /**
      * The version always starts at 1.
      */
+    @JsonView(UserFullView.class)
     private Integer version = 1;
 
+    @JsonView(UserFullView.class)
     private String type;
 
+    @JsonIgnore
     private String password;
 
+    @JsonView(UserFullView.class)
     private Boolean active;
 
+    @JsonView(UserFullView.class)
     private Boolean validated;
 
     public Long getId()
