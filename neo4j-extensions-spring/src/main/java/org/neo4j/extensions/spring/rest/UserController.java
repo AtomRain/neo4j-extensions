@@ -84,10 +84,12 @@ public class UserController implements UserClient
         }
     }
 
+    @Transactional
     private StreamingOutput writeEntity( final Object entity, final Class[] views )
     {
         StreamingOutput streamingOutput = new StreamingOutput()
         {
+            @Transactional
             @Override
             public void write( OutputStream output ) throws IOException, WebApplicationException
             {

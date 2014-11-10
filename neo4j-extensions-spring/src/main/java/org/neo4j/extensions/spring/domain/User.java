@@ -32,7 +32,7 @@ import org.neo4j.graphdb.Direction;
  */
 @NodeEntity
 @JsonAutoDetect
-@JsonIgnoreProperties(ignoreUnknown = true, value = {"template", "entityState", "persistentState"})
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"nodeId", "template", "entityState", "persistentState"})
 @XmlRootElement
 public class User implements Serializable, Comparable<User>
 {

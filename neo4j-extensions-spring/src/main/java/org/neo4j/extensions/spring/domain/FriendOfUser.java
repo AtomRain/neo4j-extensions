@@ -22,7 +22,7 @@ import org.neo4j.graphdb.RelationshipType;
  * @since 2014.05.25
  */
 @JsonAutoDetect
-@JsonIgnoreProperties(ignoreUnknown = true, value = {"template", "entityState", "persistentState"})
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"nodeId", "template", "entityState", "persistentState"})
 @XmlRootElement
 @RelationshipEntity(type = RelationshipConstants.FRIEND_OF)
 public class FriendOfUser implements RelationshipType, Serializable
