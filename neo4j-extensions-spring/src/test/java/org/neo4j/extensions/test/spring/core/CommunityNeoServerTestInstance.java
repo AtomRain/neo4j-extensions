@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.server.CommunityNeoServer;
-import org.neo4j.server.configuration.Configurator;
 import org.neo4j.server.helpers.CommunityServerBuilder;
-import org.neo4j.server.helpers.LoggingFactory;
 
 /**
  * @author bradnussbaum
@@ -45,7 +43,7 @@ public class CommunityNeoServerTestInstance
         LOGGER.info( String.format( "neo4jGraphDb: %s", properties.getNeo4jGraphDb() ) );
 
         server = CommunityServerBuilder
-                .server( LoggingFactory.DEFAULT_LOGGING.create( Configurator.EMPTY ) )
+                .server()
                 .usingDatabaseDir( properties.getNeo4jGraphDb() )
                 .onPort( properties.getNeo4jServerPort() )
                 .withProperty( "remote_shell_port", String.valueOf( properties.getNeo4jRemoteShellPort() ) )
