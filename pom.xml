@@ -66,9 +66,9 @@
     <version.org.mockito>1.9.5</version.org.mockito>
     <version.org.neo4j>2.1.7</version.org.neo4j>
     <version.org.slf4j>1.6.2</version.org.slf4j>
-    <version.org.springframework>4.0.7.RELEASE</version.org.springframework>
-    <version.org.springframework.data.commons>1.9.1.RELEASE</version.org.springframework.data.commons>
-    <version.org.springframework.data.neo4j>3.2.1.RELEASE</version.org.springframework.data.neo4j>
+    <version.org.springframework>4.0.9.RELEASE</version.org.springframework>
+    <version.org.springframework.data.commons>1.9.2.RELEASE</version.org.springframework.data.commons>
+    <version.org.springframework.data.neo4j>3.2.2.RELEASE</version.org.springframework.data.neo4j>
     <version.java>1.7</version.java>
   </properties>
 
