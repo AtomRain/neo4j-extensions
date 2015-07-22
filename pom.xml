@@ -407,11 +407,6 @@
         </dependency>
         <dependency>
             <groupId>org.neo4j</groupId>
-            <artifactId>neo4j-udc</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.neo4j</groupId>
             <artifactId>server-api</artifactId>
             <scope>provided</scope>
         </dependency>
@@ -430,12 +425,12 @@
         </dependency>
         <dependency>
             <groupId>org.neo4j.app</groupId>
-            <artifactId>neo4j-server-enterprise</artifactId>
+            <artifactId>neo4j-server-advanced</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.neo4j.app</groupId>
-            <artifactId>neo4j-server-advanced</artifactId>
+            <artifactId>neo4j-server-enterprise</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -960,12 +955,6 @@
             </dependency>
             <dependency>
                 <groupId>org.neo4j</groupId>
-                <artifactId>neo4j-udc</artifactId>
-                <version>${version.org.neo4j}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.neo4j</groupId>
                 <artifactId>server-api</artifactId>
                 <version>${version.org.neo4j}</version>
                 <scope>provided</scope>
@@ -980,9 +969,9 @@
             <!-- org.neo4j.app -->
             <dependency>
                 <groupId>org.neo4j.app</groupId>
-                <artifactId>neo4j-server-enterprise</artifactId>
+                <artifactId>neo4j-server</artifactId>
                 <version>${version.org.neo4j}</version>
-                <scope>provided</scope>
+                <type>test-jar</type>
             </dependency>
             <dependency>
                 <groupId>org.neo4j.app</groupId>
@@ -992,9 +981,9 @@
             </dependency>
             <dependency>
                 <groupId>org.neo4j.app</groupId>
-                <artifactId>neo4j-server</artifactId>
+                <artifactId>neo4j-server-enterprise</artifactId>
                 <version>${version.org.neo4j}</version>
-                <type>test-jar</type>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.neo4j.test</groupId>
