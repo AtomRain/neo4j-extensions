@@ -1,5 +1,14 @@
 package org.neo4j.extensions.spring.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -9,15 +18,6 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.AsyncResult;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import org.neo4j.extensions.spring.domain.User;
 import org.neo4j.extensions.spring.repository.UserRepository;
@@ -56,11 +56,10 @@ public class UserServiceImpl implements UserService
         user.setFriends( friends );
 
         // save the user and cascade friends
-        repository.save( user );
+        user = repository.save( user );
 
         // lookup to validate being saved
-        User userActual = repository.findOne( user.getId() );
-        return userActual;
+        return repository.findOne( user.getId() );
     }
 
     @Override
@@ -100,7 +99,7 @@ public class UserServiceImpl implements UserService
         return users;
     }
 
-    @Async("messageExecutor")
+    @Async( "messageExecutor" )
     @Override
     public Future<Page<User>> findUsersFuture( Pageable pageable )
     {

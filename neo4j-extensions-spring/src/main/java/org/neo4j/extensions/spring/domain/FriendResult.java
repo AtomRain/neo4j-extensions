@@ -1,13 +1,13 @@
 package org.neo4j.extensions.spring.domain;
 
-import java.io.Serializable;
-import java.util.Set;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.annotate.JsonView;
+
+import java.io.Serializable;
+import java.util.Set;
 
 import org.neo4j.extensions.common.client.UserTinyView;
 
@@ -18,17 +18,16 @@ import org.neo4j.extensions.common.client.UserTinyView;
  * @since 2014.05.25
  */
 @JsonAutoDetect
-@JsonIgnoreProperties(ignoreUnknown = true)
-@XmlRootElement
+@JsonIgnoreProperties( ignoreUnknown = true )
 public class FriendResult implements Serializable
 {
 
     private static final long serialVersionUID = 1539779889606280663L;
 
-    @JsonView(UserTinyView.class)
+    @JsonView( UserTinyView.class )
     private User user;
 
-    @JsonView(UserTinyView.class)
+    @JsonView( UserTinyView.class )
     private Set<User> friends;
 
     public User getUser()
@@ -92,6 +91,26 @@ public class FriendResult implements Serializable
                 .append( "user", user )
                 .append( "friends", friends )
                 .toString();
+    }
+
+    public String toJson() throws Exception
+    {
+        return new ObjectMapper().writeValueAsString( this );
+    }
+
+    public static String toJsonArray( FriendResult[] objs ) throws Exception
+    {
+        return new ObjectMapper().writeValueAsString( objs );
+    }
+
+    public static FriendResult fromJson( String json ) throws Exception
+    {
+        return new ObjectMapper().readValue( json, FriendResult.class );
+    }
+
+    public static FriendResult[] fromJsonArray( String json ) throws Exception
+    {
+        return new ObjectMapper().readValue( json, FriendResult[].class );
     }
 
 }

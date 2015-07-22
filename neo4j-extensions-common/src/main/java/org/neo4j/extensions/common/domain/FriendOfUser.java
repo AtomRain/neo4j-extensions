@@ -1,13 +1,15 @@
 package org.neo4j.extensions.common.domain;
 
-import java.io.Serializable;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.map.annotate.JsonView;
 
+import java.io.Serializable;
+
+import org.neo4j.extensions.common.client.UserTinyView;
 import org.neo4j.extensions.common.types.RelationshipConstants;
 import org.neo4j.graphdb.RelationshipType;
 
@@ -17,8 +19,8 @@ import org.neo4j.graphdb.RelationshipType;
  * @author bradnussbaum
  * @since 2014.05.25
  */
-@XmlRootElement
 @JsonAutoDetect
+@JsonIgnoreProperties( ignoreUnknown = true )
 public class FriendOfUser implements RelationshipType, Serializable
 {
 
@@ -26,8 +28,10 @@ public class FriendOfUser implements RelationshipType, Serializable
 
     private Long id;
 
+    @JsonView( UserTinyView.class )
     private User user;
 
+    @JsonView( UserTinyView.class )
     private User friend;
 
     public Long getId()
@@ -108,4 +112,5 @@ public class FriendOfUser implements RelationshipType, Serializable
                 .append( "friend", friend )
                 .toString();
     }
+
 }

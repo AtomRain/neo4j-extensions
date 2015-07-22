@@ -1,15 +1,15 @@
 package org.neo4j.extensions.spring.domain;
 
-import java.io.Serializable;
-import java.util.Set;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.annotate.JsonView;
+
+import java.io.Serializable;
+import java.util.Set;
 
 import org.neo4j.extensions.common.client.UserTinyView;
 
@@ -20,14 +20,13 @@ import org.neo4j.extensions.common.client.UserTinyView;
  * @since 2014.05.25
  */
 @JsonAutoDetect
-@JsonIgnoreProperties(ignoreUnknown = true)
-@XmlRootElement
+@JsonIgnoreProperties( ignoreUnknown = true )
 public class UsersResult implements Serializable
 {
 
     private static final long serialVersionUID = 1539779889606280663L;
 
-    @JsonView(UserTinyView.class)
+    @JsonView( UserTinyView.class )
     private Set<User> users;
 
     public Set<User> getUsers()
@@ -75,6 +74,26 @@ public class UsersResult implements Serializable
         return new HashCodeBuilder()
                 .append( users )
                 .toHashCode();
+    }
+
+    public String toJson() throws Exception
+    {
+        return new ObjectMapper().writeValueAsString( this );
+    }
+
+    public static String toJsonArray( UsersResult[] objs ) throws Exception
+    {
+        return new ObjectMapper().writeValueAsString( objs );
+    }
+
+    public static UsersResult fromJson( String json ) throws Exception
+    {
+        return new ObjectMapper().readValue( json, UsersResult.class );
+    }
+
+    public static UsersResult[] fromJsonArray( String json ) throws Exception
+    {
+        return new ObjectMapper().readValue( json, UsersResult[].class );
     }
 
 }

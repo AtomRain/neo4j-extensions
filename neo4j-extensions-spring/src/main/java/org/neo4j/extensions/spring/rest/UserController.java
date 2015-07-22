@@ -1,5 +1,10 @@
 package org.neo4j.extensions.spring.rest;
 
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.SerializationConfig;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Set;
@@ -9,10 +14,6 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
-
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.SerializationConfig;
-import org.springframework.transaction.annotation.Transactional;
 
 import org.neo4j.extensions.common.client.UserClient;
 import org.neo4j.extensions.common.client.UserFullView;
@@ -29,7 +30,8 @@ import org.neo4j.extensions.spring.service.UserService;
  * @version 0.1.0
  * @since 0.1.0
  */
-@Path("/user")
+@Controller
+@Path( "/user" )
 public class UserController implements UserClient
 {
 
@@ -87,7 +89,7 @@ public class UserController implements UserClient
     @Transactional
     private StreamingOutput writeEntity( final Object entity, final Class[] views )
     {
-        StreamingOutput streamingOutput = new StreamingOutput()
+        return new StreamingOutput()
         {
             @Transactional
             @Override
@@ -103,7 +105,6 @@ public class UserController implements UserClient
                 mapper.writeValue( output, entity );
             }
         };
-        return streamingOutput;
     }
 
 }

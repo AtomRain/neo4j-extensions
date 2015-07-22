@@ -13,13 +13,13 @@ import org.springframework.stereotype.Component;
 public class CommunityNeoServerTestProperties
 {
 
-    @Value("${neo4j.server.port}")
+    @Value( "${neo4j.server.port}" )
     private Integer neo4jServerPort;
 
-    @Value("${neo4j.remoteShell.port}")
+    @Value( "${neo4j.remoteShell.port}" )
     private Integer neo4jRemoteShellPort;
 
-    @Value("${neo4j.graph.db}")
+    @Value( "${neo4j.graph.db}" )
     private String neo4jGraphDb;
 
     public Integer getNeo4jServerPort()

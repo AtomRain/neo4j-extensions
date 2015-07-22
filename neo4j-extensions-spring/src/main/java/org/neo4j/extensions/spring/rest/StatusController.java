@@ -31,25 +31,15 @@ public class StatusController implements StatusClient
 
     public Response status()
     {
-        Transaction txn = null;
-        try
+        try ( Transaction txn = db.beginTx() )
         {
-            txn = db.beginTx();
             txn.success();
             LOGGER.info( "STATUS: success" );
         }
         catch ( Exception e )
         {
-            txn.failure();
             LOGGER.info( "STATUS: failure" );
             throw new WebApplicationException( e );
-        }
-        finally
-        {
-            if ( txn != null )
-            {
-                txn.close();
-            }
         }
         return Response.ok().entity( "ok" ).build();
     }

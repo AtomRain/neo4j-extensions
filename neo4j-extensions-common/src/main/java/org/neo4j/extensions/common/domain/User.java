@@ -1,10 +1,10 @@
 package org.neo4j.extensions.common.domain;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.util.Collection;
-import javax.xml.bind.annotation.XmlRootElement;
-
-import org.codehaus.jackson.annotate.JsonAutoDetect;
 
 /**
  * A User has been authenticated and owns and has access to information.
@@ -12,8 +12,8 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
  * @author bradnussbaum
  * @since 2014.05.25
  */
-@XmlRootElement
 @JsonAutoDetect
+@JsonIgnoreProperties( ignoreUnknown = true )
 public class User implements Serializable, Comparable<User>
 {
 

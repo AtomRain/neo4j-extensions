@@ -1,16 +1,25 @@
 package org.neo4j.extensions.java.rest;
 
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.SerializationConfig;
+
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.Path;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.StreamingOutput;
 
 import org.neo4j.extensions.common.client.UserClient;
+import org.neo4j.extensions.common.client.UserTinyView;
 import org.neo4j.extensions.common.domain.FriendResult;
 import org.neo4j.extensions.common.domain.User;
 import org.neo4j.extensions.common.schema.indexes.UserIndex;
@@ -28,14 +37,22 @@ import org.neo4j.graphdb.index.Index;
  * @version 0.1.0
  * @since 0.1.0
  */
-@Path("/user")
+@Path( "/user" )
 public class UserController implements UserClient
 {
 
     private static final Logger LOGGER = Logger.getLogger( UserController.class.getName() );
 
+    private final ObjectMapper objectMapper;
+
     @Context
     private GraphDatabaseService db;
+
+    public UserController( @Context GraphDatabaseService db )
+    {
+        this.db = db;
+        this.objectMapper = new ObjectMapper();
+    }
 
     public Response create( Boolean indexingOn, Integer count )
     {
@@ -128,7 +145,8 @@ public class UserController implements UserClient
             result.setUser( user );
             result.setFriends( friends );
 
-            return Response.status( Status.CREATED ).entity( result ).build();
+            return Response.status( Status.CREATED ).entity( writeEntity( result, new Class[]{UserTinyView.class} ) )
+                    .type( MediaType.APPLICATION_JSON ).build();
         }
         catch ( Exception e )
         {
@@ -143,4 +161,23 @@ public class UserController implements UserClient
     {
         return Response.ok().build();
     }
+
+    private StreamingOutput writeEntity( final Object entity, final Class[] views )
+    {
+        return new StreamingOutput()
+        {
+            @Override
+            public void write( OutputStream output ) throws IOException, WebApplicationException
+            {
+                SerializationConfig config = objectMapper.getSerializationConfig();
+                for ( Class view : views )
+                {
+                    config = config.withView( view );
+                }
+                objectMapper.setSerializationConfig( config );
+                objectMapper.writeValue( output, entity );
+            }
+        };
+    }
+
 }

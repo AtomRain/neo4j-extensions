@@ -1,9 +1,5 @@
 package org.neo4j.extensions.spring.domain;
 
-import java.io.Serializable;
-import java.util.Set;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
@@ -19,6 +15,9 @@ import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedTo;
 import org.springframework.data.neo4j.support.index.IndexType;
 
+import java.io.Serializable;
+import java.util.Set;
+
 import org.neo4j.extensions.common.client.UserFullView;
 import org.neo4j.extensions.common.client.UserTinyView;
 import org.neo4j.extensions.common.types.RelationshipConstants;
@@ -32,67 +31,66 @@ import org.neo4j.graphdb.Direction;
  */
 @NodeEntity
 @JsonAutoDetect
-@JsonIgnoreProperties(ignoreUnknown = true, value = {"nodeId", "template", "entityState", "persistentState"})
-@XmlRootElement
+@JsonIgnoreProperties( ignoreUnknown = true, value = {"nodeId", "template", "entityState", "persistentState"} )
 public class User implements Serializable, Comparable<User>
 {
 
     private static final long serialVersionUID = 678183622990845243L;
 
     @GraphId
-    @JsonView(UserTinyView.class)
+    @JsonView( UserTinyView.class )
     private Long id;
 
     @CreatedDate
-    @JsonView(UserFullView.class)
+    @JsonView( UserFullView.class )
     private Long createdTime;
 
     @CreatedBy
-    @JsonView(UserFullView.class)
+    @JsonView( UserFullView.class )
     private String createdBy;
 
     @LastModifiedDate
-    @JsonView(UserFullView.class)
-    @Indexed(indexType = IndexType.LABEL)
+    @JsonView( UserFullView.class )
+    @Indexed( indexType = IndexType.LABEL )
     private Long lastModifiedTime;
 
     @LastModifiedBy
-    @JsonView(UserFullView.class)
+    @JsonView( UserFullView.class )
     private String lastModifiedBy;
 
-    @JsonView(UserTinyView.class)
-    @Indexed(indexType = IndexType.FULLTEXT, indexName = "user_fulltext")
+    @JsonView( UserTinyView.class )
+    @Indexed( indexType = IndexType.FULLTEXT, indexName = "user_fulltext" )
     private String username;
 
-    @JsonView(UserTinyView.class)
-    @Indexed(indexType = IndexType.FULLTEXT, indexName = "user_fulltext")
+    @JsonView( UserTinyView.class )
+    @Indexed( indexType = IndexType.FULLTEXT, indexName = "user_fulltext" )
     private String email;
 
-    @JsonView(UserTinyView.class)
-    @Indexed(indexType = IndexType.FULLTEXT, indexName = "user_fulltext")
+    @JsonView( UserTinyView.class )
+    @Indexed( indexType = IndexType.FULLTEXT, indexName = "user_fulltext" )
     private String name;
 
-    @JsonView(UserFullView.class)
+    @JsonView( UserFullView.class )
     @Fetch
-    @RelatedTo(type = RelationshipConstants.FRIEND_OF, direction = Direction.OUTGOING)
+    @RelatedTo( type = RelationshipConstants.FRIEND_OF, direction = Direction.OUTGOING )
     private Set<User> friends;
 
     /**
      * The version always starts at 1.
      */
-    @JsonView(UserFullView.class)
+    @JsonView( UserFullView.class )
     private Integer version = 1;
 
-    @JsonView(UserFullView.class)
+    @JsonView( UserFullView.class )
     private String type;
 
     @JsonIgnore
     private String password;
 
-    @JsonView(UserFullView.class)
+    @JsonView( UserFullView.class )
     private Boolean active;
 
-    @JsonView(UserFullView.class)
+    @JsonView( UserFullView.class )
     private Boolean validated;
 
     public Long getId()
