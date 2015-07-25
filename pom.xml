@@ -433,6 +433,7 @@
             <artifactId>neo4j-server-enterprise</artifactId>
             <scope>provided</scope>
         </dependency>
+        <!-- org.neo4j.test -->
         <dependency>
             <groupId>org.neo4j.test</groupId>
             <artifactId>neo4j-harness</artifactId>
@@ -985,6 +986,7 @@
                 <version>${version.org.neo4j}</version>
                 <scope>provided</scope>
             </dependency>
+            <!-- org.neo4j.test -->
             <dependency>
                 <groupId>org.neo4j.test</groupId>
                 <artifactId>neo4j-harness</artifactId>
