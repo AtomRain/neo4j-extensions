@@ -54,7 +54,7 @@
         <neo4j.graph.db>${project.build.directory}/graph.db</neo4j.graph.db>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.ch.qos.logback>1.1.2</version.ch.qos.logback>
-        <version.com.sun.jersey>1.18.1</version.com.sun.jersey>
+        <version.com.sun.jersey>1.19</version.com.sun.jersey>
         <version.junit>4.11</version.junit>
         <version.maven.scm>1.8.1</version.maven.scm>
         <version.org.apache.lucene>3.6.2</version.org.apache.lucene>
@@ -64,13 +64,13 @@
         <version.org.eclipse.jetty>9.2.4.v20141103</version.org.eclipse.jetty>
         <version.org.hamcrest>1.3</version.org.hamcrest>
         <version.org.mockito>1.9.5</version.org.mockito>
-        <version.org.neo4j>2.2.6</version.org.neo4j>
+        <version.org.neo4j>2.3.0</version.org.neo4j>
         <version.org.parboiled>1.1.7</version.org.parboiled>
         <version.org.rrd4j>2.2</version.org.rrd4j>
-        <version.org.slf4j>1.7.7</version.org.slf4j>
-        <version.org.springframework>4.1.6.RELEASE</version.org.springframework>
-        <version.org.springframework.data.commons>1.11.0.RELEASE</version.org.springframework.data.commons>
-        <version.org.springframework.data.neo4j>3.4.0.RELEASE</version.org.springframework.data.neo4j>
+        <version.org.slf4j>1.7.6</version.org.slf4j>
+        <version.org.springframework>4.1.8.RELEASE</version.org.springframework>
+        <version.org.springframework.data.commons>1.12.0.BUILD-SNAPSHOT</version.org.springframework.data.commons>
+        <version.org.springframework.data.neo4j>3.5.0.BUILD-SNAPSHOT</version.org.springframework.data.neo4j>
         <version.java>1.7</version.java>
     </properties>
 
@@ -211,7 +211,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
         <!-- org.apache.lucene -->
         <dependency>
@@ -350,6 +350,11 @@
         </dependency>
         <dependency>
             <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-codegen</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
             <artifactId>neo4j-com</artifactId>
             <scope>provided</scope>
         </dependency>
@@ -360,12 +365,32 @@
         </dependency>
         <dependency>
             <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-csv</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
             <artifactId>neo4j-cypher</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.neo4j</groupId>
-            <artifactId>neo4j-cypher-compiler-2.2</artifactId>
+            <artifactId>neo4j-cypher-compiler-2.3</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-cypher-frontend-2.3</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-enterprise-kernel</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-function</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -376,6 +401,21 @@
         <dependency>
             <groupId>org.neo4j</groupId>
             <artifactId>neo4j-graph-matching</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-ha</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-import-tool</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-io</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -396,12 +436,42 @@
         </dependency>
         <dependency>
             <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-logging</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
             <artifactId>neo4j-lucene-index</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-management</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-metrics</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-primitive-collections</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-query-logging</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
             <artifactId>neo4j-shell</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-unsafe</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -717,8 +787,8 @@
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
-                <version>3.2.1</version>
-                <scope>compile</scope>
+                <version>3.3.2</version>
+                <scope>provided</scope>
             </dependency>
             <!-- org.apache.lucene -->
             <dependency>
@@ -888,6 +958,12 @@
             </dependency>
             <dependency>
                 <groupId>org.neo4j</groupId>
+                <artifactId>neo4j-codegen</artifactId>
+                <version>${version.org.neo4j}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.neo4j</groupId>
                 <artifactId>neo4j-com</artifactId>
                 <version>${version.org.neo4j}</version>
                 <scope>provided</scope>
@@ -900,13 +976,37 @@
             </dependency>
             <dependency>
                 <groupId>org.neo4j</groupId>
+                <artifactId>neo4j-csv</artifactId>
+                <version>${version.org.neo4j}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.neo4j</groupId>
                 <artifactId>neo4j-cypher</artifactId>
                 <version>${version.org.neo4j}</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.neo4j</groupId>
-                <artifactId>neo4j-cypher-compiler-2.2</artifactId>
+                <artifactId>neo4j-cypher-compiler-2.3</artifactId>
+                <version>${version.org.neo4j}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.neo4j</groupId>
+                <artifactId>neo4j-cypher-frontend-2.3</artifactId>
+                <version>${version.org.neo4j}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.neo4j</groupId>
+                <artifactId>neo4j-enterprise-kernel</artifactId>
+                <version>${version.org.neo4j}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.neo4j</groupId>
+                <artifactId>neo4j-function</artifactId>
                 <version>${version.org.neo4j}</version>
                 <scope>provided</scope>
             </dependency>
@@ -919,6 +1019,24 @@
             <dependency>
                 <groupId>org.neo4j</groupId>
                 <artifactId>neo4j-graph-matching</artifactId>
+                <version>${version.org.neo4j}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.neo4j</groupId>
+                <artifactId>neo4j-ha</artifactId>
+                <version>${version.org.neo4j}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.neo4j</groupId>
+                <artifactId>neo4j-import-tool</artifactId>
+                <version>${version.org.neo4j}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.neo4j</groupId>
+                <artifactId>neo4j-io</artifactId>
                 <version>${version.org.neo4j}</version>
                 <scope>provided</scope>
             </dependency>
@@ -943,7 +1061,37 @@
             </dependency>
             <dependency>
                 <groupId>org.neo4j</groupId>
+                <artifactId>neo4j-logging</artifactId>
+                <version>${version.org.neo4j}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.neo4j</groupId>
                 <artifactId>neo4j-lucene-index</artifactId>
+                <version>${version.org.neo4j}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.neo4j</groupId>
+                <artifactId>neo4j-management</artifactId>
+                <version>${version.org.neo4j}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.neo4j</groupId>
+                <artifactId>neo4j-metrics</artifactId>
+                <version>${version.org.neo4j}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.neo4j</groupId>
+                <artifactId>neo4j-primitive-collections</artifactId>
+                <version>${version.org.neo4j}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.neo4j</groupId>
+                <artifactId>neo4j-query-logging</artifactId>
                 <version>${version.org.neo4j}</version>
                 <scope>provided</scope>
             </dependency>
@@ -955,10 +1103,17 @@
             </dependency>
             <dependency>
                 <groupId>org.neo4j</groupId>
+                <artifactId>neo4j-unsafe</artifactId>
+                <version>${version.org.neo4j}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.neo4j</groupId>
                 <artifactId>server-api</artifactId>
                 <version>${version.org.neo4j}</version>
                 <scope>provided</scope>
             </dependency>
+
             <!-- org.neo4j.3rdparty.javax.ws.rs -->
             <dependency>
                 <groupId>org.neo4j.3rdparty.javax.ws.rs</groupId>
