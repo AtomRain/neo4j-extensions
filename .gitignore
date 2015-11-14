@@ -13,3 +13,6 @@
 *.iml
 
 target
+neo4j-extensions-java/data/
+neo4j-extensions-spring/data/
+
