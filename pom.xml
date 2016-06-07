@@ -1390,7 +1390,7 @@
                                     org.neo4j*,org.slf4j,ch.qos.logback,commons-*,org.hamcrest,org.mockito
                                 </excludeGroupIds>
                                 <excludeArtifactIds>junit,hamcrest-*,neo4j-*,mockito-*,spring-test</excludeArtifactIds>
-                                <outputDirectory>${neo4j.home}/system/lib</outputDirectory>
+                                <outputDirectory>${neo4j.home}/plugins</outputDirectory>
                             </configuration>
                         </execution>
                     </executions>
