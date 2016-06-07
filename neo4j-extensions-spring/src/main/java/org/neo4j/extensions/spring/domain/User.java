@@ -8,12 +8,6 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.neo4j.annotation.Fetch;
-import org.springframework.data.neo4j.annotation.GraphId;
-import org.springframework.data.neo4j.annotation.Indexed;
-import org.springframework.data.neo4j.annotation.NodeEntity;
-import org.springframework.data.neo4j.annotation.RelatedTo;
-import org.springframework.data.neo4j.support.index.IndexType;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -21,7 +15,11 @@ import java.util.Set;
 import org.neo4j.extensions.common.client.UserFullView;
 import org.neo4j.extensions.common.client.UserTinyView;
 import org.neo4j.extensions.common.types.RelationshipConstants;
-import org.neo4j.graphdb.Direction;
+import org.neo4j.ogm.annotation.GraphId;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
+
+import static org.neo4j.ogm.annotation.Relationship.OUTGOING;
 
 /**
  * A User has been authenticated and owns and has access to information.
@@ -51,7 +49,6 @@ public class User implements Serializable, Comparable<User>
 
     @LastModifiedDate
     @JsonView( UserFullView.class )
-    @Indexed( indexType = IndexType.LABEL )
     private Long lastModifiedTime;
 
     @LastModifiedBy
@@ -59,20 +56,16 @@ public class User implements Serializable, Comparable<User>
     private String lastModifiedBy;
 
     @JsonView( UserTinyView.class )
-    @Indexed( indexType = IndexType.FULLTEXT, indexName = "user_fulltext" )
     private String username;
 
     @JsonView( UserTinyView.class )
-    @Indexed( indexType = IndexType.FULLTEXT, indexName = "user_fulltext" )
     private String email;
 
     @JsonView( UserTinyView.class )
-    @Indexed( indexType = IndexType.FULLTEXT, indexName = "user_fulltext" )
     private String name;
 
     @JsonView( UserFullView.class )
-    @Fetch
-    @RelatedTo( type = RelationshipConstants.FRIEND_OF, direction = Direction.OUTGOING )
+    @Relationship( type = RelationshipConstants.FRIEND_OF, direction = OUTGOING )
     private Set<User> friends;
 
     /**
@@ -249,41 +242,22 @@ public class User implements Serializable, Comparable<User>
             return false;
         }
         User rhs = (User) obj;
-        return new org.apache.commons.lang3.builder.EqualsBuilder()
-                .append( this.id, rhs.id )
-                .append( this.version, rhs.version )
-                .append( this.createdTime, rhs.createdTime )
-                .append( this.createdBy, rhs.createdBy )
-                .append( this.lastModifiedTime, rhs.lastModifiedTime )
-                .append( this.lastModifiedBy, rhs.lastModifiedBy )
-                .append( this.type, rhs.type )
-                .append( this.username, rhs.username )
-                .append( this.email, rhs.email )
-                .append( this.password, rhs.password )
-                .append( this.name, rhs.name )
-                .append( this.active, rhs.active )
-                .append( this.validated, rhs.validated )
-                .isEquals();
+        return new org.apache.commons.lang3.builder.EqualsBuilder().append( this.id, rhs.id )
+                .append( this.version, rhs.version ).append( this.createdTime, rhs.createdTime )
+                .append( this.createdBy, rhs.createdBy ).append( this.lastModifiedTime, rhs.lastModifiedTime )
+                .append( this.lastModifiedBy, rhs.lastModifiedBy ).append( this.type, rhs.type )
+                .append( this.username, rhs.username ).append( this.email, rhs.email )
+                .append( this.password, rhs.password ).append( this.name, rhs.name ).append( this.active, rhs.active )
+                .append( this.validated, rhs.validated ).isEquals();
     }
 
     @Override
     public int hashCode()
     {
-        return new org.apache.commons.lang3.builder.HashCodeBuilder()
-                .append( id )
-                .append( version )
-                .append( createdTime )
-                .append( createdBy )
-                .append( lastModifiedTime )
-                .append( lastModifiedBy )
-                .append( type )
-                .append( username )
-                .append( email )
-                .append( password )
-                .append( name )
-                .append( active )
-                .append( validated )
-                .toHashCode();
+        return new org.apache.commons.lang3.builder.HashCodeBuilder().append( id ).append( version )
+                .append( createdTime ).append( createdBy ).append( lastModifiedTime ).append( lastModifiedBy )
+                .append( type ).append( username ).append( email ).append( password ).append( name ).append( active )
+                .append( validated ).toHashCode();
     }
 
     @Override

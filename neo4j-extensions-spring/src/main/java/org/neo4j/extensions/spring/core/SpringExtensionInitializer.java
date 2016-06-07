@@ -1,8 +1,7 @@
 package org.neo4j.extensions.spring.core;
 
 import org.apache.commons.configuration.Configuration;
-import org.springframework.data.neo4j.server.SpringPluginInitializer;
-import org.springframework.data.neo4j.support.Neo4jTemplate;
+import org.springframework.data.neo4j.template.Neo4jOperations;
 import org.springframework.util.Assert;
 
 import java.util.Collection;
@@ -17,8 +16,7 @@ import org.neo4j.server.plugins.Injectable;
  * Hook for Spring initialization
  *
  * @author bradnussbaum
- * @version 0.1.0
- * @since 0.1.0
+ * @since 2015.11.25
  */
 public class SpringExtensionInitializer extends SpringPluginInitializer
 {
@@ -27,9 +25,8 @@ public class SpringExtensionInitializer extends SpringPluginInitializer
 
     public SpringExtensionInitializer()
     {
-        super( new String[]{
-                "META-INF/spring/springContext.xml"
-        }, expose( "neo4jTemplate", Neo4jTemplate.class ), expose( "userServiceImpl", UserService.class ) );
+        super( new String[]{"META-INF/spring/springContext.xml"}, expose( "neo4jOperations", Neo4jOperations.class ),
+                expose( "userServiceImpl", UserService.class ) );
         LOGGER.info( "Spring context configured." );
     }
 
@@ -42,8 +39,8 @@ public class SpringExtensionInitializer extends SpringPluginInitializer
         try
         {
             LOGGER.info( "Loading neo4jTemplate..." );
-            Neo4jTemplate neo4jTemplate = ctx.getBean( Neo4jTemplate.class );
-            Assert.notNull( neo4jTemplate, "Spring Data Neo4j failed to initialize!" );
+            Neo4jOperations neo4jOperations = ctx.getBean( Neo4jOperations.class );
+            Assert.notNull( neo4jOperations, "Spring Data Neo4j failed to initialize!" );
             LOGGER.info( "Successfully loaded neo4jTemplate." );
             LOGGER.info( "Loading userRepository..." );
             UserService userService = ctx.getBean( UserService.class );
