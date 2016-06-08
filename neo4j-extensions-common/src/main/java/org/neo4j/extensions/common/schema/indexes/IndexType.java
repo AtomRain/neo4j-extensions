@@ -2,7 +2,7 @@ package org.neo4j.extensions.common.schema.indexes;
 
 import java.util.Map;
 
-import org.neo4j.index.impl.lucene.LuceneIndexImplementation;
+import org.neo4j.index.impl.lucene.legacy.LuceneIndexImplementation;
 
 /**
  * Index types.

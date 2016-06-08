@@ -22,20 +22,15 @@
             <list>
                 <!-- neo4j-wrapper.conf -->
                 <value>classpath*:conf/neo4j-wrapper.conf</value>
-                <value>file:${neo4j.instance}/conf/neo4j-wrapper.conf</value>
-                <!-- neo4j.properties -->
-                <value>classpath*:conf/neo4j.properties</value>
-                <value>file:${neo4j.instance}/conf/neo4j.properties</value>
-                <!-- neo4j-server.properties -->
-                <value>classpath*:conf/neo4j-server.properties</value>
-                <value>file:${neo4j.instance}/conf/neo4j-server.properties</value>
+                <value>file:${neo4j.home}/conf/neo4j-wrapper.conf</value>
+                <!-- neo4j.conf -->
+                <value>classpath*:conf/neo4j.conf</value>
+                <value>file:${neo4j.home}/conf/neo4j.conf</value>
                 <!-- neo4j-spring.properties -->
                 <value>classpath*:conf/neo4j-spring.properties</value>
-                <value>file:${neo4j.instance}/conf/neo4j-spring.properties</value>
+                <value>file:${neo4j.home}/conf/neo4j-spring.properties</value>
                 <!-- artt generated -->
                 <value>classpath*:neo4j-extensions-spring-maven.properties</value>
-                <!-- artt credentials-->
-                <value>file:${artt.home}/conf/credentials</value>
             </list>
         </property>
     </bean>

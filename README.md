@@ -36,8 +36,8 @@ REST Configuration
 ------------------
 In neo4j-server.properties set:
 
-	org.neo4j.server.thirdparty_jaxrs_classes=org.neo4j.extensions.java=/extensions-java
-	org.neo4j.server.thirdparty_jaxrs_classes=org.neo4j.extensions.spring=/extensions-spring
+	dbms.unmanaged_extension_classes=org.neo4j.extensions.java=/extensions-java
+	dbms.unmanaged_extension_classes=org.neo4j.extensions.spring=/extensions-spring
 
 
 Test Extension Endpoints

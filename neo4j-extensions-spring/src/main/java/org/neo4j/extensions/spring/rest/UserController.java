@@ -62,8 +62,8 @@ public class UserController implements UserClient
         // log details
         LOGGER.info( String.format( "UserController: TX: userId=%s, processTime=%dms", user.getId(), processTimeTx ) );
 
-        return Response.status( Response.Status.CREATED ).entity( writeEntity( result, new Class[]{UserFullView
-                .class} ) ).build();
+        return Response.status( Response.Status.CREATED )
+                .entity( writeEntity( result, new Class[]{UserFullView.class} ) ).build();
     }
 
     /**

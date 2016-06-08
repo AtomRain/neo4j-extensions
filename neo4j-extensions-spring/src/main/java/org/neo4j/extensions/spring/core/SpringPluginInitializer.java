@@ -1,6 +1,5 @@
 package org.neo4j.extensions.spring.core;
 
-
 import org.apache.commons.configuration.Configuration;
 import org.springframework.context.ApplicationContext;
 
@@ -8,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.helpers.Pair;
+import org.neo4j.helpers.collection.Pair;
 import org.neo4j.server.plugins.Injectable;
 import org.neo4j.server.plugins.PluginLifecycle;
 
