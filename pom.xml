@@ -51,7 +51,7 @@
     <properties>
         <failEnforcer>true</failEnforcer>
         <neo4j.home>${project.build.directory}/neo4j</neo4j.home>
-        <neo4j.graph.db>${project.build.directory}/graph.db</neo4j.graph.db>
+        <dbms.directories.data>${project.build.directory}/neo4j-data</dbms.directories.data>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.ch.qos.logback>1.1.2</version.ch.qos.logback>
         <version.com.sun.jersey>1.19</version.com.sun.jersey>
@@ -1652,8 +1652,9 @@
                             </goals>
                             <configuration>
                                 <portNames>
-                                    <portName>neo4j.server.port</portName>
-                                    <portName>neo4j.remoteShell.port</portName>
+                                    <portName>dbms.connector.http.port</portName>
+                                    <portName>dbms.connector.bolt.port</portName>
+                                    <portName>dbms.shell.port</portName>
                                 </portNames>
                             </configuration>
                         </execution>

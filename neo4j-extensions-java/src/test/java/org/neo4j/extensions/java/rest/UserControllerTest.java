@@ -28,11 +28,13 @@ public class UserControllerTest
     Properties properties = new Properties();
     InputStream input = null;
 
-    private String neo4jServerPort = System.getProperty( "neo4j.server.port" );
+    private String dbmsConnectorHttpPort = System.getProperty( "dbms.connector.http.port" );
 
-    private String neo4jRemoteShellPort = System.getProperty( "neo4j.remoteShell.port" );
+    private String dbmsConnectorBoltPort = System.getProperty( "dbms.connector.bolt.port" );
 
-    private String neo4jGraphDb = System.getProperty( "neo4j.graph.db" );
+    private String dbmsShellPort = System.getProperty( "dbms.shell.port" );
+
+    private String dbmsDirectoriesData = System.getProperty( "dbms.directories.data" );
 
     private ServerControls server;
 
@@ -66,30 +68,40 @@ public class UserControllerTest
         }
 
         // allow system properties to override
-        if ( neo4jServerPort == null )
+        if ( dbmsConnectorHttpPort == null )
         {
-            neo4jServerPort = properties.getProperty( "neo4j.server.port" );
+            dbmsConnectorHttpPort = properties.getProperty( "dbms.connector.http.port" );
         }
-        if ( neo4jRemoteShellPort == null )
+        if ( dbmsConnectorBoltPort == null )
         {
-            neo4jRemoteShellPort = properties.getProperty( "neo4j.remoteShell.port" );
+            dbmsConnectorBoltPort = properties.getProperty( "dbms.connector.bolt.port" );
         }
-        if ( neo4jGraphDb == null )
+        if ( dbmsShellPort == null )
         {
-            neo4jGraphDb = properties.getProperty( "neo4j.graph.db" );
+            dbmsShellPort = properties.getProperty( "dbms.shell.port" );
+        }
+        if ( dbmsDirectoriesData == null )
+        {
+            dbmsDirectoriesData = properties.getProperty( "dbms.directories.data" );
         }
 
-        LOGGER.info( String.format( "neo4jServerPort: %s", neo4jServerPort ) );
-        LOGGER.info( String.format( "neo4jRemoteShellPort: %s", neo4jRemoteShellPort ) );
-        LOGGER.info( String.format( "neo4jGraphDb: %s", neo4jGraphDb ) );
+        LOGGER.info( String.format( "dbms.connector.http.port: %s", dbmsConnectorHttpPort ) );
+        LOGGER.info( String.format( "dbms.connector.bolt.port: %s", dbmsConnectorBoltPort ) );
+        LOGGER.info( String.format( "dbms.shell.port: %s", dbmsShellPort ) );
+        LOGGER.info( String.format( "dbms.directories.data: %s", dbmsDirectoriesData ) );
 
         server = TestServerBuilders.newInProcessBuilder()
                 .withExtension( "/extensions-java", "org.neo4j.extensions.java" )
-                .withConfig( "org.neo4j.server.webserver.port", neo4jServerPort )
-                .withConfig( "org.neo4j.server.webserver.https.enabled", Boolean.FALSE.toString() )
-                .withConfig( "remote_shell_port", neo4jRemoteShellPort )
-                .withConfig( "org.neo4j.server.database.location", neo4jGraphDb )
-                .newServer();
+                .withConfig( "dbms.connector.0.address", "localhost:" + String.valueOf( dbmsConnectorBoltPort ) )
+                .withConfig( "dbms.connector.0.enabled", Boolean.TRUE.toString() )
+                .withConfig( "dbms.connector.0.encryption", "DISABLED" ).withConfig( "dbms.connector.0.type", "BOLT" )
+
+                .withConfig( "dbms.connector.1.address", "localhost:" + String.valueOf( dbmsConnectorHttpPort ) )
+                .withConfig( "dbms.connector.1.enabled", Boolean.TRUE.toString() )
+                .withConfig( "dbms.connector.1.encryption", "NONE" ).withConfig( "dbms.connector.1.type", "HTTP" )
+                .withConfig( "dbms.memory.pagecache.size", "128m" )
+                .withConfig( "dbms.shell.port", String.valueOf( dbmsShellPort ) )
+                .withConfig( "dbms.directories.data", dbmsDirectoriesData ).newServer();
 
         LOGGER.info( server.httpURI().toString() );
     }

@@ -38,17 +38,25 @@ public class CommunityNeoServerTestInstance implements InitializingBean, Disposa
             return;
         }
 
-        LOGGER.info( String.format( "neo4jServerPort: %d", properties.getNeo4jServerPort() ) );
-        LOGGER.info( String.format( "neo4jRemoteShellPort: %d", properties.getNeo4jRemoteShellPort() ) );
-        LOGGER.info( String.format( "neo4jGraphDb: %s", properties.getNeo4jGraphDb() ) );
+        LOGGER.info( String.format( "dbms.connector.http.port: %d", properties.getDbmsConnectorHttpPort() ) );
+        LOGGER.info( String.format( "dbms.connector.bolt.port: %d", properties.getDbmsConnectorBoltPort() ) );
+        LOGGER.info( String.format( "dbms.shell.port: %d", properties.getDbmsShellPort() ) );
+        LOGGER.info( String.format( "dbms.directories.data: %s", properties.getDbmsDirectoriesData() ) );
 
         server = TestServerBuilders.newInProcessBuilder()
                 .withExtension( "/extensions-spring", "org.neo4j.extensions.spring" )
-                .withConfig( "org.neo4j.server.webserver.port", String.valueOf( properties.getNeo4jServerPort() ) )
-                .withConfig( "org.neo4j.server.webserver.https.enabled", Boolean.FALSE.toString() )
-                .withConfig( "remote_shell_port", String.valueOf( properties.getNeo4jRemoteShellPort() ) )
-                .withConfig( "org.neo4j.server.database.location", properties.getNeo4jGraphDb() )
-                .newServer();
+                .withConfig( "dbms.connector.0.address",
+                        "localhost:" + String.valueOf( properties.getDbmsConnectorBoltPort() ) )
+                .withConfig( "dbms.connector.0.enabled", Boolean.TRUE.toString() )
+                .withConfig( "dbms.connector.0.encryption", "DISABLED" ).withConfig( "dbms.connector.0.type", "BOLT" )
+
+                .withConfig( "dbms.connector.1.address",
+                        "localhost:" + String.valueOf( properties.getDbmsConnectorHttpPort() ) )
+                .withConfig( "dbms.connector.1.enabled", Boolean.TRUE.toString() )
+                .withConfig( "dbms.connector.1.encryption", "NONE" ).withConfig( "dbms.connector.1.type", "HTTP" )
+                .withConfig( "dbms.memory.pagecache.size", "128m" )
+                .withConfig( "dbms.shell.port", String.valueOf( properties.getDbmsShellPort() ) )
+                .withConfig( "dbms.directories.data", properties.getDbmsDirectoriesData() ).newServer();
 
         LOGGER.info( server.httpURI().toString() );
     }

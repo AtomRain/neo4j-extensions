@@ -26,14 +26,14 @@ import org.neo4j.ogm.session.SessionFactory;
 public class AppGraphConfig extends Neo4jConfiguration
 {
 
-    @Value( "${neo4j.graph.db}" )
-    private String graphDb;
+    @Value( "${dbms.connector.http.port}" )
+    private Integer dbmsConnectorHttpPort;
+
+    @Value( "${dbms.connector.bolt.port}" )
+    private Integer dbmsConnectorBoltPort;
 
     @Value( "${spring.data.neo4j.url}" )
     private String url;
-
-    @Value( "${neo4j.server.port}" )
-    private Integer port;
 
     @Value( "${spring.data.neo4j.username}" )
     private String username;
@@ -46,7 +46,7 @@ public class AppGraphConfig extends Neo4jConfiguration
     {
         if ( StringUtils.isEmpty( url ) )
         {
-            url = "http://localhost:" + port;
+            url = "http://localhost:" + dbmsConnectorHttpPort;
         }
         Configuration config = new Configuration();
         config.driverConfiguration().setDriverClassName( HttpDriver.class.getName() )

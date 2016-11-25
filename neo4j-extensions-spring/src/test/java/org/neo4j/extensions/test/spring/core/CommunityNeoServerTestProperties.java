@@ -13,42 +13,55 @@ import org.springframework.stereotype.Component;
 public class CommunityNeoServerTestProperties
 {
 
-    @Value( "${neo4j.server.port}" )
-    private Integer neo4jServerPort;
+    @Value( "${dbms.connector.http.port}" )
+    private Integer dbmsConnectorHttpPort;
 
-    @Value( "${neo4j.remoteShell.port}" )
-    private Integer neo4jRemoteShellPort;
+    @Value( "${dbms.connector.bolt.port}" )
+    private Integer dbmsConnectorBoltPort;
 
-    @Value( "${neo4j.graph.db}" )
-    private String neo4jGraphDb;
+    @Value( "${dbms.shell.port}" )
+    private Integer dbmsShellPort;
 
-    public Integer getNeo4jServerPort()
+    @Value( "${dbms.directories.data}" )
+    private String dbmsDirectoriesData;
+
+    public Integer getDbmsConnectorHttpPort()
     {
-        return neo4jServerPort;
+        return dbmsConnectorHttpPort;
     }
 
-    public void setNeo4jServerPort( Integer neo4jServerPort )
+    public void setDbmsConnectorHttpPort( Integer dbmsConnectorHttpPort )
     {
-        this.neo4jServerPort = neo4jServerPort;
+        this.dbmsConnectorHttpPort = dbmsConnectorHttpPort;
     }
 
-    public Integer getNeo4jRemoteShellPort()
+    public Integer getDbmsConnectorBoltPort()
     {
-        return neo4jRemoteShellPort;
+        return dbmsConnectorBoltPort;
     }
 
-    public void setNeo4jRemoteShellPort( Integer neo4jRemoteShellPort )
+    public void setDbmsConnectorBoltPort( Integer dbmsConnectorBoltPort )
     {
-        this.neo4jRemoteShellPort = neo4jRemoteShellPort;
+        this.dbmsConnectorBoltPort = dbmsConnectorBoltPort;
     }
 
-    public String getNeo4jGraphDb()
+    public Integer getDbmsShellPort()
     {
-        return neo4jGraphDb;
+        return dbmsShellPort;
     }
 
-    public void setNeo4jGraphDb( String neo4jGraphDb )
+    public void setDbmsShellPort( Integer dbmsShellPort )
     {
-        this.neo4jGraphDb = neo4jGraphDb;
+        this.dbmsShellPort = dbmsShellPort;
+    }
+
+    public String getDbmsDirectoriesData()
+    {
+        return dbmsDirectoriesData;
+    }
+
+    public void setDbmsDirectoriesData( String dbmsDirectoriesData )
+    {
+        this.dbmsDirectoriesData = dbmsDirectoriesData;
     }
 }
