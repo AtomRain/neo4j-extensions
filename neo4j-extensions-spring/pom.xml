@@ -106,6 +106,14 @@
             <groupId>org.neo4j</groupId>
             <artifactId>neo4j-extensions-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-ogm-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-ogm-http-driver</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
