@@ -92,13 +92,10 @@ public class UserControllerTest
 
         server = TestServerBuilders.newInProcessBuilder()
                 .withExtension( "/extensions-java", "org.neo4j.extensions.java" )
-                .withConfig( "dbms.connector.0.address", "localhost:" + String.valueOf( dbmsConnectorBoltPort ) )
-                .withConfig( "dbms.connector.0.enabled", Boolean.TRUE.toString() )
-                .withConfig( "dbms.connector.0.encryption", "DISABLED" ).withConfig( "dbms.connector.0.type", "BOLT" )
-
-                .withConfig( "dbms.connector.1.address", "localhost:" + String.valueOf( dbmsConnectorHttpPort ) )
-                .withConfig( "dbms.connector.1.enabled", Boolean.TRUE.toString() )
-                .withConfig( "dbms.connector.1.encryption", "NONE" ).withConfig( "dbms.connector.1.type", "HTTP" )
+                .withConfig( "dbms.connector.bolt.address", "localhost:" + String.valueOf( dbmsConnectorBoltPort ) )
+                .withConfig( "dbms.connector.bolt.enabled", Boolean.TRUE.toString() )
+                .withConfig( "dbms.connector.http.address", "localhost:" + String.valueOf( dbmsConnectorHttpPort ) )
+                .withConfig( "dbms.connector.http.enabled", Boolean.TRUE.toString() )
                 .withConfig( "dbms.memory.pagecache.size", "128m" )
                 .withConfig( "dbms.shell.port", String.valueOf( dbmsShellPort ) )
                 .withConfig( "dbms.directories.data", dbmsDirectoriesData ).newServer();

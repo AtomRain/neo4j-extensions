@@ -45,15 +45,13 @@ public class CommunityNeoServerTestInstance implements InitializingBean, Disposa
 
         server = TestServerBuilders.newInProcessBuilder()
                 .withExtension( "/extensions-spring", "org.neo4j.extensions.spring" )
-                .withConfig( "dbms.connector.0.address",
+                .withConfig( "dbms.connector.bolt.address",
                         "localhost:" + String.valueOf( properties.getDbmsConnectorBoltPort() ) )
-                .withConfig( "dbms.connector.0.enabled", Boolean.TRUE.toString() )
-                .withConfig( "dbms.connector.0.encryption", "DISABLED" ).withConfig( "dbms.connector.0.type", "BOLT" )
+                .withConfig( "dbms.connector.bolt.enabled", Boolean.TRUE.toString() )
 
-                .withConfig( "dbms.connector.1.address",
+                .withConfig( "dbms.connector.http.address",
                         "localhost:" + String.valueOf( properties.getDbmsConnectorHttpPort() ) )
-                .withConfig( "dbms.connector.1.enabled", Boolean.TRUE.toString() )
-                .withConfig( "dbms.connector.1.encryption", "NONE" ).withConfig( "dbms.connector.1.type", "HTTP" )
+                .withConfig( "dbms.connector.http.enabled", Boolean.TRUE.toString() )
                 .withConfig( "dbms.memory.pagecache.size", "128m" )
                 .withConfig( "dbms.shell.port", String.valueOf( properties.getDbmsShellPort() ) )
                 .withConfig( "dbms.directories.data", properties.getDbmsDirectoriesData() ).newServer();
