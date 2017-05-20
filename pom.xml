@@ -4,7 +4,7 @@
 
     <groupId>org.neo4j</groupId>
     <artifactId>neo4j-extensions</artifactId>
-    <version>3.1.0-SNAPSHOT</version>
+    <version>3.1.4.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Neo4j Extensions</name>
@@ -51,7 +51,7 @@
         <version.org.eclipse.jetty>9.2.9.v20150224</version.org.eclipse.jetty>
         <version.org.hamcrest>1.3</version.org.hamcrest>
         <version.org.mockito>1.9.5</version.org.mockito>
-        <version.org.neo4j>3.1.1</version.org.neo4j>
+        <version.org.neo4j>3.1.4</version.org.neo4j>
         <version.org.neo4j.ogm>2.0.6</version.org.neo4j.ogm>
         <version.org.parboiled>1.1.7</version.org.parboiled>
         <version.org.rrd4j>2.2</version.org.rrd4j>
